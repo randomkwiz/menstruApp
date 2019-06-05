@@ -29,6 +29,7 @@ CREATE TABLE MEDICAMENTO(
 )
 GO
 
+--preguntarle a Leo si es mejor separar nick y contraseña en una tabla login (aunque la relacion seria 1:1 y al final quedaria igual)
 CREATE TABLE USUARIO (
 	NICK NVARCHAR(25) NOT NULL,
 	NOMBRE NVARCHAR(50) NULL,
