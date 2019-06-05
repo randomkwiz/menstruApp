@@ -18,7 +18,7 @@
  *   isFinalizado
  *
  * */
-package interfaces;
+package clasesBasicas;
 import java.util.GregorianCalendar;
 public abstract class Ciclo {
     private GregorianCalendar fechaInicio;

@@ -1,5 +1,5 @@
 /*
- * Nombre: EmbarazoImpl
+ * Nombre: CicloEmbarazo
  * Propiedades:
  *   Basicas:
  *       GregorianCalendar fechaInicio
@@ -21,26 +21,25 @@
  *
  * */
 package clasesBasicas;
-import interfaces.Ciclo;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class EmbarazoImpl extends Ciclo {
+public class CicloEmbarazo extends Ciclo {
     GregorianCalendar fechaInicio;
     GregorianCalendar fechaFinReal;
 
     //Constructores
-    public EmbarazoImpl() {
+    public CicloEmbarazo() {
         super.setFechaInicio(null);
         super.setFechaFinReal(null);
     }
 
-    public EmbarazoImpl(GregorianCalendar fechaInicio) {
+    public CicloEmbarazo(GregorianCalendar fechaInicio) {
         super.setFechaInicio(fechaInicio);
     }
 
-    public EmbarazoImpl(GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
+    public CicloEmbarazo(GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super.setFechaInicio(fechaInicio);
         super.setFechaFinReal(fechaFinReal);
     }
