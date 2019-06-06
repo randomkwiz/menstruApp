@@ -1,11 +1,11 @@
 package test;
 
-import clasesBasicas.CicloMenstrualImpl;
+import clasesBasicas.CicloMenstrual;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-public class CicloMenstrualImplTest {
+public class CicloMenstrualTest {
     public static void main(String[] args) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         GregorianCalendar inicioPeriodo = new GregorianCalendar();
@@ -15,7 +15,7 @@ public class CicloMenstrualImplTest {
         String fechaInicio = sdf.format(inicioPeriodo.getTime());
         String fechaFinEstimada = " ";
         System.out.println(fechaInicio);
-        CicloMenstrualImpl miCiclo = new CicloMenstrualImpl(inicioPeriodo);
+        CicloMenstrual miCiclo = new CicloMenstrual(inicioPeriodo);
 
         fechaFinEstimada = sdf.format(miCiclo.getFechaFinEstimada().getTime());
 

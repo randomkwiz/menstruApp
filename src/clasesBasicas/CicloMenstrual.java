@@ -1,5 +1,5 @@
 /*
-* Nombre: CicloMenstrualImpl
+* Nombre: CicloMenstrual
 * Propiedades:
 *   Basicas:
 *       GregorianCalendar fechaInicio
@@ -25,19 +25,19 @@ package clasesBasicas;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class CicloMenstrualImpl extends Ciclo {
+public class CicloMenstrual extends Ciclo {
 
       //Constructores
-    public CicloMenstrualImpl() {
+    public CicloMenstrual() {
         super.setFechaInicio(null);
         super.setFechaFinReal(null);
     }
 
-    public CicloMenstrualImpl(GregorianCalendar fechaInicio) {
+    public CicloMenstrual(GregorianCalendar fechaInicio) {
         super.setFechaInicio(fechaInicio);
     }
 
-    public CicloMenstrualImpl(GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
+    public CicloMenstrual(GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
        super.setFechaInicio(fechaInicio);
        super.setFechaFinReal(fechaFinReal);
     }

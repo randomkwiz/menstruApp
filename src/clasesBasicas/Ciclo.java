@@ -44,8 +44,6 @@ public abstract class Ciclo {
 
 
     //Metodos añadidos
-
-
     public abstract GregorianCalendar getFechaFinEstimada();
         /*
         INTERFAZ
