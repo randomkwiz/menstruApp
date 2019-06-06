@@ -46,5 +46,73 @@ public class RevisionMedicaImpl {
         this.fechaSiguienteCita = fechaSiguienteCita;
     }
 
-    
+    //setters y getters
+
+
+    /*para el embarazo deberias hacer patron delegacion */
+    public CicloEmbarazo getEmbarazo() {
+        return embarazo;
+    }
+
+    public void setEmbarazo(CicloEmbarazo embarazo) {
+        this.embarazo = embarazo;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public double getCintura() {
+        return cintura;
+    }
+
+    public void setCintura(double cintura) {
+        this.cintura = cintura;
+    }
+
+    public double getCadera() {
+        return cadera;
+    }
+
+    public void setCadera(double cadera) {
+        this.cadera = cadera;
+    }
+
+    public String getEstadoFeto() {
+        return estadoFeto;
+    }
+
+    public void setEstadoFeto(String estadoFeto) {
+        this.estadoFeto = estadoFeto;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public GregorianCalendar getFechaCitaActual() {
+        return fechaCitaActual;
+    }
+
+    public void setFechaCitaActual(GregorianCalendar fechaCitaActual) {
+        this.fechaCitaActual = fechaCitaActual;
+    }
+
+    public GregorianCalendar getFechaSiguienteCita() {
+        return fechaSiguienteCita;
+    }
+
+    public void setFechaSiguienteCita(GregorianCalendar fechaSiguienteCita) {
+        this.fechaSiguienteCita = fechaSiguienteCita;
+    }
+
+
 }
