@@ -132,6 +132,8 @@ public class main {
                 case 1:
                     //Crear cuenta
                     System.out.println("Modulo crear cuenta en construccion");
+                    //pedirValidarDatos
+
 
                     break;
                 case 2:

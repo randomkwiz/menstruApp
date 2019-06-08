@@ -1,5 +1,8 @@
 package utilidades;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
@@ -22,5 +25,25 @@ public class Utilidades {
             fechaFormateada = sdf.format(fecha.getTime());
         }
         return fechaFormateada;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: Inicia la conexion con la bbdd con un usuario y contraseña dados
+     * Signatura: public boolean iniciarConexion(String sourceURL,String user, String pass)
+     * Precondiciones:
+     * Entradas: String sourceURL, que es la fuente, String user que es el usuario del SQL, y String pass que es la contraseña
+     * Salidas: boolean
+     * Postcondiciones: Asociado al nombre devuelve un boolean que sera true si la conexion se ha creado correctamente
+     *                   y false si ha habido algun problema
+     * */
+    public Connection iniciarConexion(String sourceURL, String user, String pass){
+        Connection c = null;
+        try{
+            c = DriverManager.getConnection(sourceURL, user, pass);
+        }catch (SQLException e){
+            e.getStackTrace();
+        }
+        return c;
     }
 }
