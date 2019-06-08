@@ -4,6 +4,7 @@ import utilidades.Utilidades;
 
 import java.io.Console;
 import java.sql.*;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Validar {
@@ -274,4 +275,126 @@ public class Validar {
         return peso;
     }
 
+    /* Estudio interfaz:
+     * Necesidades: un año, pasado por valor
+     * Devoluciones: un boolean, pasado asociado al nombre
+     * Necesidades/Devoluciones: --
+     * Requisitos: --
+     *
+     * Interfaz:
+     * Prototipo: boolean esBisiesto(int anno)
+     * Comentario: subprograma que indica si un año es bisiesto o no
+     * Formula: un año es bisiesto si es divisible entre 400 o bien es divisible entre 4 pero no entre 100. el año debe ser superior o igual a 1582
+     * Precondiciones:
+     * Entrada: entero año
+     * Salida: boolean
+     * Entrada/Salida: --
+     * Postcondiciones: asociado al nombre se devuelve un boolean como true si el año es bisiesto y como false si no lo es
+     * */
+    public boolean esBisiesto(int anno){
+        boolean bisiesto=false;
+
+        if ( anno >= 1582 && (anno % 400 ==0 || (anno %4 == 0 && anno %100 != 0) )) {
+            bisiesto=true;
+        }
+
+
+        return bisiesto;
+    }
+
+
+    /* Estudio interfaz:
+     * Necesidades: fecha en formato dia, mes y año. Parámetros pasados por valor
+     * Devoluciones: booleano que dira si la fecha es valida o no, parámetro devuelto asociado al nombre
+     * Necesidades/Devoluciones:
+     * Requisitos:
+     *
+     * Interfaz:
+     * Prototipo: boolean fechaEsValida (int dia, int mes, int anno)
+     * Comentario: subprograma que indica si una fecha dada es valida o no
+     * Precondiciones:
+     * Entrada: entero dia, entero mes, entero anno
+     * Salida: boolean
+     * Entrada/Salida: --
+     * Postcondiciones: asociado al nombre se devolverá un boolean que tendrá el valor true si la fecha es valida y false si no lo es
+     * */
+
+    public boolean fechaEsValida (int dia, int mes, int anno){
+        boolean fechaValida=false;
+
+        if (dia>= 1 && dia<=31 && (mes >= 1 || mes <= 12) && anno >= 1582 ){
+
+            /* Meses con 31: 1,3,5,7,8,10,12
+             * Meses con 30: 4,6,9,11
+             * Meses con 28 o 29: 2
+             * */
+            switch (mes){
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    fechaValida=true;
+                    break;
+                case 2:
+                    if (dia <= 28  || ( dia==29 && esBisiesto(anno) ) ) {
+                        fechaValida=true;
+                    }
+
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    if(dia <=30){
+                        fechaValida=true;
+                    }
+                    break;
+            }
+        }
+
+
+        return fechaValida;
+
+    }
+
+    /*
+    * INTERFAZ
+    * Comentario: pide y valida una fecha de cumpleaños. Devuelve un objeto GregorianCalendar
+    * Signatura: public GregorianCalendar fechaCumple()
+    * Precondiciones:
+    * Entradas:
+    * Salidas: objeto gregorianCalendar
+    * Postcondiciones: asociado al nombre se devuelve un objeto gregorian calendar con la fecha validada previamente.
+    *                   Esto es para asegurar que la fecha que indica el usuario y la que refleja GregorianCalendar coinciden, debido
+    *                   a que si el usuario introduce el 31 de junio, Gregorian Calendar automaticamente entenderia
+    *                   el 1 de julio. Para evitar esto, valido la entrada del usuario previamente y ya no podria introducir
+    *                   el 31 de junio.
+    * */
+    public GregorianCalendar fechaCumple(){
+        Scanner sc = new Scanner(System.in);
+        GregorianCalendar fechaCumple = new GregorianCalendar();
+        int dia;
+        int mes;
+        int anyo;
+        do{
+            System.out.println("Introduce tu fecha de nacimiento: ");
+            System.out.print("Dia: ");
+            dia = sc.nextInt();
+            System.out.print("Mes: ");
+            mes = sc.nextInt();
+            System.out.print("Año: ");
+            anyo = sc.nextInt();
+        }while (!fechaEsValida(dia, mes, anyo));
+
+        fechaCumple.set(GregorianCalendar.YEAR, anyo);
+        fechaCumple.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
+        fechaCumple.set(GregorianCalendar.DATE, dia);
+
+
+    return fechaCumple;
+
+    }
 }

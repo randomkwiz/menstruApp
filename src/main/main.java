@@ -114,11 +114,18 @@ PSEUDOCODIGO
  * */
 package main;
 
+import clasesBasicas.UsuarioImpl;
+import gestion.Gestion;
+import interfaces.Usuario;
+import resguardos.Resguardo;
 import validaciones.Validar;
 
 public class main {
     public static void main(String[] args) {
         Validar validar = new Validar();
+        Resguardo resguardo = new Resguardo();
+        Gestion gestion = new Gestion();
+        UsuarioImpl usuario = null;
         int opcionLogInOrSignUp,opcionMenuPrincipal, opcionCuenta, opcionRevisionPersonal, opcionCiclo, opcionRevisionMedica;
         String respuesta="";
 
@@ -133,6 +140,8 @@ public class main {
                     //Crear cuenta
                     System.out.println("Modulo crear cuenta en construccion");
                     //pedirValidarDatos
+                    usuario = gestion.pedirCrearUsuario();
+                    //insertarUsuarioEnBBDD
 
 
                     break;

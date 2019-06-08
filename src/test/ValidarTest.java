@@ -14,8 +14,21 @@ public class ValidarTest {
         //validar.establecerPassword();
 
         //System.out.println(validar.nombreUsuario());
-        validar.pesoUsuario();
+        //validar.pesoUsuario();
 
+        /*
+        System.out.println(validar.fechaEsValida(29,2,2008));
+        validar.fechaEsValida(29,2,2008);
+        System.out.println(validar.fechaEsValida(28,2,2008));
+        System.out.println(validar.fechaEsValida(30,2,2008));
+        System.out.println(validar.fechaEsValida(28,2,2009));
+        System.out.println(validar.fechaEsValida(30,2,2009));
+        System.out.println(validar.fechaEsValida(31,6,2008));
+        System.out.println(validar.fechaEsValida(32,2,2008));
+        System.out.println(validar.fechaEsValida(32,7,2008));
+        System.out.println(validar.fechaEsValida(31,7,2008));
+*/
+        validar.fechaCumple();
 
     }
 }
