@@ -55,8 +55,8 @@ public class RevisionMedicaImpl implements RevisionMedica {
     // public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
 
     /*Patron delegacion*/
-    public GregorianCalendar getEmbarazoFechaInicio(){embarazo.getFechaInicio()}
-    public GregorianCalendar getEmbarazoFechaFinReal(){embarazo.getFechaFinReal()}
+    public GregorianCalendar getEmbarazoFechaInicio(){ return embarazo.getFechaInicio();}
+    public GregorianCalendar getEmbarazoFechaFinReal(){return embarazo.getFechaFinReal();}
     public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio){embarazo.setFechaInicio(fechaInicio);};
     public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal){embarazo.setFechaFinReal(fechaFinReal);};
 
