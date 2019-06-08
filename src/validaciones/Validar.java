@@ -237,7 +237,7 @@ public class Validar {
      * Entradas:
      * Salidas: String con el nombre
      * Postcondiciones: asociado al nombre se devolvera un String que contendra el nombre del usuario de entre 3 y 50 caracteres, o bien
-     *                  un espacio en blanco si el usuario no desea rellenar el campo.
+     *                  un null si el usuario no desea rellenar el campo.
      * */
     public String nombreUsuario(){
         Scanner sc = new Scanner(System.in);
@@ -248,7 +248,7 @@ public class Validar {
             nombreUsuario = sc.nextLine();
         }while ( !nombreUsuario.equals("0") && (nombreUsuario.length() < 3 || nombreUsuario.length() > 50) );
         if(nombreUsuario.equals("0")){
-            nombreUsuario = " ";
+            nombreUsuario = null;   //devuelvo un null en vez de espacio en blanco para que en la bbdd se ponga NULL y no " "
         }
         return nombreUsuario;
     }
