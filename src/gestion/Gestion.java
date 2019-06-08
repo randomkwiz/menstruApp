@@ -73,7 +73,11 @@ return nuevoUsuario;
             preparedStatement.setString(2, user.getNombre());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setDouble(4, user.getPeso());
-            preparedStatement.setDate(5, new java.sql.Date(user.getFechaNacimiento().getTimeInMillis()));
+            if(user.getFechaNacimiento()!= null) {
+                preparedStatement.setDate(5, new java.sql.Date(user.getFechaNacimiento().getTimeInMillis()));
+            }else {
+                preparedStatement.setDate(5, null);
+            }
 
             // execute insert SQL stetement
             preparedStatement.executeUpdate();

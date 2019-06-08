@@ -87,8 +87,8 @@ public class UsuarioImpl implements Usuario {
     public UsuarioImpl(String nick, String password) {
         this.nick = nick;
         this.password = password;
-        this.nombre = "";
-        this.peso = 0.0;
+        this.nombre = null;
+        this.peso = 0;
         this.fechaNacimiento = null;
     }
 

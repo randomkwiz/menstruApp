@@ -24,9 +24,11 @@ public class GestionTest {
         fechaCumple.set(GregorianCalendar.DATE, 12);
         UsuarioImpl usuarioDeBo = new UsuarioImpl("Angel", "Swo", "12345", 0,fechaCumple );
 
+        UsuarioImpl user = new UsuarioImpl("ROCKETMAN", "12345");
+
 
 
         //gestion.insertarUsuarioEnBBDD(usuario);
-        gestion.insertarUsuarioEnBBDD(usuarioDeBo);
+        gestion.insertarUsuarioEnBBDD(user);
     }
 }

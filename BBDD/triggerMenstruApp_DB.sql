@@ -51,6 +51,9 @@ ON USUARIO
 AFTER INSERT AS
 BEGIN
 /*SOLO VALE PARA CUANDO INSERTAS DE UNO EN UNO*/
+/*solo es necesario hacer esto con el PESO porque es un tipo de
+dato primitivo y por tanto no puedo ponerlo a nulo en java, sino a 0
+entonces para que no se ponga a 0 en la bbdd sino a null, hago este trigger*/
 	IF ((SELECT PESO FROM inserted) = 0)
 	BEGIN
 	UPDATE USUARIO
