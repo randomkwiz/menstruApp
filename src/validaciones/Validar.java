@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class Validar {
+public class Validar <T extends Enum<T>>{
 
     /*
     * Mostrar y validar menu log in or sign up
@@ -493,6 +493,48 @@ public class Validar {
         return seguro;
     }
 
+    /*
+    * INTERFAZ
+    * Comentario: Submenu del apartado RevisionPersonal, lee y valida la opcion elegida
+    * Signatura public int submenuRegistrarRevisionPersonal()
+    *
+    * */
+    public int submenuRegistrarRevisionPersonal(){
+        Scanner sc = new Scanner(System.in);
+        int opcion = -1;
+        do {
+            System.out.println("¿Que te gustaria añadir a tu diario de hoy?");
+            System.out.println("0. Salir");
+            System.out.println("1. Estado animico");
+            System.out.println("2. Flujo vaginal");
+            System.out.println("3. Sexo");
+            System.out.println("4. Sintomas");
+            opcion = sc.nextInt();
+        }while (opcion < 0 || opcion > 4);
+
+        return opcion;
+    }
+
+    public String pedirValidarOpcionEnum(T[] enumerados){
+        Scanner sc = new Scanner(System.in);
+        Utilidades utilidades = new Utilidades();
+        int opcion = -1;
+        String value="";
+        do {
+            System.out.println("0. Salir");
+            utilidades.imprimirValoresEnum(enumerados);
+            opcion = sc.nextInt();
+        }while (opcion < 0 || opcion > enumerados.length);
+
+        for (T col : enumerados)
+        {
+            if(col.ordinal() == opcion){
+                value = col.toString();
+            }
+        }
+
+        return value;
+    }
 
 
 

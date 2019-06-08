@@ -115,6 +115,7 @@ PSEUDOCODIGO
 package main;
 
 import clasesBasicas.UsuarioImpl;
+import enumerado.EstadoAnimico;
 import gestion.Gestion;
 import interfaces.Usuario;
 import resguardos.Resguardo;
@@ -134,6 +135,7 @@ public class main {
         UsuarioImpl usuario = null;
         UsuarioImpl usuarioLogado = null;
         int opcionLogInOrSignUp,opcionMenuPrincipal, opcionCuenta, opcionRevisionPersonal, opcionCiclo, opcionRevisionMedica;
+        int opcionSubMenuRegistrarRevisionPersonal;
         String respuesta="";
         String mensaje = " ";
         String nick;
@@ -221,13 +223,38 @@ public class main {
                                 case 2:
                                     //Revision personal
                                     System.out.println("Modulo Revision personal del menu principal en construccion");
+                                    //Para facilitar esta parte, solo se podran registrar revisiones personales del dia en curso
                                     do{
                                         opcionRevisionPersonal = validar.subMenuRevisionPersonal();
                                         if(opcionRevisionPersonal != 0){
                                             switch (opcionRevisionPersonal){
+
                                                 case 1:
                                                     //Registrar revision personal
-                                                    System.out.println("Modulo registrar revision personal en construccion");
+                                                    //System.out.println("Modulo registrar revision personal en construccion");
+                                                    do {
+                                                        opcionSubMenuRegistrarRevisionPersonal = validar.submenuRegistrarRevisionPersonal();
+                                                        if(opcionSubMenuRegistrarRevisionPersonal != 0){
+                                                            switch (opcionSubMenuRegistrarRevisionPersonal){
+                                                                case 1:
+                                                                    //EstadoAnimico
+                                                                    utilidades.imprimirValoresEnum(EstadoAnimico.values());
+
+                                                                    break;
+                                                                case 2:
+                                                                    //Flujo vaginal
+                                                                    break;
+                                                                case 3:
+                                                                    //Sexo
+                                                                    break;
+                                                                case 4:
+                                                                    //Sintomas
+                                                                    break;
+
+                                                            }
+
+                                                        }
+                                                    }while (opcionSubMenuRegistrarRevisionPersonal != 0);
                                                     break;
                                                 case 2:
                                                     //Ver revisiones personales

@@ -1,9 +1,7 @@
 package gestion;
 
-import clasesBasicas.Ciclo;
-import clasesBasicas.CicloEmbarazo;
-import clasesBasicas.CicloMenstrual;
-import clasesBasicas.UsuarioImpl;
+import clasesBasicas.*;
+import interfaces.Usuario;
 import validaciones.Validar;
 
 import javax.swing.border.EmptyBorder;
@@ -397,6 +395,82 @@ return nuevoUsuario;
         }
         return exito;
     }
+
+/*
+* INTERFAZ
+* Comentario:
+* Signatura: public boolean registrarRevisionPersonalEnRevisionActual(String revision)
+* Entradas: String revision (valor del enum)
+* Salidas: boolean que sera true si se registra correctamente en la bbdd y false si no
+* Postcondiciones: asociado al nombre devuelve un boolean que sera true si se ha registrado correctamente la revision y false si no
+* */
+public boolean registrarRevisionPersonalEnRevisionActual(UsuarioImpl usuario, String  revision){
+    String idRevisionAGuardar = "";
+    RevisionPersonalImpl revisionActual = null;
+
+    if(existeRevisionPersonalDelDiaEnCurso(usuario)){
+
+    }else {
+        revisionActual = new RevisionPersonalImpl(usuario);
+    }
+
+}
+
+/*
+* Comentario: Comprobar si existe una revision personal para el dia en curso para el usuario indicado
+* Signatura: public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user)
+* Precondiciones:
+* Entradas: UsuarioImpl user
+* Salidas: boolean
+* Postcondiciones: asociado al nombre devuelve un boolean que sea true si existe una revision para el dia en curso asociada al usuario indicado
+*                   y false si no
+* */
+public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
+    boolean existe = false;
+    try {
+
+        // Define la fuente de datos para el driver
+        String sourceURL = "jdbc:sqlserver://localhost";
+        String usuario = "menstruApp";
+        String password = "menstruApp";
+        String miSelect = "select *\n" +
+                "from REVISIONPERSONAL\n" +
+                "where FECHA = CURRENT_TIMESTAMP\n" +
+                "\t\tand ID_USUARIO = ?";
+
+        //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+        // Crear una conexion con el DriverManager
+        Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+        //Preparo el prepared statement indicando que son cada ? del select
+        PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+        preparedStatement.setString(1, user.getNick());
+
+        // execute insert SQL stetement
+        ResultSet miResultado = preparedStatement.executeQuery();
+
+
+        if (miResultado.next()){
+            existe = true;
+        }
+
+
+        // Cerrar
+        miResultado.close();
+        preparedStatement.close();
+        connexionBaseDatos.close();
+
+
+    }
+    catch (SQLException sqle) {
+        System.err.println(sqle);
+    }
+    return existe;
+
+}
+
+
 
 
 }

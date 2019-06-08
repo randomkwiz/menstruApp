@@ -1,5 +1,9 @@
 package test;
 
+import enumerado.EstadoAnimico;
+import enumerado.FlujoVaginal;
+import enumerado.Sexo;
+import enumerado.Sintoma;
 import validaciones.Validar;
 
 public class ValidarTest {
@@ -30,8 +34,20 @@ public class ValidarTest {
 */
       //  validar.fechaCumple();
 
-        System.out.println(validar.combinacionInicioSesion("randomkwiz", "12345"));
+       /* System.out.println(validar.combinacionInicioSesion("randomkwiz", "12345"));
         System.out.println(validar.combinacionInicioSesion("randomkwiz", "123456789"));
+        */
 
+       String prueba  = validar.pedirValidarOpcionEnum(Sexo.values());
+        System.out.println(prueba);
+
+
+         prueba  = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
+        System.out.println(prueba);
+
+         prueba  = validar.pedirValidarOpcionEnum(FlujoVaginal.values());
+        System.out.println(prueba);
+         prueba  = validar.pedirValidarOpcionEnum(Sintoma.values());
+        System.out.println(prueba);
     }
 }

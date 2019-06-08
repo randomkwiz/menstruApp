@@ -4,9 +4,12 @@ import clasesBasicas.UsuarioImpl;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
-public class Utilidades {
+public class Utilidades <T extends Enum<T>>{
     /*
     * INTERFAZ
     * Comentario: dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
@@ -98,6 +101,23 @@ public class Utilidades {
             System.err.println(e);
         }
         return  user;
+    }
+
+    /*
+     * Comentario: Imprime en pantalla los valores de un enum
+     * Signatura: public void imprimirValoresEnum(<T> enumerado)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: en pantalla imprimira los valores del enum recibido por parametros
+     * */
+    public void imprimirValoresEnum(T[] enumerado){
+
+        for(int i = 1; i < enumerado.length; i ++){
+            System.out.println(i +". "+enumerado[i]);
+        }
+
+
     }
 
 }
