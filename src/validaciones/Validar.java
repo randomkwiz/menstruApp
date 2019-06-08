@@ -449,8 +449,8 @@ public class Validar {
 
     /*
     * INTERFAZ
-    * Comentario: pide los datos del login
-    * Signatura: public
+    * Comentario: pide los datos del login y devuelve el objeto Usuario
+    * Signatura: public UsuarioImpl pedirLogin()
     *
     * */
     public UsuarioImpl pedirLogin(){
@@ -468,6 +468,32 @@ public class Validar {
         usuario = util.toObject(nick, pass);
         return usuario;
     }
+
+    /*
+     * INTERFAZ
+     * Signatura: public boolean borrarCuenta()
+     * Comentario: pide y valida si el usuario desea realmente eliminar su cuenta.
+     * Precondiciones:
+     * Entradas:
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario efectivamente desea eliminar su cuenta y false si no
+     * */
+    public boolean borrarCuenta(){
+        Scanner sc = new Scanner(System.in);
+        boolean seguro = false;
+        String respuesta=" ";
+        do {
+            System.out.println("¿Estas segura de que deseas eliminar tu cuenta? SI/NO");
+            respuesta = sc.nextLine().toUpperCase();
+        }while(!respuesta.equals("SI") && !respuesta.equals("NO"));
+
+        if (respuesta.equals("SI")){
+            seguro = true;
+        }
+        return seguro;
+    }
+
+
 
 
 }

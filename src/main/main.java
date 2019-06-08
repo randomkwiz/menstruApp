@@ -200,7 +200,19 @@ public class main {
                                                     break;
                                                 case 3:
                                                     //Eliminar cuenta
-                                                    System.out.println("Modulo eliminar cuenta en construccion");
+                                                    //System.out.println("Modulo eliminar cuenta en construccion");
+                                                    if (validar.borrarCuenta()) {
+                                                        gestion.eliminarCuenta(usuarioLogado);
+                                                        System.out.println("Su cuenta ha sido borrada.");
+                                                        System.out.println("Se le forzara el cierre de sesion.");
+                                                        opcionCuenta = 0;
+                                                        opcionMenuPrincipal = 0;
+                                                        opcionLogInOrSignUp = 0;    //esto para que se cierre el programa entero
+
+                                                    } else {
+                                                        System.out.println("No se borrara su cuenta.");
+                                                    }
+
                                                     break;
                                             }
                                         }

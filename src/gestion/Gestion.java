@@ -354,5 +354,49 @@ return nuevoUsuario;
         return edad;
     }
 
+    /*
+    * INTERFAZ
+    * Comentario: Elimina una cuenta de usuario
+    * Signatura: public boolean eliminarCuenta(UsuarioImpl usuario)
+    * Precondiciones:
+    * Entradas: objeto usuarioimpl
+    * Salidas: boolean
+    * Postcondiciones: asociado al nombre devuelve un boolean que sera true si la cuenta se ha borrado satisfactoriamente y
+    *                   false si no, o hubo algun problema
+    * */
+    public boolean eliminarCuenta(UsuarioImpl user){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "DELETE FROM USUARIO WHERE NICK = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1,user.getNick() );
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            exito = true;
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
 
 }

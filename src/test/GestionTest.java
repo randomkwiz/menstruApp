@@ -49,9 +49,15 @@ public class GestionTest {
 
         }
  */
-        System.out.println(gestion.estaEmbarazada(u));
+       // System.out.println(gestion.estaEmbarazada(u));
 
-        System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
+        //System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
+        UsuarioImpl u2 = utilidades.toObject("abamlingf7", "123456789");
+
+
+        System.out.println(gestion.estaEmbarazada(u2));
+        gestion.eliminarCuenta(u2);
+
 
     }
 }
