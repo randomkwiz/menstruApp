@@ -169,7 +169,7 @@ public class main {
                             switch (opcionMenuPrincipal) {
                                 case 1:
                                     //Cuenta
-                                    System.out.println("Modulo Cuenta del menu principal en construccion");
+                                   // System.out.println("Modulo Cuenta del menu principal en construccion");
                                     do{
                                         opcionCuenta = validar.subMenuCuenta();
                                         if(opcionCuenta != 0){
@@ -177,6 +177,14 @@ public class main {
                                                 case 1:
                                                     //Ver datos de la cuenta
                                                     System.out.println("Modulo ver datos de la cuenta en construccion");
+                                                    System.out.println("Nick: "+ usuarioLogado.getNick());
+                                                    System.out.println("Nombre: "+usuarioLogado.getNombre());
+                                                    System.out.print("Embarazada: ");
+                                                    System.out.println((gestion.estaEmbarazada(usuarioLogado))? "Si" : "No"  );
+                                                    if(gestion.estaEmbarazada(usuarioLogado)){
+                                                        System.out.println("Dias restantes aproximados para dar a luz: ");
+                                                    }
+
                                                     break;
                                                 case 2:
                                                     //Modificar datos de la cuenta

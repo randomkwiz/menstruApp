@@ -29,16 +29,20 @@ public class CicloMenstrual extends Ciclo {
 
       //Constructores
     public CicloMenstrual() {
+        super.setUsuario(null);
         super.setFechaInicio(null);
         super.setFechaFinReal(null);
     }
 
-    public CicloMenstrual(GregorianCalendar fechaInicio) {
+    public CicloMenstrual(UsuarioImpl usuario,GregorianCalendar fechaInicio) {
+
+        super.setUsuario(usuario);
         super.setFechaInicio(fechaInicio);
     }
 
-    public CicloMenstrual(GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
-       super.setFechaInicio(fechaInicio);
+    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
+       super.setUsuario(usuario);
+        super.setFechaInicio(fechaInicio);
        super.setFechaFinReal(fechaFinReal);
     }
 

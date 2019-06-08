@@ -61,3 +61,44 @@ entonces para que no se ponga a 0 en la bbdd sino a null, hago este trigger*/
 	WHERE NICK = (SELECT NICK FROM inserted)
 	END
 END
+
+
+/*trigger para que no se pueda insertar un embarazo
+si ya hay uno en curso (sin fecha de fin)
+*/
+
+ALTER
+--CREATE
+TRIGGER noMasDeUnEmbarazoALaVez 
+ON EMBARAZO
+AFTER INSERT AS
+BEGIN
+	IF EXISTS (select  E.ID, E.ID_USUARIO, E.FECHAINICIO, E.FECHAFIN_REAL
+					from EMBARAZO AS E
+					INNER JOIN inserted AS I
+					ON E.ID_USUARIO = I.ID_USUARIO
+					where E.FECHAFIN_REAL IS NULL 
+				)
+	BEGIN
+		RAISERROR('Actualmente existe un embarazo en curso',16,1)
+		ROLLBACK
+	END
+END
+
+ALTER
+--CREATE
+TRIGGER noMasDeUnaMenstruacionALaVez 
+ON CICLOMENSTRUAL
+AFTER INSERT AS
+BEGIN
+	IF EXISTS (select  E.ID, E.ID_USUARIO, E.FECHAINICIO, E.FECHAFIN_REAL
+					from CICLOMENSTRUAL AS E
+					INNER JOIN inserted AS I
+					ON E.ID_USUARIO = I.ID_USUARIO
+					where E.FECHAFIN_REAL IS NULL 
+				)
+	BEGIN
+		RAISERROR('Actualmente existe un ciclo menstrual en curso',16,1)
+		ROLLBACK
+	END
+END

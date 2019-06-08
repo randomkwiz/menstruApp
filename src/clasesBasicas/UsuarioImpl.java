@@ -52,6 +52,7 @@ package clasesBasicas;
 
 import interfaces.Usuario;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class UsuarioImpl implements Usuario {

@@ -1,8 +1,12 @@
 package test;
 
+import clasesBasicas.CicloMenstrual;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
+import utilidades.Utilidades;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class GestionTest {
@@ -10,7 +14,7 @@ public class GestionTest {
 
         Gestion gestion = new Gestion();
         //String nombre, String nick, String password, double peso, GregorianCalendar fechaNacimiento
-        UsuarioImpl usuario = new UsuarioImpl("Pepe","superPepe","1234", 78, new GregorianCalendar());
+   /*     UsuarioImpl usuario = new UsuarioImpl("Pepe","superPepe","1234", 78, new GregorianCalendar());
 
         GregorianCalendar fechaCumple = new GregorianCalendar();
         fechaCumple.set(GregorianCalendar.YEAR, 1997);
@@ -30,5 +34,22 @@ public class GestionTest {
 
         //gestion.insertarUsuarioEnBBDD(usuario);
         gestion.insertarUsuarioEnBBDD(user);
+
+    */
+
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl u = utilidades.toObject("randomkwiz", "123456789");
+        ArrayList<CicloMenstrual> arrayList =gestion.obtenerListaCiclosMenstruales(u);
+
+       // System.out.println(arrayList.size());
+/*
+        for(int i = 0; i < arrayList.size(); i ++){
+            System.out.println(arrayList.get(i).getUsuario().getNick());
+            System.out.println(utilidades.formatearFecha(arrayList.get(i).getFechaInicio()));
+
+        }
+ */
+        System.out.println(gestion.estaEmbarazada(u));
+
     }
 }
