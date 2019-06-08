@@ -135,5 +135,14 @@ public class UsuarioImpl implements Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-
+    @Override
+    public String toString() {
+        return "UsuarioImpl{" +
+                "nombre='" + nombre + '\'' +
+                ", nick='" + nick + '\'' +
+                ", password='" + password + '\'' +
+                ", peso=" + peso +
+                ", fechaNacimiento=" + fechaNacimiento +
+                '}';
+    }
 }

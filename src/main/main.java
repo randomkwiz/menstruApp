@@ -120,14 +120,22 @@ import interfaces.Usuario;
 import resguardos.Resguardo;
 import validaciones.Validar;
 
+import javax.sound.midi.Soundbank;
+import java.util.Scanner;
+
 public class main {
     public static void main(String[] args) {
         Validar validar = new Validar();
         Resguardo resguardo = new Resguardo();
         Gestion gestion = new Gestion();
+        Scanner sc = new Scanner(System.in);
         UsuarioImpl usuario = null;
+        UsuarioImpl usuarioLogado = null;
         int opcionLogInOrSignUp,opcionMenuPrincipal, opcionCuenta, opcionRevisionPersonal, opcionCiclo, opcionRevisionMedica;
         String respuesta="";
+        String mensaje = " ";
+        String nick;
+        String pass;
 
 
         do {
@@ -138,17 +146,22 @@ public class main {
             switch (opcionLogInOrSignUp) {
                 case 1:
                     //Crear cuenta
-                    System.out.println("Modulo crear cuenta en construccion");
+                    //System.out.println("Modulo crear cuenta en construccion");
+
                     //pedirValidarDatos
                     usuario = gestion.pedirCrearUsuario();
                     //insertarUsuarioEnBBDD
-
+                    mensaje = (gestion.insertarUsuarioEnBBDD(usuario)) ? "Cuenta creada con exito":"Hubo un problema al crear tu cuenta, intentelo de nuevo mas tarde";
+                    System.out.println(mensaje);
 
                     break;
                 case 2:
                     //Iniciar sesion
-                    System.out.println("Modulo iniciar sesion en construccion");
+                    //System.out.println("Modulo iniciar sesion en construccion");
                     //pedirValidarInicioSesion
+                    usuarioLogado = validar.pedirLogin();
+                    System.out.println("Buenas "+usuarioLogado.getNick()+", has iniciado sesion con exito");
+
                     do {
                         //mostrarMenuPedirValidarOpcion
                         opcionMenuPrincipal = validar.menuPrincipal();

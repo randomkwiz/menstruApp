@@ -28,7 +28,10 @@ public class ValidarTest {
         System.out.println(validar.fechaEsValida(32,7,2008));
         System.out.println(validar.fechaEsValida(31,7,2008));
 */
-        validar.fechaCumple();
+      //  validar.fechaCumple();
+
+        System.out.println(validar.combinacionInicioSesion("randomkwiz", "12345"));
+        System.out.println(validar.combinacionInicioSesion("randomkwiz", "123456789"));
 
     }
 }

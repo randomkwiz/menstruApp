@@ -1,5 +1,7 @@
 package validaciones;
 
+import clasesBasicas.UsuarioImpl;
+import interfaces.Usuario;
 import utilidades.Utilidades;
 
 import java.io.Console;
@@ -188,7 +190,9 @@ public class Validar {
 
             // Cerrar
             sentencia.close();
+            resultados.close();
             connexionBaseDatos.close();
+
         }
         catch (SQLException sqle) {
             System.err.println(sqle);
@@ -395,6 +399,75 @@ public class Validar {
 
 
     return fechaCumple;
-
     }
+
+    /*
+    * INTERFAZ
+    * Comentario: comprueba una combinacion de nick/password
+    * Signatura public boolean combinacionInicioSesion(String nick, String pass)
+    * Precondiciones:
+    * Entradas: nick del usuario y contraseña
+    * Salidas: boolean
+    * Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la combinacion de nick y contraseña es correcta y false si no.
+    * */
+    public boolean combinacionInicioSesion(String nick, String pass){
+        boolean exito = false;
+            try {
+                // Define la fuente de datos para el driver
+                String sourceURL = "jdbc:sqlserver://localhost";
+                String usuario = "menstruApp";
+                String password = "menstruApp";
+                String miSelect = "select nick from USUARIO where NICK =? and PWDCOMPARE(?,PASS)= 1";
+
+
+                //Crear conexion con la BBDD
+                Connection conexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+                //Preparo el prepared statement indicando que son cada ? del select
+                PreparedStatement preparedStatement = conexionBaseDatos.prepareStatement(miSelect);
+                preparedStatement.setString(1, nick);
+                preparedStatement.setString(2, pass);
+
+                //Ejecutar
+                ResultSet miResultado = preparedStatement.executeQuery();
+                if (miResultado.next()) {    //el metodo .next() devuelve false si no hay mas filas
+                    exito = true;
+                    //System.out.println("Entra");
+                }
+
+                //Cerrar
+                miResultado.close();
+                preparedStatement.close();
+                conexionBaseDatos.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+    return exito;
+    }
+
+
+
+    /*
+    * INTERFAZ
+    * Comentario: pide los datos del login
+    * Signatura: public
+    *
+    * */
+    public UsuarioImpl pedirLogin(){
+        String nick ;
+        String pass;
+        UsuarioImpl usuario ;
+        Utilidades util = new Utilidades();
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Introduce el nick: ");
+            nick = sc.next();
+            pass = establecerPassword();
+        }while (combinacionInicioSesion(nick,pass) == false);
+
+        usuario = util.toObject(nick, pass);
+        return usuario;
+    }
+
+
 }

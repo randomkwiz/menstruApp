@@ -1,8 +1,8 @@
 package utilidades;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import clasesBasicas.UsuarioImpl;
+
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
@@ -46,4 +46,58 @@ public class Utilidades {
         }
         return c;
     }
+
+    /*
+    * INTERFAZ
+    * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
+    * Signatura: public UsuarioImpl toObject(String nick, String pass)
+    * Precondiciones:
+    * Entradas: String nick, String pass
+    * Salidas: objeto UsuarioImpl
+    * Postcondiciones: Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
+    *                   combinacion es erronea devuelve null.
+    * */
+    public UsuarioImpl toObject(String nick, String pass){
+        UsuarioImpl user = new UsuarioImpl();
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * from USUARIO where NICK = ? and PWDCOMPARE(?,PASS)= 1";
+
+            //Crear conexion
+            Connection conexionBD = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el statement
+            PreparedStatement preparedStatement = conexionBD.prepareStatement(miSelect);
+            preparedStatement.setString(1, nick);
+            preparedStatement.setString(2, pass);
+
+            //Ejecuto
+            ResultSet miResultado = preparedStatement.executeQuery();
+
+            if(miResultado.next()){
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTime(miResultado.getDate("FECHANACIMIENTO"));
+                user.setNombre(miResultado.getString("NOMBRE"));
+                //System.out.println(miResultado.getString("NOMBRE"));
+                //System.out.println("ENTRA");
+                user.setNick(nick);
+                user.setPassword(pass);
+                user.setFechaNacimiento(gc);
+                user.setPeso(miResultado.getDouble("PESO"));
+            }
+
+            //Cerrar
+            miResultado.close();
+            preparedStatement.close();
+            conexionBD.close();
+
+        }catch (SQLException e){
+            System.err.println(e);
+        }
+        return  user;
+    }
+
 }

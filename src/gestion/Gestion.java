@@ -1,9 +1,7 @@
 package gestion;
 
 import clasesBasicas.UsuarioImpl;
-import interfaces.Usuario;
 import validaciones.Validar;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

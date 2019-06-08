@@ -28,3 +28,11 @@ values('prueba3',PWDENCRYPT('123456789012345678901234567890123456789012345678901
 
 --VERIFICAR LOGIN (SI DEVUELVE ALGUNA FILA, ES QUE ESTA OK)
 select * from USUARIO where NICK ='buhoos' and PWDCOMPARE('12345678',PASS)= 1
+
+select * from USUARIO where NICK ='randomkwiz' and PWDCOMPARE('123456789',PASS)= 1
+
+select nick,nombre,pass,peso,fechanacimiento from USUARIO where NICK ='randomkwiz' and PWDCOMPARE('123456789',PASS)= 1
+
+update USUARIO
+set peso = 500
+where nick = 'randomkwiz'
