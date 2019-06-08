@@ -30,3 +30,4 @@ hs_err_pid*
 *.xml
 .idea/workspace.xml
 ./out
+out/production/menstruApp/META-INF/menstruApp.kotlin_module
