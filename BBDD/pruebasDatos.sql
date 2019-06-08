@@ -1,0 +1,23 @@
+SELECT *
+FROM USUARIO
+
+delete 
+from USUARIO
+where nick = 'randomkwiz'
+
+SELECT NICK FROM USUARIO 
+WHERE NICK = 'randomkwiz' 
+
+
+select  *
+from EMBARAZO
+where ID_USUARIO = 'randomkwiz' AND FECHAFIN_REAL IS NULL
+ORDER BY FECHAINICIO desc
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO)
+values('randomkwiz', CURRENT_TIMESTAMP)
+
+insert into EMBARAZO(ID_USUARIO, FECHAINICIO)
+values('randomkwiz', CURRENT_TIMESTAMP)
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20190504','20190508')

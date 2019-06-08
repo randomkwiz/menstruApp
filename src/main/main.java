@@ -118,6 +118,7 @@ import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 import interfaces.Usuario;
 import resguardos.Resguardo;
+import utilidades.Utilidades;
 import validaciones.Validar;
 
 import javax.sound.midi.Soundbank;
@@ -128,6 +129,7 @@ public class main {
         Validar validar = new Validar();
         Resguardo resguardo = new Resguardo();
         Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
         Scanner sc = new Scanner(System.in);
         UsuarioImpl usuario = null;
         UsuarioImpl usuarioLogado = null;
@@ -179,10 +181,16 @@ public class main {
                                                     System.out.println("Modulo ver datos de la cuenta en construccion");
                                                     System.out.println("Nick: "+ usuarioLogado.getNick());
                                                     System.out.println("Nombre: "+usuarioLogado.getNombre());
+                                                    System.out.println("Edad: "+gestion.obtenerEdad(usuarioLogado));
                                                     System.out.print("Embarazada: ");
                                                     System.out.println((gestion.estaEmbarazada(usuarioLogado))? "Si" : "No"  );
                                                     if(gestion.estaEmbarazada(usuarioLogado)){
-                                                        System.out.println("Dias restantes aproximados para dar a luz: ");
+                                                        System.out.println("Fecha aproximada para dar a luz: "
+                                                                + utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(usuarioLogado).getFechaFinEstimada()) );
+                                                    }else{
+                                                        System.out.println("Fecha aproximada de tu siguiente periodo: "
+                                                                            +utilidades.formatearFecha(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaComienzoEstimadaSiguientePeriodo())
+                                                        );
                                                     }
 
                                                     break;

@@ -77,6 +77,7 @@ BEGIN
 					from EMBARAZO AS E
 					INNER JOIN inserted AS I
 					ON E.ID_USUARIO = I.ID_USUARIO
+						AND E.ID != I.ID
 					where E.FECHAFIN_REAL IS NULL 
 				)
 	BEGIN
@@ -95,6 +96,7 @@ BEGIN
 					from CICLOMENSTRUAL AS E
 					INNER JOIN inserted AS I
 					ON E.ID_USUARIO = I.ID_USUARIO
+					AND E.ID != I.ID
 					where E.FECHAFIN_REAL IS NULL 
 				)
 	BEGIN

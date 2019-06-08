@@ -51,5 +51,7 @@ public class GestionTest {
  */
         System.out.println(gestion.estaEmbarazada(u));
 
+        System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
+
     }
 }

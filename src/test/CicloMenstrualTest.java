@@ -20,6 +20,8 @@ public class CicloMenstrualTest {
 
         fechaFinEstimada = sdf.format(miCiclo.getFechaFinEstimada().getTime());
 
+
+
         System.out.println(fechaFinEstimada);
 
 

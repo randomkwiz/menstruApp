@@ -1,10 +1,12 @@
 package gestion;
 
 import clasesBasicas.Ciclo;
+import clasesBasicas.CicloEmbarazo;
 import clasesBasicas.CicloMenstrual;
 import clasesBasicas.UsuarioImpl;
 import validaciones.Validar;
 
+import javax.swing.border.EmptyBorder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -272,10 +274,85 @@ return nuevoUsuario;
     return hayEmbarazo;
     }
 
+
+    /*
+     * INTERFAZ
+     * Comentario: Este metodo consulta la BBDD del programa y devuelve el objeto CicloEmbarazo en curso de un usuario, o null si no tuviera ninguno
+     * Signatura: public CicloEmbarazo obtenerEmbarazoEnCurso(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: UsuarioImpl usuario
+     * Salidas: objeto CicloEmbarazo
+     * Postcondiciones: asociado al nombre se devuelve un objeto embarazo o null si no hay ninguno embarazo en curso
+     * */
+    public CicloEmbarazo obtenerEmbarazoEnCurso(UsuarioImpl user){
+        CicloEmbarazo embarazo = new CicloEmbarazo();
+        GregorianCalendar fechaInicio = new GregorianCalendar();
+        GregorianCalendar fechaFin = new GregorianCalendar();
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select  *\n" +
+                    "from EMBARAZO\n" +
+                    "where ID_USUARIO = ? AND FECHAFIN_REAL IS NULL";
+
+            //Crear conexion
+            Connection conexionBD = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el statement
+            PreparedStatement preparedStatement = conexionBD.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick());
+            //Ejecuto
+            ResultSet miResultado = preparedStatement.executeQuery();
+
+            if(miResultado.next()){
+
+                fechaInicio.setTime(miResultado.getDate("FECHAINICIO"));
+                embarazo.setFechaInicio(fechaInicio);
+                if(miResultado.getDate("FECHAFIN_REAL") != null) {
+                    fechaFin.setTime(miResultado.getDate("FECHAFIN_REAL"));
+                }else{
+                    fechaFin = null;
+                }
+
+
+                embarazo.setFechaFinReal(fechaFin);
+                embarazo.setUsuario(user);
+            }
+
+            //Cerrar
+            miResultado.close();
+            preparedStatement.close();
+            conexionBD.close();
+
+        }catch (SQLException e){
+            System.err.println(e);
+        }
+
+
+        return embarazo;
+    }
+
+
     /*
     * INTERFAZ
-    * Comentario: Calcula los dias restantes para dar a luz
-    *
+    * Comentario: obtiene la edad de un usuario
+    * Signatura: public int obtenerEdad(UsuarioImpl usuario)
+    * Precondiciones:
+    * Entradas: Objeto usuario
+    * Salidas: entero
+    * Postcondiciones: asociado al nombre se devuelve la edad, o -1 si el usuario no posee fecha de nacimiento registrada o hay algun error.
     * */
+    public int obtenerEdad(UsuarioImpl usuario){
+        int edad = -1;
+        GregorianCalendar fechaActual = new GregorianCalendar();
+
+        if(usuario.getFechaNacimiento() != null) {
+            edad = fechaActual.get(GregorianCalendar.YEAR) - usuario.getFechaNacimiento().get(GregorianCalendar.YEAR);
+        }
+        return edad;
+    }
+
 
 }

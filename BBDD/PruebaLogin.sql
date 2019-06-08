@@ -8,6 +8,9 @@ insert into USUARIO (NICK, PASS)
 values('buhoos',PWDENCRYPT('12345678'))
 
 insert into USUARIO (NICK, PASS) 
+values('randomkwiz',PWDENCRYPT('123456789'))
+
+insert into USUARIO (NICK, PASS) 
 values('PEPITA',PWDENCRYPT('12345678'))
 
 INSERT INTO EMBARAZO (ID_USUARIO,FECHAINICIO)
