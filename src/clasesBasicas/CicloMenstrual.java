@@ -61,6 +61,21 @@ public class CicloMenstrual extends Ciclo {
         return fechaFinEstimada;
     }
 
+    /*
+    INTERFAZ
+    Comentario: Método que devuelve la fecha estimada de comienzo del siguiente periodo.
+    Signatura: public GregorianCalendar getFechaComienzoEstimadaSiguientePeriodo()
+    Precondiciones:
+    Entradas:
+    Salidas: objeto GregorianCalendar que es la fecha de comienzo estimada
+    Postcondiciones: asociado al nombre devolvera la fecha de comienzo estimada, que sera 28 dias posterior a la fecha
+                     de inicio del ciclo actual (el vigesimo octavo dia del ciclo actual seria el primer dia del siguiente ciclo).
+    */
+    public GregorianCalendar getFechaComienzoEstimadaSiguientePeriodo() {
+        GregorianCalendar fechaComienzoSiguienteCicloEstimada = getFechaInicio();
+        fechaComienzoSiguienteCicloEstimada.add(Calendar.DAY_OF_MONTH, 28);
+        return fechaComienzoSiguienteCicloEstimada;
+    }
 
 
 

@@ -21,9 +21,11 @@
 * */
 package clasesBasicas;
 
+import interfaces.RevisionMedica;
+
 import java.util.GregorianCalendar;
 
-public class RevisionMedicaImpl {
+public class RevisionMedicaImpl implements RevisionMedica {
     CicloEmbarazo embarazo;
     private double peso;
     private double cintura;
@@ -48,15 +50,16 @@ public class RevisionMedicaImpl {
 
     //setters y getters
 
+   // public CicloEmbarazo getEmbarazo() { return embarazo;    }
 
-    /*para el embarazo deberias hacer patron delegacion */
-    public CicloEmbarazo getEmbarazo() {
-        return embarazo;
-    }
+    // public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
 
-    public void setEmbarazo(CicloEmbarazo embarazo) {
-        this.embarazo = embarazo;
-    }
+    /*Patron delegacion*/
+    public GregorianCalendar getEmbarazoFechaInicio(){embarazo.getFechaInicio()}
+    public GregorianCalendar getEmbarazoFechaFinReal(){embarazo.getFechaFinReal()}
+    public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio){embarazo.setFechaInicio(fechaInicio);};
+    public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal){embarazo.setFechaFinReal(fechaFinReal);};
+
 
     public double getPeso() {
         return peso;
