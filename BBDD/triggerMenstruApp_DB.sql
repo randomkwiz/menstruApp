@@ -124,6 +124,7 @@ BEGIN
 				on r.ID = i.ID
 				where r.FECHA = cast (CURRENT_TIMESTAMP as date)
 				and r.ID_USUARIO = i.ID_USUARIO
+				and r.ID != i.ID
 				)
 	BEGIN
 		RAISERROR('Actualmente ya existe una revision personal para el dia en curso',16,1)
