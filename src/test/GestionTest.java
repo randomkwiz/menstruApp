@@ -6,9 +6,7 @@ import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 import utilidades.Utilidades;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class GestionTest {
     public static void main(String[] args) {
@@ -62,7 +60,7 @@ public class GestionTest {
 
         //System.out.println( gestion.existeRevisionPersonalDelDiaEnCurso(u2));
 
-        RevisionPersonalImpl rev = gestion.construirObjeto(u2,gestion.existeRevisionPersonalDelDiaEnCurso(u2));
+        RevisionPersonalImpl rev = gestion.construirObjeto(u2,gestion.obtenerIDRevisionPersonalDelDiaEnCurso(u2));
 
         System.out.println(utilidades.formatearFecha(rev.getFecha()));
         System.out.println((rev.getID()));
@@ -115,6 +113,19 @@ public class GestionTest {
         for(int i  = 0; i < rev.getArraylistFlujoVaginal().size(); i ++ ){
             System.out.println(rev.getArraylistFlujoVaginal().get(i).name());
         }
+
+
+
+        /*prueba insertar estado de animo*/
+/*
+        gestion.insertarEstadoAnimoEnRevisionPersonal(rev, EstadoAnimico.DEPRIMIDA);
+        gestion.cargarEstadosDeAnimoRevisionPersonal(rev);
+        System.out.println(rev.getArraylistEstadoAnimico().size());
+
+ */
+
+        UsuarioImpl usuario = new UsuarioImpl("aabramowitzgg", "123456789");
+        System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
 
     }
 }

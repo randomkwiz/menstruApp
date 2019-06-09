@@ -28,6 +28,7 @@ public class UtilidadesTest {
 
 
  */
+/*
         System.out.println("ENUM SINTOMA");
         System.out.println();
         util.imprimirValoresEnum(Sintoma.values());
@@ -43,5 +44,9 @@ public class UtilidadesTest {
         System.out.println("ENUM FLUJO VAGINAL");
         System.out.println();
         util.imprimirValoresEnum(FlujoVaginal.values());
+
+ */
+        System.out.println(util.obtenerIDEnum(EstadoAnimico.ACTIVA));
+
     }
 }

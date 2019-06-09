@@ -73,14 +73,55 @@ public class Resguardo {
      *
      * */
 
+
     /*
-     *   INTERFAZ
-     * Comentario: Metodo para insertar en la BBDD las relaciones de las tablas con la revision personal.
-     * Signatura: public boolean insertarRevisionPersonal (RevisionPersonalImpl revision)
+     * INTERFAZ
+     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un estado de animo
+     * Signatura: public boolean insertarEstadoAnimoEnRevisionPersonal (RevisionPersonalImpl revision, EstadoAnimico estado)
      * Precondiciones:
-     * Entradas: RevisionPersonalImpl revision
-     * Salidas: boolean
-     * Postcondiciones: asociado al nombre devuelve un boolean que es true si se han insertado correctamente los datos
-     *                  y false si hubo algun problema.
+     * Entradas: RevisionImpl y EstadoAnimico
+     * Salida: boolean
+     * Postcondiciones:  asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
+     *                   si la revision no existe lanzara excepcion nullpointer
+     * si se intenta insertar un valor repetido saltara excepcion de SQL Server
+     * */
+
+    /*
+     * INTERFAZ
+     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un sintoma
+     * Signatura: public boolean insertarSintomaEnRevisionPersonal (RevisionPersonalImpl revision, Sintoma sintoma)
+     * Precondiciones:
+     * Entradas: RevisionImpl y Sintoma
+     * Salida: boolean
+     * Postcondiciones:  asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
+     *                   si la revision no existe lanzara excepcion nullpointer
+     * si se intenta insertar un valor repetido saltara excepcion de SQL Server
+     * */
+
+
+
+    /*
+     * INTERFAZ
+     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un tipo de flujo vaginal
+     * Signatura: public boolean insertarFlujoVaginalEnRevisionPersonal (RevisionPersonalImpl revision, FlujoVaginal flujo)
+     * Precondiciones:
+     * Entradas: RevisionImpl y FlujoVaginal
+     * Salida: boolean
+     * Postcondiciones:  asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
+     *                   si la revision no existe lanzara excepcion nullpointer
+     * si se intenta insertar un valor repetido saltara excepcion de SQL Server
+     * */
+
+
+    /*
+     * INTERFAZ
+     * Comentario: Inserta en la BBDD la relacion entre una revision personal y el Sexo
+     * Signatura: public boolean insertarSexoEnRevisionPersonal (RevisionPersonalImpl revision, Sexo observacion)
+     * Precondiciones:
+     * Entradas: RevisionImpl y Sexo
+     * Salida: boolean
+     * Postcondiciones:  asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
+     *                   si la revision no existe lanzara excepcion nullpointer
+     * si se intenta insertar un valor repetido saltara excepcion de SQL Server
      * */
 }

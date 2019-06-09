@@ -104,3 +104,29 @@ BEGIN
 		ROLLBACK
 	END
 END
+
+
+/*
+trigger para que no se permita crear mas 
+de una revision personal en un mismo dia
+para un mismo usuario
+*/
+ALTER
+--CREATE
+TRIGGER unaRevisionPersonalAlDia
+ON REVISIONPERSONAL
+AFTER INSERT AS
+BEGIN
+	IF EXISTS (
+				select *
+				from REVISIONPERSONAL as r
+				inner join inserted as i
+				on r.ID = i.ID
+				where r.FECHA = cast (CURRENT_TIMESTAMP as date)
+				and r.ID_USUARIO = i.ID_USUARIO
+				)
+	BEGIN
+		RAISERROR('Actualmente ya existe una revision personal para el dia en curso',16,1)
+		ROLLBACK
+	END
+END

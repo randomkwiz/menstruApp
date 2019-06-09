@@ -114,15 +114,18 @@ PSEUDOCODIGO
  * */
 package main;
 
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import enumerado.EstadoAnimico;
+import enumerado.FlujoVaginal;
+import enumerado.Sexo;
+import enumerado.Sintoma;
 import gestion.Gestion;
-import interfaces.Usuario;
 import resguardos.Resguardo;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
-import javax.sound.midi.Soundbank;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class main {
@@ -134,12 +137,15 @@ public class main {
         Scanner sc = new Scanner(System.in);
         UsuarioImpl usuario = null;
         UsuarioImpl usuarioLogado = null;
+        RevisionPersonalImpl revisionPersonal = null;
+        String revisionPersonalID = null;
         int opcionLogInOrSignUp,opcionMenuPrincipal, opcionCuenta, opcionRevisionPersonal, opcionCiclo, opcionRevisionMedica;
         int opcionSubMenuRegistrarRevisionPersonal;
         String respuesta="";
         String mensaje = " ";
         String nick;
         String pass;
+        String opcionEnum = "";
 
 
         do {
@@ -165,6 +171,8 @@ public class main {
                     //pedirValidarInicioSesion
                     usuarioLogado = validar.pedirLogin();
                     System.out.println("Buenas "+usuarioLogado.getNick()+", has iniciado sesion con exito");
+                    revisionPersonalID = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioLogado);
+                    revisionPersonal = gestion.construirObjeto(usuarioLogado, revisionPersonalID);
 
                     do {
                         //mostrarMenuPedirValidarOpcion
@@ -190,9 +198,13 @@ public class main {
                                                         System.out.println("Fecha aproximada para dar a luz: "
                                                                 + utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(usuarioLogado).getFechaFinEstimada()) );
                                                     }else{
-                                                        System.out.println("Fecha aproximada de tu siguiente periodo: "
-                                                                            +utilidades.formatearFecha(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaComienzoEstimadaSiguientePeriodo())
-                                                        );
+                                                        if(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaInicio() != null){
+                                                            System.out.println("Fecha aproximada de tu siguiente periodo: "
+                                                                    +utilidades.formatearFecha(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaComienzoEstimadaSiguientePeriodo()));
+                                                        }else{
+                                                            System.out.println("Sin ciclo menstrual registrado");
+                                                        }
+
                                                     }
 
                                                     break;
@@ -222,7 +234,7 @@ public class main {
                                     break;
                                 case 2:
                                     //Revision personal
-                                    System.out.println("Modulo Revision personal del menu principal en construccion");
+                                    //System.out.println("Modulo Revision personal del menu principal en construccion");
                                     //Para facilitar esta parte, solo se podran registrar revisiones personales del dia en curso
                                     do{
                                         opcionRevisionPersonal = validar.subMenuRevisionPersonal();
@@ -238,17 +250,68 @@ public class main {
                                                             switch (opcionSubMenuRegistrarRevisionPersonal){
                                                                 case 1:
                                                                     //EstadoAnimico
-                                                                    utilidades.imprimirValoresEnum(EstadoAnimico.values());
+                                                                    do{
+                                                                        opcionEnum = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
+                                                                        if(opcionEnum != null){
+                                                                            if (gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.valueOf(opcionEnum)))
+                                                                             {
+                                                                                 System.out.println("Estado de animo registrado con exito en tu revision de hoy.");
+                                                                            } else{
+                                                                                System.out.println("Hubo un problema al intentar registrar el estado de animo en tu revision de hoy." +
+                                                                                        "Intentalo de nuevo mas tarde");
+                                                                            }
+                                                                        }
+                                                                    }while (opcionEnum != null );
+
 
                                                                     break;
                                                                 case 2:
                                                                     //Flujo vaginal
+                                                                    do{
+                                                                        opcionEnum = validar.pedirValidarOpcionEnum(FlujoVaginal.values());
+                                                                        if(opcionEnum != null){
+                                                                            if (gestion.insertarFlujoVaginalEnRevisionPersonal(revisionPersonal, FlujoVaginal.valueOf(opcionEnum)))
+                                                                            {
+                                                                                System.out.println("Estado del flujo vaginal registrado con exito en tu revision de hoy.");
+                                                                            } else{
+                                                                                System.out.println("Hubo un problema al intentar registrar el estado del flujo vaginal en tu revision de hoy." +
+                                                                                        "Intentalo de nuevo mas tarde");
+                                                                            }
+                                                                        }
+                                                                    }while (opcionEnum != null );
+
                                                                     break;
                                                                 case 3:
                                                                     //Sexo
+                                                                    do{
+                                                                        opcionEnum = validar.pedirValidarOpcionEnum(Sexo.values());
+                                                                        if(opcionEnum != null){
+                                                                            if (gestion.insertarSexoEnRevisionPersonal(revisionPersonal, Sexo.valueOf(opcionEnum)))
+                                                                            {
+                                                                                System.out.println("Observacion sobre el sexo registrada con exito en tu revision de hoy.");
+                                                                            } else{
+                                                                                System.out.println("Hubo un problema al intentar registrar la observacion sobre el sexo en tu revision de hoy." +
+                                                                                        "Intentalo de nuevo mas tarde");
+                                                                            }
+                                                                        }
+                                                                    }while (opcionEnum != null );
+
                                                                     break;
                                                                 case 4:
                                                                     //Sintomas
+                                                                    do{
+                                                                        opcionEnum = validar.pedirValidarOpcionEnum(Sintoma.values());
+                                                                        if(opcionEnum != null){
+                                                                            if (gestion.insertarSintomaEnRevisionPersonal(revisionPersonal, Sintoma.valueOf(opcionEnum)))
+                                                                            {
+                                                                                System.out.println("Sintoma registrado con exito en tu revision de hoy.");
+                                                                            } else{
+                                                                                System.out.println("Hubo un problema al intentar registrar el sintoma en tu revision de hoy." +
+                                                                                        "Intentalo de nuevo mas tarde");
+                                                                            }
+                                                                        }
+                                                                    }while (opcionEnum != null );
+
                                                                     break;
 
                                                             }

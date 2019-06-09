@@ -41,7 +41,11 @@ public class ValidarTest {
        String prueba  = validar.pedirValidarOpcionEnum(Sexo.values());
         System.out.println(prueba);
 
+        if(prueba == null){
+            System.out.println("Prueba  == null funciona");
+        }
 
+/*
          prueba  = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
         System.out.println(prueba);
 
@@ -49,5 +53,7 @@ public class ValidarTest {
         System.out.println(prueba);
          prueba  = validar.pedirValidarOpcionEnum(Sintoma.values());
         System.out.println(prueba);
+
+ */
     }
 }

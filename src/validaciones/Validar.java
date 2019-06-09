@@ -497,7 +497,8 @@ public class Validar <T extends Enum<T>>{
     * INTERFAZ
     * Comentario: Submenu del apartado RevisionPersonal, lee y valida la opcion elegida
     * Signatura public int submenuRegistrarRevisionPersonal()
-    *
+    * Salida: entero que es la opcion del menu (0 - 4)
+    * Postcondiciones: asociado al nombre devuelve una opcion elegida por el usuario entre 0 y 4
     * */
     public int submenuRegistrarRevisionPersonal(){
         Scanner sc = new Scanner(System.in);
@@ -515,22 +516,35 @@ public class Validar <T extends Enum<T>>{
         return opcion;
     }
 
+    /*
+    * INTERFAZ
+    * Comentario: muestra en pantalla, pide y valida la opcion de una lista de valores de un enum
+    * Signatura: public String pedirValidarOpcionEnum(T[] enumerados)
+    * Precondiciones: como entrada se debe pasar un enum
+    * Entradas: un enum
+    * Salidas: String que es el valor del enum elegido por el usuario
+    * Postcondiciones: asociado al nombre se devuelve como cadena el valor del enum elegido por el usuario
+    *               o null si el usuario desea salir de este menu
+    * */
     public String pedirValidarOpcionEnum(T[] enumerados){
         Scanner sc = new Scanner(System.in);
         Utilidades utilidades = new Utilidades();
         int opcion = -1;
-        String value="";
+        String value = null;
         do {
             System.out.println("0. Salir");
             utilidades.imprimirValoresEnum(enumerados);
             opcion = sc.nextInt();
         }while (opcion < 0 || opcion > enumerados.length);
 
-        for (T col : enumerados)
-        {
-            if(col.ordinal() == opcion){
-                value = col.toString();
+        if(opcion != 0){
+            for (T col : enumerados)
+            {
+                if(col.ordinal() == opcion){
+                    value = col.toString();
+                }
             }
+
         }
 
         return value;

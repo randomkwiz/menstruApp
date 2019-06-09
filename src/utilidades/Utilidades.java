@@ -30,25 +30,7 @@ public class Utilidades <T extends Enum<T>>{
         return fechaFormateada;
     }
 
-    /*
-     * INTERFAZ
-     * Comentario: Inicia la conexion con la bbdd con un usuario y contraseña dados
-     * Signatura: public boolean iniciarConexion(String sourceURL,String user, String pass)
-     * Precondiciones:
-     * Entradas: String sourceURL, que es la fuente, String user que es el usuario del SQL, y String pass que es la contraseña
-     * Salidas: boolean
-     * Postcondiciones: Asociado al nombre devuelve un boolean que sera true si la conexion se ha creado correctamente
-     *                   y false si ha habido algun problema
-     * */
-    public Connection iniciarConexion(String sourceURL, String user, String pass){
-        Connection c = null;
-        try{
-            c = DriverManager.getConnection(sourceURL, user, pass);
-        }catch (SQLException e){
-            e.getStackTrace();
-        }
-        return c;
-    }
+
 
     /*
     * INTERFAZ
@@ -119,5 +101,73 @@ public class Utilidades <T extends Enum<T>>{
 
 
     }
+
+    /*
+    * INTERFAZ
+    * Comentario: metodo que busca el valor del enum en la BBDD y devuelve su ID
+    * Signatura: public String obtenerIDEnum (T enumerado)
+    * Precondiciones:
+    * Entradas: enum
+    * Salidas: String
+    * Postcondiciones: si el enum no esta registrado en la BBDD se devolvera un null. Asociado al nombre se devuelve
+    *                   el ID del enum registrado en la BBDD.
+    * */
+    public String obtenerIDEnum (T enumerado){
+        String idEnum = null;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from ESTADOANIMICO\n" +
+                    "where ESTADO = ?\n" +
+                    "union\n" +
+                    "select * \n" +
+                    "from SINTOMA\n" +
+                    "where SINTOMA = ?\n" +
+                    "union\n" +
+                    "select *\n" +
+                    "from FLUJOVAGINAL\n" +
+                    "where TIPO = ?\n" +
+                    "union\n" +
+                    "select * \n" +
+                    "from SEXO\n" +
+                    "where OBSERVACION = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, enumerado.toString());
+            preparedStatement.setString(2, enumerado.toString());
+            preparedStatement.setString(3, enumerado.toString());
+            preparedStatement.setString(4, enumerado.toString());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                idEnum = resultSet.getString("ID");
+            }
+
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+        return idEnum;
+    }
+
+
 
 }
