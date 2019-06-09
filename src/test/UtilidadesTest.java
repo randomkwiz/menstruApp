@@ -1,10 +1,12 @@
 package test;
 
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import enumerado.EstadoAnimico;
 import enumerado.FlujoVaginal;
 import enumerado.Sexo;
 import enumerado.Sintoma;
+import gestion.Gestion;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
@@ -46,7 +48,14 @@ public class UtilidadesTest {
         util.imprimirValoresEnum(FlujoVaginal.values());
 
  */
-        System.out.println(util.obtenerIDEnum(EstadoAnimico.ACTIVA));
+        //System.out.println(util.obtenerIDEnum(EstadoAnimico.ACTIVA));
+
+        Gestion gestion = new Gestion();
+        UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
+        String id = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjeto(usuario, id);
+
+        util.imprimirDatosRevisionPersonal(revisionPersonal);
 
     }
 }

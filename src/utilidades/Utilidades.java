@@ -1,6 +1,9 @@
 package utilidades;
 
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
+import enumerado.EstadoAnimico;
+import gestion.Gestion;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -169,5 +172,77 @@ public class Utilidades <T extends Enum<T>>{
     }
 
 
+    /*
+    * INTERFAZ
+    * Comentario: imprime en pantalla los datos de una revision personal
+    * Signatura: public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
+    * Precondiciones:
+    * Entradas:
+    * Salidas:
+    * Postcondiciones: imprime en pantalla
+    * */
+    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision){
+        Gestion gestion = new Gestion();
+        //carga los datos
+        gestion.cargarRevisionPersonalCompleta(revision);
+
+        System.out.println("En tu revision personal de hoy tienes: ");
+        System.out.println("Estados de animo:");
+
+        if(revision.getArraylistEstadoAnimico().size() == 0){
+            System.out.println("No tienes ningún estado de ánimo registrado para el día de hoy.");
+        }else{
+            for(int i = 0; i < revision.getArraylistEstadoAnimico().size(); i ++){
+                if (i == revision.getArraylistEstadoAnimico().size() -1){
+                    System.out.println(revision.getArraylistEstadoAnimico().get(i) + ". " );
+                }else{
+                    System.out.print(revision.getArraylistEstadoAnimico().get(i) + ", " );
+                }
+            }
+        }
+
+
+
+        System.out.println("Sintomas:");
+        if(revision.getArraylistSintoma().size() == 0){
+            System.out.println("No tienes ningún síntoma registrado para el día de hoy.");
+        }else {
+            for (int i = 0; i < revision.getArraylistSintoma().size(); i++) {
+                if (i == revision.getArraylistSintoma().size() - 1) {
+                    System.out.println(revision.getArraylistSintoma().get(i) + ". ");
+                } else {
+                    System.out.print(revision.getArraylistSintoma().get(i) + ", ");
+                }
+            }
+        }
+
+
+        System.out.println("Flujo Vaginal:");
+        if(revision.getArraylistFlujoVaginal().size() == 0){
+            System.out.println("No tienes ningún tipo de flujo vaginal registrado para el día de hoy.");
+        }else {
+            for (int i = 0; i < revision.getArraylistFlujoVaginal().size(); i++) {
+                if (i == revision.getArraylistFlujoVaginal().size() - 1) {
+                    System.out.println(revision.getArraylistFlujoVaginal().get(i) + ". ");
+                } else {
+                    System.out.print(revision.getArraylistFlujoVaginal().get(i) + ", ");
+                }
+            }
+        }
+
+        System.out.println("Sexo:");
+        if(revision.getArraylistSexo().size() == 0){
+            System.out.println("No tienes ninguna observación sexual registrada para el día de hoy.");
+        }else {
+            for (int i = 0; i < revision.getArraylistSexo().size(); i++) {
+                if (i == revision.getArraylistSexo().size() - 1) {
+                    System.out.println(revision.getArraylistSexo().get(i) + ". ");
+                } else {
+                    System.out.print(revision.getArraylistSexo().get(i) + ", ");
+                }
+            }
+        }
+
+    }
 
 }

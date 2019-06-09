@@ -321,7 +321,11 @@ public class main {
                                                     break;
                                                 case 2:
                                                     //Ver revisiones personales
-                                                    System.out.println("Modulo ver revisiones personales en construccion");
+                                                    //de momento solo va a poder verse la del dia en curso
+                                                    //System.out.println("Modulo ver revisiones personales en construccion");
+
+                                                    utilidades.imprimirDatosRevisionPersonal(revisionPersonal);
+
                                                     break;
                                                 case 3:
                                                     //Buscar revision personal
