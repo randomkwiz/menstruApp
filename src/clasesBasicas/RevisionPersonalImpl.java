@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 
 public class RevisionPersonalImpl {
            UsuarioImpl usuario;
+           String ID;
            ArrayList<EstadoAnimico> arraylistEstadoAnimico;
            ArrayList<Sintoma> arraylistSintoma;
            ArrayList<Sexo> arraylistSexo;
@@ -50,6 +51,15 @@ public class RevisionPersonalImpl {
     }
 
     //getters y setters
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     public UsuarioImpl getUsuario() {
         return usuario;
     }

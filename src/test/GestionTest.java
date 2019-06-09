@@ -1,6 +1,7 @@
 package test;
 
 import clasesBasicas.CicloMenstrual;
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 import utilidades.Utilidades;
@@ -52,12 +53,68 @@ public class GestionTest {
        // System.out.println(gestion.estaEmbarazada(u));
 
         //System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
-        UsuarioImpl u2 = utilidades.toObject("abamlingf7", "123456789");
+        UsuarioImpl u2 = utilidades.toObject("aabbayrl", "123456789");
 
 
-        System.out.println(gestion.estaEmbarazada(u2));
-        gestion.eliminarCuenta(u2);
+     //   System.out.println(gestion.estaEmbarazada(u2));
+      //  gestion.eliminarCuenta(u2);
 
+
+        //System.out.println( gestion.existeRevisionPersonalDelDiaEnCurso(u2));
+
+        RevisionPersonalImpl rev = gestion.construirObjeto(u2,gestion.existeRevisionPersonalDelDiaEnCurso(u2));
+
+        System.out.println(utilidades.formatearFecha(rev.getFecha()));
+        System.out.println((rev.getID()));
+
+        /*prueba estados de animo*/
+        System.out.println();
+        System.out.println("Prueba estados de animo");
+        System.out.println(rev.getArraylistEstadoAnimico().size());
+
+        gestion.cargarEstadosDeAnimoRevisionPersonal(rev);
+        System.out.println(rev.getArraylistEstadoAnimico().size());
+
+        for(int i  = 0; i < rev.getArraylistEstadoAnimico().size(); i ++ ){
+            System.out.println(rev.getArraylistEstadoAnimico().get(i).name());
+        }
+
+        /*prueba sintomas*/
+        System.out.println();
+        System.out.println("Prueba sintomas");
+        System.out.println(rev.getArraylistSintoma().size());
+
+        gestion.cargarSintomasRevisionPersonal(rev);
+        System.out.println(rev.getArraylistSintoma().size());
+
+        for(int i  = 0; i < rev.getArraylistSintoma().size(); i ++ ){
+            System.out.println(rev.getArraylistSintoma().get(i).name());
+        }
+
+        /*prueba sexo*/
+        System.out.println();
+        System.out.println("Prueba sexo");
+        System.out.println(rev.getArraylistSexo().size());
+
+        gestion.cargarSexoRevisionPersonal(rev);
+        System.out.println(rev.getArraylistSexo().size());
+
+        for(int i  = 0; i < rev.getArraylistSexo().size(); i ++ ){
+            System.out.println(rev.getArraylistSexo().get(i).name());
+        }
+
+
+        /*prueba flujo vaginal*/
+        System.out.println();
+        System.out.println("Prueba flujo vaginal");
+        System.out.println(rev.getArraylistFlujoVaginal().size());
+
+        gestion.cargarFlujoVaginalRevisionPersonal(rev);
+        System.out.println(rev.getArraylistFlujoVaginal().size());
+
+        for(int i  = 0; i < rev.getArraylistFlujoVaginal().size(); i ++ ){
+            System.out.println(rev.getArraylistFlujoVaginal().get(i).name());
+        }
 
     }
 }

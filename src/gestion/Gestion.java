@@ -1,6 +1,10 @@
 package gestion;
 
 import clasesBasicas.*;
+import enumerado.EstadoAnimico;
+import enumerado.FlujoVaginal;
+import enumerado.Sexo;
+import enumerado.Sintoma;
 import interfaces.Usuario;
 import validaciones.Validar;
 
@@ -396,46 +400,27 @@ return nuevoUsuario;
         return exito;
     }
 
-/*
-* INTERFAZ
-* Comentario:
-* Signatura: public boolean registrarRevisionPersonalEnRevisionActual(String revision)
-* Entradas: String revision (valor del enum)
-* Salidas: boolean que sera true si se registra correctamente en la bbdd y false si no
-* Postcondiciones: asociado al nombre devuelve un boolean que sera true si se ha registrado correctamente la revision y false si no
-* */
-public boolean registrarRevisionPersonalEnRevisionActual(UsuarioImpl usuario, String  revision){
-    String idRevisionAGuardar = "";
-    RevisionPersonalImpl revisionActual = null;
 
-    if(existeRevisionPersonalDelDiaEnCurso(usuario)){
-
-    }else {
-        revisionActual = new RevisionPersonalImpl(usuario);
-    }
-
-}
 
 /*
 * Comentario: Comprobar si existe una revision personal para el dia en curso para el usuario indicado
-* Signatura: public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user)
+* Signatura: public String existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user)
 * Precondiciones:
 * Entradas: UsuarioImpl user
-* Salidas: boolean
-* Postcondiciones: asociado al nombre devuelve un boolean que sea true si existe una revision para el dia en curso asociada al usuario indicado
-*                   y false si no
+* Salidas: String
+* Postcondiciones: asociado al nombre devuelve un String que sera el ID de la revision si existe o null en caso de que no exista.
 * */
-public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
-    boolean existe = false;
+public String existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
+    String revision = null;
     try {
 
         // Define la fuente de datos para el driver
         String sourceURL = "jdbc:sqlserver://localhost";
         String usuario = "menstruApp";
         String password = "menstruApp";
-        String miSelect = "select *\n" +
+        String miSelect = "select id\n" +
                 "from REVISIONPERSONAL\n" +
-                "where FECHA = CURRENT_TIMESTAMP\n" +
+                "where FECHA = cast (CURRENT_TIMESTAMP as date)\n" +
                 "\t\tand ID_USUARIO = ?";
 
         //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
@@ -452,7 +437,7 @@ public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
 
         if (miResultado.next()){
-            existe = true;
+            revision = miResultado.getString("ID");
         }
 
 
@@ -466,11 +451,292 @@ public boolean existeRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
     catch (SQLException sqle) {
         System.err.println(sqle);
     }
-    return existe;
+    return revision;
 
 }
 
+    /*
+     *   INTERFAZ
+     * Comentario: método para instanciar un objeto RevisionPersonalImpl en java con los datos
+     *              de la BBDD de una revision personal en concreto
+     * Signatura: public RevisionPersonalImpl construirObjeto (UsuarioImpl user, String identificador)
+     * Precondiciones:
+     * Entradas: objeto UsuarioImpl que es el usuario en uso
+     * Salidas: objeto revisionpersonalimpl que es la revision personal del dia en curso
+     * Postcondiciones: asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal del dia en curso
+     * */
+    public RevisionPersonalImpl construirObjeto (UsuarioImpl user, String identificador){
+        RevisionPersonalImpl revisionPersonal = new RevisionPersonalImpl(user);
+        GregorianCalendar fecha = new GregorianCalendar();
+        try{
+        // Define la fuente de datos para el driver
+        String sourceURL = "jdbc:sqlserver://localhost";
+        String usuario = "menstruApp";
+        String password = "menstruApp";
+        String miSelect = "SELECT * \n" +
+                "FROM REVISIONPERSONAL\n" +
+                "WHERE ID = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+        // Crear una conexion con el DriverManager
+        Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+        //Preparo el prepared statement indicando que son cada ? del select
+        PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+        preparedStatement.setString(1, identificador);
+
+        // execute insert SQL stetement
+        ResultSet miResultado = preparedStatement.executeQuery();
+
+        if(miResultado.next()){
+            fecha.setTime(miResultado.getDate("FECHA"));
+            revisionPersonal.setFecha(fecha);
+            revisionPersonal.setID(miResultado.getString("ID"));
+        }
 
 
+        // Cerrar
+            miResultado.close();
+            preparedStatement.close();
+        connexionBaseDatos.close();
+
+    }
+        catch (SQLException sqle) {
+        System.err.println(sqle);
+    }
+    return revisionPersonal;
+    }
+
+
+
+    /*
+     * INTERFAZ
+     * Comentario: carga en un objeto RevisionPersonal su array de estados de animo cogiendo los datos de la BBDD
+     * Signatura: public boolean cargarEstadosDeAnimoRevisionPersonal (RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: Objeto RevisionPersonalImpl
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
+     *                   Se modifica el objeto RevisionPersonalImpl.
+     *
+     * */
+    public boolean cargarEstadosDeAnimoRevisionPersonal (RevisionPersonalImpl revision){
+        boolean exito = false;
+        EstadoAnimico estado = EstadoAnimico.NULL;
+        try{
+        // Define la fuente de datos para el driver
+        String sourceURL = "jdbc:sqlserver://localhost";
+        String usuario = "menstruApp";
+        String password = "menstruApp";
+        String miSelect = "select * \n" +
+                "from REVISIONPERSONAL_ESTADOANIMICO as re\n" +
+                "inner join ESTADOANIMICO as e\n" +
+                "on re.ID_ESTADOANIMICO = e.ID\n" +
+                "where ID_REVISIONPERSONAL = ?";
+
+        //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+        // Crear una conexion con el DriverManager
+        Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+        //Preparo el prepared statement indicando que son cada ? del select
+        PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+        preparedStatement.setString(1, revision.getID());
+
+        // execute insert SQL stetement
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+            revision.addEstadoAnimico(estado.valueOf(resultSet.getString("ESTADO")));
+        }
+        exito = true;
+
+
+        // Cerrar
+            resultSet.close();
+        preparedStatement.close();
+        connexionBaseDatos.close();
+
+    }
+        catch (SQLException sqle) {
+        System.err.println(sqle);
+    }
+
+        return exito;
+
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: carga en un objeto RevisionPersonal su array de Sintomas cogiendo los datos de la BBDD
+     * Signatura: public boolean cargarSintomasRevisionPersonal (RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: Objeto RevisionPersonalImpl
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
+     *                   Se modifica el objeto RevisionPersonalImpl.
+     *
+     * */
+    public boolean cargarSintomasRevisionPersonal (RevisionPersonalImpl revision){
+        boolean exito = false;
+        Sintoma estado = Sintoma.NULL;
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * \n" +
+                    "from REVISIONPERSONAL_SINTOMA as rs\n" +
+                    "inner join SINTOMA as s\n" +
+                    "on rs.ID_SINTOMA = s.ID\n" +
+                    "where ID_REVISIONPERSONAL = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getID());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revision.addSintoma(estado.valueOf(resultSet.getString("SINTOMA")));
+            }
+            exito = true;
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+        return exito;
+
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: carga en un objeto RevisionPersonal su array de Sexo cogiendo los datos de la BBDD
+     * Signatura: public boolean cargarSexoRevisionPersonal (RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: Objeto RevisionPersonalImpl
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
+     *                   Se modifica el objeto RevisionPersonalImpl.
+     *
+     * */
+
+    public boolean cargarSexoRevisionPersonal (RevisionPersonalImpl revision){
+        boolean exito = false;
+        Sexo estado = Sexo.NULL;
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * \n" +
+                    "from REVISIONPERSONAL_SEXO as rsx\n" +
+                    "inner join SEXO as sx\n" +
+                    "on rsx.ID_SEXO = sx.ID\n" +
+                    "where ID_REVISIONPERSONAL = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getID());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revision.addSexo(estado.valueOf(resultSet.getString("OBSERVACION")));
+            }
+            exito = true;
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+        return exito;
+
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: carga en un objeto RevisionPersonal su array de FlujoVaginal cogiendo los datos de la BBDD
+     * Signatura: public boolean cargarFlujoVaginalRevisionPersonal (RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: Objeto RevisionPersonalImpl
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
+     *                   Se modifica el objeto RevisionPersonalImpl.
+     *
+     * */
+    public boolean cargarFlujoVaginalRevisionPersonal (RevisionPersonalImpl revision){
+        boolean exito = false;
+        FlujoVaginal estado = FlujoVaginal.NULL;
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * \n" +
+                    "from REVISIONPERSONAL_FLUJOVAGINAL as rf\n" +
+                    "inner join FLUJOVAGINAL as f\n" +
+                    "on rf.ID_FLUJOVAGINAL = f.ID\n" +
+                    "where ID_REVISIONPERSONAL = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getID());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revision.addFlujoVaginal(estado.valueOf(resultSet.getString("TIPO")));
+            }
+            exito = true;
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+        return exito;
+
+    }
 
 }
