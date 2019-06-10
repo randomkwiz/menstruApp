@@ -59,3 +59,17 @@ values('randomkwiz', '20190503','20190506')
 select *
 from CICLOMENSTRUAL
 where ID_USUARIO = 'randomkwiz'
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20190707',null)
+
+insert into EMBARAZO (ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values ('randomkwiz', '20290608', null)
+
+select * from EMBARAZO
+
+
+
+delete 
+from EMBARAZO
+where ID = '7FDEA065-8A3E-4CF6-809C-5C409D28AC07'

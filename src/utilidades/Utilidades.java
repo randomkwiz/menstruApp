@@ -66,8 +66,12 @@ public class Utilidades <T extends Enum<T>>{
             ResultSet miResultado = preparedStatement.executeQuery();
 
             if(miResultado.next()){
-                GregorianCalendar gc = new GregorianCalendar();
-                gc.setTime(miResultado.getDate("FECHANACIMIENTO"));
+                GregorianCalendar gc = null;
+                if(miResultado.getDate("FECHANACIMIENTO") != null){
+                    gc = new GregorianCalendar();
+                    gc.setTime(miResultado.getDate("FECHANACIMIENTO"));
+                }
+
                 user.setNombre(miResultado.getString("NOMBRE"));
                 //System.out.println(miResultado.getString("NOMBRE"));
                 //System.out.println("ENTRA");

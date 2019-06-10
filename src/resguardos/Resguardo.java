@@ -1,5 +1,6 @@
 package resguardos;
 
+import clasesBasicas.Ciclo;
 import clasesBasicas.CicloMenstrual;
 import clasesBasicas.UsuarioImpl;
 
@@ -147,6 +148,17 @@ public class Resguardo {
 
     /*
     * INTERFAZ
-    * Comentario: Metodo para saber si existe un ciclo (menstrual o embarazo) en curso en la fecha actual.
+    * Comentario: Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente.
+    * Signatura public Ciclo obtenerCicloActual (UsuarioImpl user)
+    * Precondiciones:
+    * Entradas: UsuarioImpl user, usuario del que se desea comprobar el ciclo actual.
+    * Salidas: Ciclo
+    * Postcondiciones: Asociado al nombre devolverá un Ciclo que será el Ciclo en curso en el día actual para el usuario
+    *                   pasado por parametro. De no existir o haber algun problema,
+    *                   devolverá null.
+    *
     * */
+    public Ciclo obtenerCicloActual (UsuarioImpl user){
+        return null;
+    }
 }
