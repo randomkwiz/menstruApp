@@ -24,27 +24,23 @@ PSEUDOCODIGO
 * inicio
 * repetir
 *   preguntarLogInOrSignUp
-*   segun respuesta
-*       caso log in
-*           pedirValidarInicioSesion
-*           repetir
+*   si respuesta no es salir
+*    segun respuesta
+*        caso 1: crear cuenta
+*        caso 2: iniciar sesion
+*            repetir
 *               mostrarMenuPedirValidarOpcion
-*                   si (opcion no es salir)
-*                       segun(opcion)
-                            caso 1: Cuenta
-                            caso 2: Revision Personal
-                            caso 3: Ciclo
-                            caso 4: Revision Medica (solo si la usuaria esta embarazada)
+*                   si opcion no es salir
+*                       segun opcion
+*                           caso 1: cuenta
+*                           caso 2: revision personal
+*                           caso 3: ciclo
+*                           caso 4: revision medica (solo para embarazadas)
 *                       finSegun
 *                   finSi
-*           mientras(opcion no sea salir)
-*       caso registrarse
-*           pedirValidarDatosUsuario
-*               si (opcion no es salir)
-*                   pedirValidarDatos
-*                   solicitarAltaCliente
-*               finSi
-*   finSegun
+*            mientras opcion no sea salir
+*    finSegun
+*    finSi
 * mientras(opcion no sea salir)
 * fin
  */
@@ -72,8 +68,7 @@ PSEUDOCODIGO
  *           caso 1: Registrar revision personal
  *           caso 2: Ver revisiones personales
  *           caso 3: Buscar revision personal
- *           caso 4: Modificar revision personal
- *           caso 5: Eliminar revision personal
+ *           caso 4: Eliminar revision personal
  *       finSegun
  *   finSi
  * mientras opcion no sea salir
@@ -88,8 +83,7 @@ PSEUDOCODIGO
  *           caso 1: Registrar ciclo (menstruacion o embarazo)
  *           caso 2: Ver datos del ciclo actual
  *           caso 3: Marcar fin del ciclo actual
- *           caso 4: Modificar ciclo actual
- *           caso 5: Eliminar ciclo
+ *           caso 4: Eliminar ciclo
  *       finSegun
  *   finSi
  * mientras opcion no sea salir
