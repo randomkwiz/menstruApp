@@ -1,5 +1,8 @@
 package resguardos;
 
+import clasesBasicas.CicloMenstrual;
+import clasesBasicas.UsuarioImpl;
+
 public class Resguardo {
 
     /*
@@ -124,4 +127,26 @@ public class Resguardo {
      *                   si la revision no existe lanzara excepcion nullpointer
      * si se intenta insertar un valor repetido saltara excepcion de SQL Server
      * */
+
+
+    /*
+    * INTERFAZ
+    * Comentario: Metodo para insertar un ciclo menstrual en la BBDD.
+    * Signatura: public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru)
+    * Precondiciones:
+    * Entradas: UsuarioImpl user y CicloMenstrual menstru
+    * Salidas: boolean
+    * Postcondiciones: asociado al nombre se devuelve un boolean
+    *                   -true si la insercion se realizo correctamente
+    *                   -false si hubo algun problema
+    * */
+    public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru){
+
+        return false;
+    }
+
+    /*
+    * INTERFAZ
+    * Comentario: Metodo para saber si existe un ciclo (menstrual o embarazo) en curso en la fecha actual.
+    * */
 }

@@ -8,6 +8,8 @@ where nick = 'randomkwiz'
 SELECT NICK FROM USUARIO 
 WHERE NICK = 'randomkwiz' 
 
+insert into USUARIO (NICK, PASS)
+values('randomkwiz', PWDENCRYPT('123456789'))
 
 select  *
 from EMBARAZO
@@ -19,5 +21,41 @@ values('randomkwiz', CURRENT_TIMESTAMP)
 
 insert into EMBARAZO(ID_USUARIO, FECHAINICIO)
 values('randomkwiz', CURRENT_TIMESTAMP)
+
 insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
 values('randomkwiz', '20190504','20190508')
+
+delete
+from CICLOMENSTRUAL
+where ID = '9202B5FC-4C22-46BC-B848-90D5D02B5FCC'
+
+select * from
+CICLOMENSTRUAL
+where ID_USUARIO = 'randomkwiz'
+
+select * from
+EMBARAZO
+where ID_USUARIO = 'randomkwiz'
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20090406','20090408')
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20090403','20090406')
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20090407','20090411')
+
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20090403','20090413')
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20090303','20090306')
+
+insert into CICLOMENSTRUAL(ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values('randomkwiz', '20190503','20190506')
+
+select *
+from CICLOMENSTRUAL
+where ID_USUARIO = 'randomkwiz'
