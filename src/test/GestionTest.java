@@ -36,10 +36,10 @@ public class GestionTest {
 
     */
 
-        Utilidades utilidades = new Utilidades();
+  /*      Utilidades utilidades = new Utilidades();
         UsuarioImpl u = utilidades.toObject("randomkwiz", "123456789");
         ArrayList<CicloMenstrual> arrayList =gestion.obtenerListaCiclosMenstruales(u);
-
+*/
        // System.out.println(arrayList.size());
 /*
         for(int i = 0; i < arrayList.size(); i ++){
@@ -51,7 +51,7 @@ public class GestionTest {
        // System.out.println(gestion.estaEmbarazada(u));
 
         //System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
-        UsuarioImpl u2 = utilidades.toObject("aabbayrl", "123456789");
+   //     UsuarioImpl u2 = utilidades.toObject("aabbayrl", "123456789");
 
 
      //   System.out.println(gestion.estaEmbarazada(u2));
@@ -60,12 +60,15 @@ public class GestionTest {
 
         //System.out.println( gestion.existeRevisionPersonalDelDiaEnCurso(u2));
 
-        RevisionPersonalImpl rev = gestion.construirObjeto(u2,gestion.obtenerIDRevisionPersonalDelDiaEnCurso(u2));
+ /*      RevisionPersonalImpl rev = gestion.construirObjeto(u2,gestion.obtenerIDRevisionPersonalDelDiaEnCurso(u2));
 
         System.out.println(utilidades.formatearFecha(rev.getFecha()));
         System.out.println((rev.getID()));
 
+
+  */
         /*prueba estados de animo*/
+/*
         System.out.println();
         System.out.println("Prueba estados de animo");
         System.out.println(rev.getArraylistEstadoAnimico().size());
@@ -77,7 +80,10 @@ public class GestionTest {
             System.out.println(rev.getArraylistEstadoAnimico().get(i).name());
         }
 
+
+ */
         /*prueba sintomas*/
+        /*
         System.out.println();
         System.out.println("Prueba sintomas");
         System.out.println(rev.getArraylistSintoma().size());
@@ -89,7 +95,9 @@ public class GestionTest {
             System.out.println(rev.getArraylistSintoma().get(i).name());
         }
 
-        /*prueba sexo*/
+         */
+
+        /*prueba sexo
         System.out.println();
         System.out.println("Prueba sexo");
         System.out.println(rev.getArraylistSexo().size());
@@ -102,7 +110,9 @@ public class GestionTest {
         }
 
 
-        /*prueba flujo vaginal*/
+         */
+
+        /*prueba flujo vaginal
         System.out.println();
         System.out.println("Prueba flujo vaginal");
         System.out.println(rev.getArraylistFlujoVaginal().size());
@@ -115,6 +125,8 @@ public class GestionTest {
         }
 
 
+         */
+
 
         /*prueba insertar estado de animo*/
 /*
@@ -124,8 +136,10 @@ public class GestionTest {
 
  */
 
-        UsuarioImpl usuario = new UsuarioImpl("aabramowitzgg", "123456789");
+        UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
         System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
+
+        gestion.obtenerCicloActual(usuario);
 
     }
 }

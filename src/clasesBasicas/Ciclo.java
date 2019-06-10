@@ -25,6 +25,24 @@ public abstract class Ciclo {
     private GregorianCalendar fechaInicio;
     private GregorianCalendar fechaFinReal;
 
+    public Ciclo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
+        this.usuario = usuario;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinReal = fechaFinReal;
+    }
+
+    public Ciclo() {
+        this.usuario = null;
+       this.fechaInicio = null;
+       this.fechaFinReal = null;
+
+    }
+
+    public Ciclo(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
+        this.usuario = usuario;
+        this.fechaInicio = fechaInicio;
+    }
+
     //Getters y setters
 
 

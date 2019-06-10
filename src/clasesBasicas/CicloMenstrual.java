@@ -28,22 +28,16 @@ import java.util.GregorianCalendar;
 public class CicloMenstrual extends Ciclo {
 
       //Constructores
-    public CicloMenstrual() {
-        super.setUsuario(null);
-        super.setFechaInicio(null);
-        super.setFechaFinReal(null);
+      public CicloMenstrual() {
+          super();
+      }
+
+    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal){
+        super(usuario, fechaInicio, fechaFinReal);
     }
 
-    public CicloMenstrual(UsuarioImpl usuario,GregorianCalendar fechaInicio) {
-
-        super.setUsuario(usuario);
-        super.setFechaInicio(fechaInicio);
-    }
-
-    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
-       super.setUsuario(usuario);
-        super.setFechaInicio(fechaInicio);
-       super.setFechaFinReal(fechaFinReal);
+    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio){
+        super(usuario, fechaInicio);
     }
 
 

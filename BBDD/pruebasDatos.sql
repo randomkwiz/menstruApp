@@ -73,3 +73,26 @@ select * from EMBARAZO
 delete 
 from EMBARAZO
 where ID = '7FDEA065-8A3E-4CF6-809C-5C409D28AC07'
+
+
+select *
+from CICLOMENSTRUAL as M
+where 
+(
+M.ID_USUARIO = 'randomkwiz'
+and
+M.FECHAFIN_REAL is null
+)
+union
+select *
+from EMBARAZO as E
+where 
+(
+E.ID_USUARIO = 'randomkwiz'
+and
+E.FECHAFIN_REAL is null
+)
+
+
+
+

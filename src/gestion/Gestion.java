@@ -1105,4 +1105,86 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
         return  estadoFinal;
     }
 
+    /*
+     * INTERFAZ
+     * Comentario: Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente.
+     * Signatura public Ciclo obtenerCicloActual (UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: UsuarioImpl user, usuario del que se desea comprobar el ciclo actual.
+     * Salidas: Ciclo
+     * Postcondiciones: Asociado al nombre devolverá un Ciclo que será el Ciclo en curso en el día actual para el usuario
+     *                   pasado por parametro. De no existir o haber algun problema,
+     *                   devolverá null.
+     *
+     * */
+    public Ciclo obtenerCicloActual (UsuarioImpl user){
+        Ciclo cicloEnCurso = null;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select ID, 'CICLOMENSTRUAL' as TABLAORIGEN ,ID_USUARIO, FECHAINICIO, FECHAFIN_REAL\n" +
+                    "from CICLOMENSTRUAL as M\n" +
+                    "where \n" +
+                    "(\n" +
+                    "M.ID_USUARIO = ?\n" +
+                    "and\n" +
+                    "M.FECHAFIN_REAL is null\n" +
+                    ")\n" +
+                    "union\n" +
+                    "select ID, 'EMBARAZO' as TABLAORIGEN ,ID_USUARIO, FECHAINICIO, FECHAFIN_REAL\n" +
+                    "from EMBARAZO as E\n" +
+                    "where \n" +
+                    "(\n" +
+                    "E.ID_USUARIO = ?\n" +
+                    "and\n" +
+                    "E.FECHAFIN_REAL is null\n" +
+                    ")";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick());
+            preparedStatement.setString(2, user.getNick());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                //todo recoger los valores y saber si es un embarazo o un ciclo menstrual
+
+                if(resultSet.getString("TABLAORIGEN").equals("EMBARAZO")){
+                    //System.out.println("Es un embarazo");
+                    cicloEnCurso = new CicloEmbarazo()
+
+
+                }else if(resultSet.getString("TABLAORIGEN").equals("CICLOMENSTRUAL")){
+                    //System.out.println("Es un ciclo menstrual");
+
+
+                }
+            }
+
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return null;
+    }
+
+
 }

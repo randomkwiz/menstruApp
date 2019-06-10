@@ -26,14 +26,20 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class CicloEmbarazo extends Ciclo {
-    GregorianCalendar fechaInicio;
-    GregorianCalendar fechaFinReal;
 
     //Constructores
     public CicloEmbarazo() {
-        super.setFechaInicio(null);
-        super.setFechaFinReal(null);
+        super();
     }
+
+    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal){
+        super(usuario, fechaInicio, fechaFinReal);
+    }
+
+    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio){
+        super(usuario, fechaInicio);
+    }
+
 
     public CicloEmbarazo(GregorianCalendar fechaInicio) {
         super.setFechaInicio(fechaInicio);
