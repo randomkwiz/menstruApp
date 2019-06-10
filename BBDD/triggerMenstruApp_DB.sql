@@ -294,3 +294,62 @@ END
 
 /*TODO: trigger para que la fecha de fin insertada
 no sea nunca menor a la fecha de inicio*/
+/*
+BUGASO: 
+En el programa, cuando insertas un periodo de una fecha anterior, como 
+ese ciclo se queda sin fecha de fin, lo detecta como el ciclo actual
+En realidad no es un problema como tal porque hasta que no cierras ese 
+ciclo no te deja abrir uno nuevo.
+Si en lugar de llamarlo "ciclo actual" fuera
+"ultimo ciclo sin cierre" estaria correcto
+
+
+OTRO BUGASO:
+No debe permitir ingresar ciclos en una fecha anterior
+a la fecha de nacimiento del usuario
+(deberia permitir a partir de los 8 años)
+*/
+
+
+
+
+ALTER
+--CREATE
+TRIGGER noCiclosAntesDeNacer 
+ON CICLOMENSTRUAL
+AFTER INSERT AS
+BEGIN
+	IF EXISTS ( 
+	select ID, FECHANACIMIENTO 
+	from USUARIO  as U
+	inner join inserted as I
+	on U.NICK = I.ID_USUARIO
+	where 
+	I.FECHAINICIO < U.FECHANACIMIENTO
+	)
+	BEGIN
+		RAISERROR('No puedes insertar un ciclo antes de haber nacido',16,1)
+		ROLLBACK
+	END
+END
+
+
+ALTER
+--CREATE
+TRIGGER noEmbarazosAntesDeNacer 
+ON EMBARAZO
+AFTER INSERT AS
+BEGIN
+	IF EXISTS ( 
+	select ID, FECHANACIMIENTO 
+	from USUARIO  as U
+	inner join inserted as I
+	on U.NICK = I.ID_USUARIO
+	where 
+	I.FECHAINICIO < U.FECHANACIMIENTO
+	)
+	BEGIN
+		RAISERROR('No puedes insertar un embarazo antes de haber nacido',16,1)
+		ROLLBACK
+	END
+END

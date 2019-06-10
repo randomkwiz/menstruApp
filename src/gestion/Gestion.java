@@ -916,7 +916,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return exito;
 
@@ -970,7 +971,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return exito;
     }
@@ -1020,7 +1022,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return exito;
     }
@@ -1070,7 +1073,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return exito;
     }
@@ -1190,7 +1194,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return cicloEnCurso;
     }
@@ -1253,7 +1258,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
         }
         return exito;
     }
@@ -1319,7 +1325,14 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         }
         catch (SQLException sqle) {
-            System.err.println(sqle);
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
+/*
+            System.out.println("Esto es el getMessage: "+ sqle.getMessage());
+            System.out.println("Esto es el getLocalizedMessage: "+ sqle.getLocalizedMessage()); //ambos dan el mismo string
+
+ */
+
         }
         return exito;
     }

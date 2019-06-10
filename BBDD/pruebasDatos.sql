@@ -98,7 +98,9 @@ E.FECHAFIN_REAL is null
 
 select *
 from CICLOMENSTRUAL
-WHERE ID_USUARIO = 'randomkwiz'
+WHERE ID_USUARIO = 'Ivan'
+
+select * from USUARIO
 
 select * from EMBARAZO
 

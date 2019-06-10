@@ -348,7 +348,7 @@ public class main {
                                     break;
                                 case 3:
                                     //Ciclo
-                                    System.out.println("Modulo Ciclo del menu principal en construccion");
+                                    //System.out.println("Modulo Ciclo del menu principal en construccion");
                                     do{
                                         opcionCiclo = validar.subMenuCiclo();
                                         if(opcionCiclo != 0){
@@ -368,7 +368,7 @@ public class main {
                                                                 break;
                                                             case 2:
                                                                 //Embarazo
-                                                                cicloActual = new CicloMenstrual(usuarioLogado, fechaInicioCicloActual);
+                                                                cicloActual = new CicloEmbarazo(usuarioLogado, fechaInicioCicloActual);
                                                                 break;
 
                                                         }
