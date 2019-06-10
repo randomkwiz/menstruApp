@@ -359,7 +359,7 @@ public class main {
                                                     int opcionReglaOEmbarazo;
                                                     opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
 
-                                                    if (cicloActual == null){
+                                                    if (cicloActual == null && opcionReglaOEmbarazo != 0){
                                                         fechaInicioCicloActual = validar.pedirFechaInicioFinCiclo();
                                                         switch (opcionReglaOEmbarazo){
                                                             case 1:
@@ -374,7 +374,7 @@ public class main {
                                                         }
                                                         gestion.insertarCiclo(cicloActual);
 
-                                                    }else{
+                                                    }else if (cicloActual != null ){
                                                         System.out.println("Ya existe un ciclo en curso.");
                                                     }
 
