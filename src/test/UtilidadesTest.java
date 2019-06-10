@@ -10,6 +10,7 @@ import gestion.Gestion;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class UtilidadesTest {
@@ -54,8 +55,13 @@ public class UtilidadesTest {
         UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
         String id = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario);
         RevisionPersonalImpl revisionPersonal = gestion.construirObjeto(usuario, id);
+        ArrayList<RevisionPersonalImpl> lista = gestion.buscarRevisionPersonalPorFecha(usuario, 2019);
 
-        util.imprimirDatosRevisionPersonal(revisionPersonal);
+
+
+        for(int i = 0; i < lista.size(); i ++){
+            util.imprimirDatosRevisionPersonal(lista.get(i));
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 package validaciones;
 
 import clasesBasicas.UsuarioImpl;
+import gestion.Gestion;
 import utilidades.Utilidades;
 
 import java.io.Console;
@@ -509,7 +510,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do {
-            System.out.println("¿Que te gustaria añadir a tu diario de hoy?");
+            System.out.println("Opciones:");
             System.out.println("0. Salir");
             System.out.println("1. Estado animico");
             System.out.println("2. Flujo vaginal");
@@ -607,7 +608,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
     int opcion = -1;
 
     do{
-        System.out.println("¿Qué deseas registrar?");
+        System.out.println("Elige");
         System.out.println("0. Salir");
         System.out.println("1. Menstruacion");
         System.out.println("2. Embarazo");
@@ -615,6 +616,181 @@ public int pedirValidarMenuReglaOEmbarazo(){
     }while (opcion <0 || opcion > 2);
     return opcion;
 }
+
+
+    /*INTERFAZ
+     * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario y devolver el Id del elegido
+     * Signatura public String pedirValidarCiclosMenstrualesDeUsuario(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: Imprime en pantalla y devuelve asociado al nombre el ID del ciclo elegido por el usuario
+     *                  o null si no desea eliminar ninguno.
+     * */
+    public String pedirValidarCiclosMenstrualesDeUsuario(UsuarioImpl user){
+        Gestion gestion = new Gestion();
+        Utilidades util = new Utilidades();
+        Scanner sc = new Scanner(System.in);
+       int opcion = -1;
+        String idCiclo = null;
+        do{
+            System.out.println("Ciclos menstruales");
+            System.out.println("0. Salir");
+            if(gestion.obtenerListaCiclosMenstruales(user).size() == 0){
+                System.out.println("No existen ciclos menstruales registrados para este usuario");
+            }else{
+                for(int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++){
+                    System.out.println("Ciclo: "+(i+1) );
+                    System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()) );
+                    System.out.print("Fecha fin: ");
+                    if(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null ){
+                        System.out.println("Sin fecha de fin establecida");
+                    }else{
+                        GregorianCalendar fecha = gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal();
+                        System.out.println(util.formatearFecha(fecha));
+                    }
+
+                }
+            }
+            opcion = sc.nextInt();
+        }while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
+
+        if(opcion > 0){
+            idCiclo = gestion.obtenerListaCiclosMenstruales(user).get(opcion-1).getID();
+        }
+
+        return idCiclo;
+    }
+
+
+    /*INTERFAZ
+     * Comentario: metodo para listar en pantalla todos los embarazos que haya tenido un usuario y devolver el Id del elegido
+     * Signatura public String pedirValidarEmbarazosDeUsuario(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: Imprime en pantalla y devuelve asociado al nombre el ID del ciclo elegido por el usuario
+     * o null si no desea eliminar ninguno.
+     * */
+    public String pedirValidarEmbarazosDeUsuario(UsuarioImpl user){
+        Gestion gestion = new Gestion();
+        Utilidades util = new Utilidades();
+        Scanner sc = new Scanner(System.in);
+        int opcion = -1;
+        String idCiclo = null;
+        do{
+            System.out.println("Embarazos");
+            System.out.println("0. Salir");
+
+            if(gestion.obtenerListaEmbarazos(user).size() == 0){
+                System.out.println("No existen embarazos registrados para este usuario");
+            }else{
+                for(int i = 0; i < gestion.obtenerListaEmbarazos(user).size(); i++){
+                    System.out.println("Embarazo: "+(i+1) );
+                    System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaEmbarazos(user).get(i).getFechaInicio()) );
+                    System.out.print("Fecha fin: ");
+                    if(gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal() == null ){
+                        System.out.println("Sin fecha de fin establecida");
+                    }else{
+                        GregorianCalendar fecha = gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal();
+                        System.out.println(util.formatearFecha(fecha));
+                    }
+
+                }
+            }
+
+            opcion = sc.nextInt();
+
+        }while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
+        if(opcion != 0){
+            idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion-1).getID();
+        }
+
+        return idCiclo;
+    }
+
+    /*
+    * INTERFAZ
+    * Comentario: metodo que pide y valida si el usuario desea buscar revisiones personales por fecha, o por estado individual.
+    * Signatura: public int pedirValidarSiBuscarPorFechaOEstadoEnum()
+    * Precondiciones:
+    * Entradas:
+    * Salidas:
+    * Postcondiciones: asociado al nombre devuelve un entero que sera 0 si el usuario no desea ninguna de las opciones, 1 si el usuario desea buscar por fecha
+    *                   y 2 si el usuario desea buscar por enum.
+    * */
+    public int pedirValidarSiBuscarPorFechaOEstadoEnum(){
+        Scanner sc = new Scanner(System.in);
+        int opcion = 0;
+        do{
+            System.out.println("0. Salir");
+            System.out.println("1. Buscar por fecha");
+            System.out.println("2. Buscar por registro");
+            opcion = sc.nextInt();
+        }while (opcion < 0 || opcion > 2);
+
+        return opcion;
+    }
+
+    /*
+     * INTERFAZ
+     * Signatura: public int anyo()
+     * Comentario: pide y valida un año
+     * Precondiciones:
+     * Entradas:
+     * Salidas: int
+     * Postcondiciones: asociado al nombre se devuelve un año
+     * */
+    public int anyo(){
+        Scanner sc = new Scanner(System.in);
+        int anyo_buscado = 1582;
+        do {
+            System.out.println("Introduce el año de la/s revision/es a buscar: ");
+            anyo_buscado = sc.nextInt();
+        }while(anyo_buscado < 1582);
+
+        return anyo_buscado;
+    }
+
+    /*
+     * INTERFAZ
+     * Signatura: public int mes()
+     * Comentario: pide y valida un mes. El mes 0 significa que el usuario no desea tener en cuenta el mes en la busqueda.
+     * Precondiciones:
+     * Entradas:
+     * Salidas: int
+     * Postcondiciones: asociado al nombre se devuelve un mes
+     * */
+    public int mes(){
+        Scanner sc = new Scanner(System.in);
+        int mes_buscado ;
+        do {
+            System.out.println("Introduce el mes de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el mes: ");
+            mes_buscado = sc.nextInt();
+        }while(mes_buscado < 0 || mes_buscado > 12);
+
+        return mes_buscado;
+    }
+
+    /*
+     * INTERFAZ
+     * Signatura: public int dia()
+     * Comentario: pide y valida un dia. El dia 0 significa que el usuario no desea tener en cuenta el dia en la busqueda.
+     * Precondiciones:
+     * Entradas:
+     * Salidas: int
+     * Postcondiciones: asociado al nombre se devuelve un dia
+     * */
+    public int dia(){
+        Scanner sc = new Scanner(System.in);
+        int dia_buscado ;
+        do {
+            System.out.println("Introduce el dia de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el dia: ");
+            dia_buscado = sc.nextInt();
+        }while(dia_buscado < 0 || dia_buscado > 31);
+
+        return dia_buscado;
+    }
 
 
 }

@@ -209,6 +209,7 @@ return nuevoUsuario;
 
                 menstruacion.setFechaFinReal(fechaFin);
                 menstruacion.setUsuario(user);
+                menstruacion.setID(miResultado.getString("ID"));
 
                 arrayList.add(menstruacion);
             }
@@ -225,6 +226,74 @@ return nuevoUsuario;
 
         return arrayList;
     }
+
+    /*
+     * INTERFAZ
+     * Comentario: Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los ciclos menstruales del usuario
+     * Signatura: public ArrayList<CicloMenstrual> obtenerListaCiclosMenstruales(UsuarioImpl usuario)
+     * Precondiciones:
+     * Entradas: UsuarioImpl usuario
+     * Salidas: arraylist de objetos CicloMenstrual
+     * Postcondiciones: asociado al nombre se devuelve un arraylist de objetos ciclo menstrual del usuario
+     * */
+    public ArrayList<CicloEmbarazo> obtenerListaEmbarazos(UsuarioImpl user){
+        ArrayList<CicloEmbarazo> arrayList = new ArrayList<>();
+        CicloEmbarazo embarazo = null;
+        GregorianCalendar fechaInicio = null;
+        GregorianCalendar fechaFin = null;
+        try{
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select  *\n" +
+                    "from EMBARAZO\n" +
+                    "where ID_USUARIO = ?";
+
+            //Crear conexion
+            Connection conexionBD = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el statement
+            PreparedStatement preparedStatement = conexionBD.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick());
+            //Ejecuto
+            ResultSet miResultado = preparedStatement.executeQuery();
+
+            while(miResultado.next()){
+                embarazo = new CicloEmbarazo();
+                fechaInicio = new GregorianCalendar();
+                fechaFin = new GregorianCalendar();
+
+                fechaInicio.setTime(miResultado.getDate("FECHAINICIO"));
+                embarazo.setFechaInicio(fechaInicio);
+                if(miResultado.getDate("FECHAFIN_REAL") != null) {
+                    fechaFin.setTime(miResultado.getDate("FECHAFIN_REAL"));
+                }else{
+                    fechaFin = null;
+                }
+
+                embarazo.setFechaFinReal(fechaFin);
+                embarazo.setUsuario(user);
+                embarazo.setID(miResultado.getString("ID"));
+
+                arrayList.add(embarazo);
+            }
+
+            //Cerrar
+            miResultado.close();
+            preparedStatement.close();
+            conexionBD.close();
+
+        }catch (SQLException e){
+            System.err.println(e);
+        }
+
+
+        return arrayList;
+    }
+
+
+
 
     /*
     * INTERFAZ
@@ -1336,5 +1405,414 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
         }
         return exito;
     }
+
+
+    /*
+    * INTERFAZ
+    * Comentario: metodo para borrar un ciclo de un usuario de la BBDD
+    * Signatura: public boolean eliminarCicloBBDD(UsuarioImpl user, String IDCiclo)
+    * Precondiciones:
+    * Entradas:
+    * Salidas:
+    * Postcondiciones: asociado al nombre se devolvera un boolean que indicara si el borrado se realizo correctamente.
+    *
+    * */
+    public boolean eliminarCicloBBDD(UsuarioImpl user, String IDCiclo){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "delete from\n" +
+                    "CICLOMENSTRUAL\n" +
+                    "where ID_USUARIO = ?\n" +
+                    "and ID = ?\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "delete from\n" +
+                    "EMBARAZO\n" +
+                    "where ID_USUARIO = ?\n" +
+                    "and ID = ?";
+
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+
+
+            preparedStatement.setString(1,user.getNick() );
+            preparedStatement.setString(2, IDCiclo);
+            preparedStatement.setString(3,user.getNick() );
+            preparedStatement.setString(4, IDCiclo);
+
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            exito = true;
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            //System.err.println(sqle);
+            System.out.println(sqle.getMessage());
+        }
+
+        return exito;
+    }
+
+
+    /*inicio METODOS BUSCAR*/
+
+    /*
+     * INTERFAZ
+     * Signatura: public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo)
+     * Comentario: busca las revisiones que ha hecho un usuario en la fecha dada
+     * Precondiciones:
+     * Entrada: usuario y entero año
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist
+     * */
+
+    public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo){
+        ArrayList<RevisionPersonalImpl> revisionPersonalLista = new ArrayList<RevisionPersonalImpl>();
+        RevisionPersonalImpl revisionPersonal = null;
+        GregorianCalendar fecha;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from\n" +
+                    "REVISIONPERSONAL\n" +
+                    "where YEAR(FECHA) = ?\n" +
+                    "and ID_USUARIO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setString(2, user.getNick());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revisionPersonal = new RevisionPersonalImpl(user);
+                fecha = new GregorianCalendar();
+                fecha.setTime(resultSet.getDate("FECHA"));
+                revisionPersonal.setID(resultSet.getString("ID"));
+                revisionPersonal.setFecha(fecha);
+
+                revisionPersonalLista.add(revisionPersonal);
+
+            }
+
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionPersonalLista;
+    }
+
+    /*
+     * INTERFAZ - METODO SOBRECARGADO
+     * Signatura: public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo, int mes)
+     * Comentario: busca las revisiones que ha hecho un usuario en la fecha dada
+     * Precondiciones:
+     * Entrada: usuario y entero año y un entero mes
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist
+     * */
+
+    public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo, int mes){
+        ArrayList<RevisionPersonalImpl> revisionPersonalLista = new ArrayList<RevisionPersonalImpl>();
+        RevisionPersonalImpl revisionPersonal = null;
+        GregorianCalendar fecha;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from\n" +
+                    "REVISIONPERSONAL\n" +
+                    "where YEAR(FECHA) = ?\n" +
+                    "and MONTH(FECHA) = ?\n" +
+                    "and ID_USUARIO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setInt(2, mes);
+            preparedStatement.setString(3, user.getNick());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revisionPersonal = new RevisionPersonalImpl(user);
+                fecha = new GregorianCalendar();
+                fecha.setTime(resultSet.getDate("FECHA"));
+                revisionPersonal.setID(resultSet.getString("ID"));
+                revisionPersonal.setFecha(fecha);
+
+                revisionPersonalLista.add(revisionPersonal);
+
+            }
+
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionPersonalLista;
+    }
+
+    /*
+     * INTERFAZ - METODO SOBRECARGADO
+     * Signatura: public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo, int mes, int dia)
+     * Comentario: busca las revisiones que ha hecho un usuario en la fecha dada
+     * Precondiciones:
+     * Entrada: usuario y entero año y un entero mes
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist
+     * */
+
+    public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFecha(UsuarioImpl user, int anyo, int mes, int dia){
+        ArrayList<RevisionPersonalImpl> revisionPersonalLista = new ArrayList<RevisionPersonalImpl>();
+        RevisionPersonalImpl revisionPersonal = null;
+        GregorianCalendar fecha;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from\n" +
+                    "REVISIONPERSONAL\n" +
+                    "where YEAR(FECHA) = ?\n" +
+                    "and MONTH(FECHA) = ?\n" +
+                    "and DAY(FECHA) = ? \n" +
+                    "and ID_USUARIO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setInt(2, mes);
+            preparedStatement.setInt(3, dia);
+            preparedStatement.setString(4, user.getNick());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revisionPersonal = new RevisionPersonalImpl(user);
+                fecha = new GregorianCalendar();
+                fecha.setTime(resultSet.getDate("FECHA"));
+                revisionPersonal.setID(resultSet.getString("ID"));
+                revisionPersonal.setFecha(fecha);
+
+                revisionPersonalLista.add(revisionPersonal);
+
+            }
+
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionPersonalLista;
+    }
+
+
+ /*
+ * Comentario: Metodo para buscar revisiones por el registro (Sintoma, Sexo, Flujo vaginal, Estado de animo) de un usuario concreto
+ * Signatura: public Arraylist<RevisionPersonalImpl> buscarRevisionPersonalPorRegistro(UsuarioImpl user, String registro)
+ * Precondiciones:
+ * Entradas:
+ * Salidas: lista de revisiones
+ * Postcondiciones: asociado al nombre devuelve un arraylist con las revisiones encontradas que cumplan con el criterio de busqueda
+ * */
+
+    public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorRegistro(UsuarioImpl user, String registro){
+        ArrayList<RevisionPersonalImpl> revisionPersonalLista = new ArrayList<RevisionPersonalImpl>();
+        RevisionPersonalImpl revisionPersonal = null;
+        GregorianCalendar fecha;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "\n" +
+                    "SELECT R.ID_USUARIO, RE.ID_REVISIONPERSONAL, RE.ID_ESTADOANIMICO, E.ESTADO,R.FECHA, R.ID\n" +
+                    "FROM ESTADOANIMICO AS E\n" +
+                    "INNER JOIN REVISIONPERSONAL_ESTADOANIMICO AS RE\n" +
+                    "ON RE.ID_ESTADOANIMICO = E.ID\n" +
+                    "INNER JOIN REVISIONPERSONAL AS R\n" +
+                    "ON R.ID = RE.ID_REVISIONPERSONAL\n" +
+                    "WHERE\n" +
+                    "\tR.ID_USUARIO = ?\n" +
+                    "\tand\n" +
+                    "\te.ESTADO = ?\n" +
+                    "\n" +
+                    "union\n" +
+                    "\n" +
+                    "SELECT R.ID_USUARIO, RE.ID_REVISIONPERSONAL, RE.ID_FLUJOVAGINAL, E.TIPO,R.FECHA, R.ID\n" +
+                    "FROM FLUJOVAGINAL AS E\n" +
+                    "INNER JOIN REVISIONPERSONAL_FLUJOVAGINAL AS RE\n" +
+                    "ON RE.ID_FLUJOVAGINAL = E.ID\n" +
+                    "INNER JOIN REVISIONPERSONAL AS R\n" +
+                    "ON R.ID = RE.ID_REVISIONPERSONAL\n" +
+                    "WHERE\n" +
+                    "\tR.ID_USUARIO = ?\n" +
+                    "\tand\n" +
+                    "\te.TIPO = ?\n" +
+                    "\n" +
+                    "\t\n" +
+                    "union\n" +
+                    "\n" +
+                    "SELECT R.ID_USUARIO, RE.ID_REVISIONPERSONAL, RE.ID_SEXO, E.OBSERVACION,R.FECHA, R.ID\n" +
+                    "FROM SEXO AS E\n" +
+                    "INNER JOIN REVISIONPERSONAL_SEXO AS RE\n" +
+                    "ON RE.ID_SEXO = E.ID\n" +
+                    "INNER JOIN REVISIONPERSONAL AS R\n" +
+                    "ON R.ID = RE.ID_REVISIONPERSONAL\n" +
+                    "WHERE\n" +
+                    "\tR.ID_USUARIO = ?\n" +
+                    "\tand\n" +
+                    "\te.OBSERVACION = ?\n" +
+                    "\n" +
+                    "\t\n" +
+                    "union\n" +
+                    "\n" +
+                    "SELECT R.ID_USUARIO, RE.ID_REVISIONPERSONAL, RE.ID_REVISIONPERSONAL, E.SINTOMA, R.FECHA, R.ID\n" +
+                    "FROM SINTOMA AS E\n" +
+                    "INNER JOIN REVISIONPERSONAL_FLUJOVAGINAL AS RE\n" +
+                    "ON RE.ID_FLUJOVAGINAL = E.ID\n" +
+                    "INNER JOIN REVISIONPERSONAL AS R\n" +
+                    "ON R.ID = RE.ID_REVISIONPERSONAL\n" +
+                    "WHERE\n" +
+                    "\tR.ID_USUARIO = ?\n" +
+                    "\tand\n" +
+                    "\te.SINTOMA = ?\n" +
+                    "\n" +
+                    "\n" +
+                    "\n";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick());
+            preparedStatement.setString(2, registro);
+            preparedStatement.setString(3, user.getNick());
+            preparedStatement.setString(4, registro);
+            preparedStatement.setString(5, user.getNick());
+            preparedStatement.setString(6, registro);
+            preparedStatement.setString(7, user.getNick());
+            preparedStatement.setString(8, registro);
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                revisionPersonal = new RevisionPersonalImpl(user);
+                fecha = new GregorianCalendar();
+                fecha.setTime(resultSet.getDate("FECHA"));
+                revisionPersonal.setID(resultSet.getString("ID"));
+                revisionPersonal.setFecha(fecha);
+
+                revisionPersonalLista.add(revisionPersonal);
+
+            }
+
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionPersonalLista;
+    }
+
+
 
 }

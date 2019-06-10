@@ -105,6 +105,7 @@ public class Utilidades <T extends Enum<T>>{
         for(int i = 1; i < enumerado.length; i ++){
             System.out.println(i +". "+enumerado[i]);
         }
+        System.out.println("-------------------------------------------------------------------------------");
 
 
     }
@@ -190,7 +191,7 @@ public class Utilidades <T extends Enum<T>>{
         //carga los datos
         gestion.cargarRevisionPersonalCompleta(revision);
 
-        System.out.println("En tu revision personal de hoy tienes: ");
+        System.out.println("Revision personal del dia : "+ formatearFecha(revision.getFecha()));
         System.out.println("Estados de animo:");
 
         if(revision.getArraylistEstadoAnimico().size() == 0){
@@ -246,7 +247,25 @@ public class Utilidades <T extends Enum<T>>{
                 }
             }
         }
+        System.out.println("-------------------------------------------------------------------------------");
 
+    }
+
+
+    /*
+     * INTERFAZ
+     * Comentario: imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
+     * Signatura: public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: imprime en pantalla
+     * */
+    public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones){
+
+        for(int i = 0; i < revisiones.size(); i ++){
+            imprimirDatosRevisionPersonal(revisiones.get(i));
+        }
     }
 
 }

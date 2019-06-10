@@ -63,6 +63,7 @@ public class UsuarioImpl implements Usuario {
     private GregorianCalendar fechaNacimiento;
 
 
+
     //Constructores
 
     //sin parametros
@@ -73,6 +74,7 @@ public class UsuarioImpl implements Usuario {
         this.peso = 0.0;
         this.fechaNacimiento = null;
 
+
     }
 
     //con todos los parametros
@@ -82,6 +84,7 @@ public class UsuarioImpl implements Usuario {
         this.password = password;
         this.peso = peso;
         this.fechaNacimiento = fechaNacimiento;
+
     }
 
     //con menos parametros

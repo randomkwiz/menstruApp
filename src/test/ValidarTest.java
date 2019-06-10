@@ -1,5 +1,7 @@
 package test;
 
+import clasesBasicas.UsuarioImpl;
+import gestion.Gestion;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
@@ -57,8 +59,17 @@ public class ValidarTest {
  */
 
         Utilidades util = new Utilidades();
+        UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
+        Gestion gestion = new Gestion();
+        String prueba  = validar.pedirValidarCiclosMenstrualesDeUsuario(usuario);
+        System.out.println(prueba);
 
-        System.out.println(util.formatearFecha(validar.pedirFechaInicioFinCiclo()));
+        gestion.eliminarCicloBBDD(usuario,prueba);
+
+
+
+
+      //  System.out.println(util.formatearFecha(validar.pedirFechaInicioFinCiclo()));
 
     }
 }
