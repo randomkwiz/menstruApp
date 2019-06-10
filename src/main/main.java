@@ -412,11 +412,8 @@ public class main {
 
                                                     }while (opcionBuscarRevisionPersonal != 0);
                                                     break;
+
                                                 case 4:
-                                                    //Modificar revision personal
-                                                    System.out.println("Modulo modificar revision personal en construccion");
-                                                    break;
-                                                case 5:
                                                     //Eliminar revision personal
                                                     System.out.println("Modulo eliminar revision personal en construccion");
                                                     break;
@@ -495,11 +492,8 @@ public class main {
                                                     }
 
                                                     break;
+
                                                 case 4:
-                                                    //Modificar ciclo actual
-                                                    System.out.println("Modulo modificar ciclo actual en construccion");
-                                                    break;
-                                                case 5:
                                                     //Eliminar ciclo
                                                     //System.out.println("Modulo eliminar ciclo en construccion");
                                                     do{

@@ -79,10 +79,9 @@ public class Validar <T extends Enum<T>>{
             System.out.println("1. Registrar revision personal");
             System.out.println("2. Ver revisiones personales ");
             System.out.println("3. Buscar revision personal");
-            System.out.println("4. Modificar revision personal");
-            System.out.println("5. Eliminar revision personal");
+            System.out.println("4. Eliminar revision personal");
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 5);
+        }while (opcion < 0 || opcion > 4);
         return opcion;
     }
 
@@ -99,10 +98,9 @@ public class Validar <T extends Enum<T>>{
         System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
         System.out.println("2. Ver datos del ciclo actual ");
         System.out.println("3. Marcar fin del ciclo actual");
-        System.out.println("4. Modificar ciclo actual");
-        System.out.println("5. Eliminar ciclo");
+        System.out.println("4. Eliminar ciclo");
         opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 5);
+        }while (opcion < 0 || opcion > 4);
         return opcion;
     }
 
