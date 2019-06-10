@@ -36,7 +36,8 @@ public class Gestion {
         nombre = validar.nombreUsuario();
         pass = validar.establecerPassword();
         peso = validar.pesoUsuario();
-        fechaCumple = validar.fechaCumple();
+        System.out.println("Introduce tu fecha de nacimiento: ");
+        fechaCumple = validar.validarFecha();
 
         nuevoUsuario = new UsuarioImpl(nombre,nick, pass, peso, fechaCumple);
 
@@ -285,6 +286,7 @@ return nuevoUsuario;
      * Salidas: objeto CicloEmbarazo
      * Postcondiciones: asociado al nombre se devuelve un objeto embarazo o null si no hay ninguno embarazo en curso
      * */
+
     public CicloEmbarazo obtenerEmbarazoEnCurso(UsuarioImpl user){
         CicloEmbarazo embarazo = new CicloEmbarazo();
         GregorianCalendar fechaInicio = new GregorianCalendar();
@@ -1119,6 +1121,8 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
      * */
     public Ciclo obtenerCicloActual (UsuarioImpl user){
         Ciclo cicloEnCurso = null;
+        GregorianCalendar fechaInicio = new GregorianCalendar();
+        GregorianCalendar fechaFinReal = new GregorianCalendar();
         try {
 
             // Define la fuente de datos para el driver
@@ -1158,20 +1162,25 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                //todo recoger los valores y saber si es un embarazo o un ciclo menstrual
+                fechaInicio.setTime(resultSet.getDate("FECHAINICIO"));
 
+                if(resultSet.getDate("FECHAFIN_REAL") != null){
+                    fechaFinReal.setTime(resultSet.getDate("FECHAFIN_REAL"));
+                }else{
+                    fechaFinReal = null;
+                }
                 if(resultSet.getString("TABLAORIGEN").equals("EMBARAZO")){
                     //System.out.println("Es un embarazo");
-                    cicloEnCurso = new CicloEmbarazo()
-
+                    cicloEnCurso = new CicloEmbarazo(user, fechaInicio, fechaFinReal);
+                    cicloEnCurso.setID(resultSet.getString("ID"));
 
                 }else if(resultSet.getString("TABLAORIGEN").equals("CICLOMENSTRUAL")){
                     //System.out.println("Es un ciclo menstrual");
-
+                    cicloEnCurso = new CicloMenstrual(user, fechaInicio, fechaFinReal);
+                    cicloEnCurso.setID(resultSet.getString("ID"));
 
                 }
             }
-
 
 
             // Cerrar
@@ -1183,8 +1192,136 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
         catch (SQLException sqle) {
             System.err.println(sqle);
         }
-        return null;
+        return cicloEnCurso;
     }
 
+    /*
+     * INTERFAZ
+     * Comentario: metodo para insertar la fecha de fin de un ciclo en la BBDD
+     * Signatura: public boolean insertarFechaFinCiclo(Ciclo ciclo, UsuarioImpl user)
+     * Precondiciones: El ciclo pasado por parametro debe no tener fecha de fin establecida
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: asociado al nombre se devuelve un boolean que indica si la inserccion se realizo correctamente
+     *                   o no.
+     * */
+    public boolean actualizarFechaFinCiclo(Ciclo ciclo, GregorianCalendar fechaFinCiclo){
+        boolean exito = false;
+        Ciclo cicloEnCurso = null;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelectMenstrual = "UPDATE CICLOMENSTRUAL\n" +
+                    "SET FECHAFIN_REAL = ?\n" +
+                    "WHERE ID = ?;";
+
+            String miSelectEmbarazo = "UPDATE EMBARAZO\n" +
+                    "SET FECHAFIN_REAL = ?\n" +
+                    "WHERE ID = ?;";
+
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+
+            PreparedStatement preparedStatement;
+            if(ciclo instanceof CicloMenstrual){
+             preparedStatement  = connexionBaseDatos.prepareStatement(miSelectMenstrual);
+            }else if(ciclo instanceof CicloEmbarazo){
+             preparedStatement = connexionBaseDatos.prepareStatement(miSelectEmbarazo);
+            }else {
+                preparedStatement = null;
+            }
+
+            preparedStatement.setDate(1, new java.sql.Date(fechaFinCiclo.getTimeInMillis()));
+            preparedStatement.setString(2, ciclo.getID());
+
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            exito = true;
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
+
+    /*
+     * INTERFAZ
+     * Comentario: metodo para insertar un ciclo en la BBDD
+     * Signatura: public boolean insertarCiclo(Ciclo ciclo)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: asociado al nombre se devuelve un boolean que indica si la inserccion se realizo correctamente
+     *                   o no.
+     * */
+    public boolean insertarCiclo(Ciclo ciclo){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelectMenstrual = "insert into CICLOMENSTRUAL (ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)\n" +
+                    "values (?,?,?)";
+
+            String miSelectEmbarazo = "insert into EMBARAZO (ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)\n" +
+                    "values (?,?,?)";
+
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+
+            PreparedStatement preparedStatement;
+            if(ciclo instanceof CicloMenstrual){
+                preparedStatement  = connexionBaseDatos.prepareStatement(miSelectMenstrual);
+            }else if(ciclo instanceof CicloEmbarazo){
+                preparedStatement = connexionBaseDatos.prepareStatement(miSelectEmbarazo);
+            }else {
+                preparedStatement = null;
+            }
+
+            preparedStatement.setString(1, ciclo.getUsuario().getNick());
+            preparedStatement.setDate(2, new java.sql.Date(ciclo.getFechaInicio().getTimeInMillis()));
+            if(ciclo.getFechaFinReal() != null){
+                preparedStatement.setDate(3, new java.sql.Date(ciclo.getFechaFinReal().getTimeInMillis()));
+            } else{
+                preparedStatement.setDate(3,null);
+            }
+
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            exito = true;
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
 
 }

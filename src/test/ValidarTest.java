@@ -1,19 +1,18 @@
 package test;
 
-import enumerado.EstadoAnimico;
-import enumerado.FlujoVaginal;
-import enumerado.Sexo;
-import enumerado.Sintoma;
+import utilidades.Utilidades;
 import validaciones.Validar;
+
+import java.util.Calendar;
 
 public class ValidarTest {
     public static void main(String[] args) {
         Validar validar = new Validar();
-
+/*
         System.out.println("angela: "+validar.isRegistrado("angela"));
         System.out.println("pepita: "+validar.isRegistrado("pepita"));
         System.out.println("PEPITA: "+validar.isRegistrado("PEPITA"));
-
+*/
         //validar.nuevoNickUsuario();
         //validar.establecerPassword();
 
@@ -37,7 +36,7 @@ public class ValidarTest {
        /* System.out.println(validar.combinacionInicioSesion("randomkwiz", "12345"));
         System.out.println(validar.combinacionInicioSesion("randomkwiz", "123456789"));
         */
-
+/*
        String prueba  = validar.pedirValidarOpcionEnum(Sexo.values());
         System.out.println(prueba);
 
@@ -45,6 +44,8 @@ public class ValidarTest {
             System.out.println("Prueba  == null funciona");
         }
 
+
+ */
 /*
          prueba  = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
         System.out.println(prueba);
@@ -53,7 +54,11 @@ public class ValidarTest {
         System.out.println(prueba);
          prueba  = validar.pedirValidarOpcionEnum(Sintoma.values());
         System.out.println(prueba);
-
  */
+
+        Utilidades util = new Utilidades();
+
+        System.out.println(util.formatearFecha(validar.pedirFechaInicioFinCiclo()));
+
     }
 }

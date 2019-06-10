@@ -75,7 +75,7 @@ from EMBARAZO
 where ID = '7FDEA065-8A3E-4CF6-809C-5C409D28AC07'
 
 
-select *
+select ID, 'CICLOMENSTRUAL' as TABLAORIGEN ,ID_USUARIO, FECHAINICIO, FECHAFIN_REAL
 from CICLOMENSTRUAL as M
 where 
 (
@@ -84,7 +84,7 @@ and
 M.FECHAFIN_REAL is null
 )
 union
-select *
+select ID, 'EMBARAZO' as TABLAORIGEN ,ID_USUARIO, FECHAINICIO, FECHAFIN_REAL
 from EMBARAZO as E
 where 
 (
@@ -96,3 +96,19 @@ E.FECHAFIN_REAL is null
 
 
 
+select *
+from CICLOMENSTRUAL
+WHERE ID_USUARIO = 'randomkwiz'
+
+select * from EMBARAZO
+
+delete 
+from 
+USUARIO
+where nick = 'randomkwiz'
+
+insert into CICLOMENSTRUAL
+
+
+insert into CICLOMENSTRUAL (ID_USUARIO, FECHAINICIO, FECHAFIN_REAL)
+values (?,?,?)

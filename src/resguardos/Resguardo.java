@@ -161,4 +161,21 @@ public class Resguardo {
     public Ciclo obtenerCicloActual (UsuarioImpl user){
         return null;
     }
+
+    /*
+     * INTERFAZ
+     * Comentario: metodo para insertar la fecha de fin de un ciclo en la BBDD
+     * Signatura: public boolean insertarFechaFinCiclo(Ciclo ciclo, UsuarioImpl user)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: asociado al nombre se devuelve un boolean que indica si la inserccion se realizo correctamente
+     *                   o no.
+     * */
+    public boolean insertarFechaFinCiclo(Ciclo ciclo, UsuarioImpl user){
+
+        return false;
+    }
 }
+
+

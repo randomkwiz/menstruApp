@@ -1,11 +1,11 @@
 package validaciones;
 
 import clasesBasicas.UsuarioImpl;
-import interfaces.Usuario;
 import utilidades.Utilidades;
 
 import java.io.Console;
 import java.sql.*;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -326,7 +326,7 @@ public class Validar <T extends Enum<T>>{
     public boolean fechaEsValida (int dia, int mes, int anno){
         boolean fechaValida=false;
 
-        if (dia>= 1 && dia<=31 && (mes >= 1 || mes <= 12) && anno >= 1582 ){
+        if (dia>= 1 && dia<=31 && (mes >= 1 || mes <= 12) && anno >= 1582){
 
             /* Meses con 31: 1,3,5,7,8,10,12
              * Meses con 30: 4,6,9,11
@@ -364,10 +364,12 @@ public class Validar <T extends Enum<T>>{
 
     }
 
+
+
     /*
     * INTERFAZ
-    * Comentario: pide y valida una fecha de cumpleaños. Devuelve un objeto GregorianCalendar
-    * Signatura: public GregorianCalendar fechaCumple()
+    * Comentario: pide y valida una fecha. Devuelve un objeto GregorianCalendar
+    * Signatura: public GregorianCalendar validarFecha()
     * Precondiciones:
     * Entradas:
     * Salidas: objeto gregorianCalendar
@@ -376,27 +378,30 @@ public class Validar <T extends Enum<T>>{
     *                   a que si el usuario introduce el 31 de junio, Gregorian Calendar automaticamente entenderia
     *                   el 1 de julio. Para evitar esto, valido la entrada del usuario previamente y ya no podria introducir
     *                   el 31 de junio.
+    *                   Tambien valida que la fecha introducida no sea superior a la actual.
     * */
-    public GregorianCalendar fechaCumple(){
+    public GregorianCalendar validarFecha(){
         Scanner sc = new Scanner(System.in);
         GregorianCalendar fechaCumple = new GregorianCalendar();
+        GregorianCalendar fechaHoy = new GregorianCalendar();
         int dia;
         int mes;
         int anyo;
         do{
-            System.out.println("Introduce tu fecha de nacimiento: ");
-            System.out.print("Dia: ");
-            dia = sc.nextInt();
-            System.out.print("Mes: ");
-            mes = sc.nextInt();
-            System.out.print("Año: ");
-            anyo = sc.nextInt();
-        }while (!fechaEsValida(dia, mes, anyo));
+            do{
 
-        fechaCumple.set(GregorianCalendar.YEAR, anyo);
-        fechaCumple.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
-        fechaCumple.set(GregorianCalendar.DATE, dia);
+                System.out.print("Dia: ");
+                dia = sc.nextInt();
+                System.out.print("Mes: ");
+                mes = sc.nextInt();
+                System.out.print("Año: ");
+                anyo = sc.nextInt();
+            }while (!fechaEsValida(dia, mes, anyo));
 
+            fechaCumple.set(GregorianCalendar.YEAR, anyo);
+            fechaCumple.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
+            fechaCumple.set(GregorianCalendar.DATE, dia);
+        }while (fechaCumple.after(fechaHoy));
 
     return fechaCumple;
     }
@@ -550,6 +555,66 @@ public class Validar <T extends Enum<T>>{
         return value;
     }
 
+/*
+* INTERFAZ
+* Signatura: public GregorianCalendar pedirFechaInicioCiclo()
+* Comentario: pide y valida una fecha, o devuelve la fecha actual si el usuario no desea establecer otra fecha.
+* Precondiciones:
+* Entradas:
+* Salidas: fecha GregorianCalendar
+* Postcondiciones: Asociado al nombre devuelve una fecha valida o devuelve la fecha actual si el usuario no desea establecer otra fecha.
+* */
+public GregorianCalendar pedirFechaInicioFinCiclo(){
+    GregorianCalendar fecha = new GregorianCalendar();
+    GregorianCalendar hoy = new GregorianCalendar();
+    Scanner sc = new Scanner(System.in);
+    int opcion = -1;
+    int dia, mes, anyo;
+    do{
+        do{
+            System.out.println("Introduce 0 en los tres campos para establecer la fecha por defecto (actual)");
+            System.out.print("Dia: ");
+            dia = sc.nextInt();
+            System.out.print("Mes: ");
+            mes = sc.nextInt();
+            System.out.print("Año: ");
+            anyo = sc.nextInt();
+
+        }while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
+
+        if(dia != 0 && mes != 0 && anyo != 0){
+            fecha.set(GregorianCalendar.YEAR, anyo);
+            fecha.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
+            fecha.set(GregorianCalendar.DATE, dia);
+        }
+    }while (fecha.after(hoy));
+
+    return fecha;
+
+}
+
+/*
+* INTERFAZ
+* Comentario: Elegir si el usuario desea registrar el inicio de un ciclo menstrual o de un embarazo
+* Signatura: public int pedirValidarMenuReglaOEmbarazo()
+* Precondiciones:
+* Entradas:
+* Salidas: entero
+* Postcondiciones: Asociado al nombre se devolvera 1 para regla, 2 para embarazo o 0 para ninguno
+* */
+public int pedirValidarMenuReglaOEmbarazo(){
+    Scanner sc = new Scanner(System.in);
+    int opcion = -1;
+
+    do{
+        System.out.println("¿Qué deseas registrar?");
+        System.out.println("0. Salir");
+        System.out.println("1. Menstruacion");
+        System.out.println("2. Embarazo");
+        opcion = sc.nextInt();
+    }while (opcion <0 || opcion > 2);
+    return opcion;
+}
 
 
 }

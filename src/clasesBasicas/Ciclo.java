@@ -22,6 +22,7 @@ package clasesBasicas;
 import java.util.GregorianCalendar;
 public abstract class Ciclo {
     private UsuarioImpl usuario;
+    private String ID;
     private GregorianCalendar fechaInicio;
     private GregorianCalendar fechaFinReal;
 
@@ -45,6 +46,14 @@ public abstract class Ciclo {
 
     //Getters y setters
 
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public UsuarioImpl getUsuario() {
         return usuario;
