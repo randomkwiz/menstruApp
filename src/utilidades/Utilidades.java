@@ -269,4 +269,67 @@ public class Utilidades <T extends Enum<T>>{
         }
     }
 
+
+
+    /*INTERFAZ
+     * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario
+     * Signatura public void imprimirCiclos(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: Imprime en pantalla
+     * */
+    public void imprimirCiclos(UsuarioImpl user){
+        Gestion gestion = new Gestion();
+        Utilidades util = new Utilidades();
+
+        if(gestion.obtenerListaCiclosMenstruales(user).size() == 0){
+            System.out.println("No existen ciclos menstruales registrados para este usuario");
+        }else{
+            for(int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++){
+                System.out.println("Menstruacion: "+(i+1) );
+                System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()) );
+                System.out.print("Fecha fin: ");
+                if(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null ){
+                    System.out.println("Sin fecha de fin establecida");
+                }else{
+                    GregorianCalendar fecha = gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal();
+                    System.out.println(util.formatearFecha(fecha));
+                }
+
+            }
+        }
+
+    }
+
+    /*INTERFAZ
+     * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario
+     * Signatura public void imprimirEmbarazos(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: Imprime en pantalla
+     * */
+    public void imprimirEmbarazos(UsuarioImpl user){
+        Gestion gestion = new Gestion();
+
+        if(gestion.obtenerListaEmbarazos(user).size() == 0){
+            System.out.println("No existen embarazos registrados para este usuario");
+        }else{
+            for(int i = 0; i < gestion.obtenerListaEmbarazos(user).size(); i++){
+                System.out.println("Embarazo: "+(i+1) );
+                System.out.println("Fecha inicio: " +formatearFecha(gestion.obtenerListaEmbarazos(user).get(i).getFechaInicio()) );
+                System.out.print("Fecha fin: ");
+                if(gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal() == null ){
+                    System.out.println("Sin fecha de fin establecida");
+                }else{
+                    GregorianCalendar fecha = gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal();
+                    System.out.println(formatearFecha(fecha));
+                }
+
+            }
+        }
+    }
+
+
 }

@@ -178,9 +178,10 @@ return nuevoUsuario;
             String sourceURL = "jdbc:sqlserver://localhost";
             String usuario = "menstruApp";
             String password = "menstruApp";
-            String miSelect = "select  *\n" +
+            String miSelect = "select ID, ID_USUARIO, FECHAINICIO, FECHAFIN_REAL\n" +
                     "from CICLOMENSTRUAL\n" +
-                    "where ID_USUARIO = ?";
+                    "where ID_USUARIO = ?\n" +
+                    "order by FECHAINICIO asc";
 
             //Crear conexion
             Connection conexionBD = DriverManager.getConnection(sourceURL, usuario, password);
@@ -243,9 +244,10 @@ return nuevoUsuario;
             String sourceURL = "jdbc:sqlserver://localhost";
             String usuario = "menstruApp";
             String password = "menstruApp";
-            String miSelect = "select  *\n" +
+            String miSelect = "select ID, ID_USUARIO, FECHAINICIO, FECHAFIN_REAL\n" +
                     "from EMBARAZO\n" +
-                    "where ID_USUARIO = ?";
+                    "where ID_USUARIO = ?\n" +
+                    "order by FECHAINICIO asc";
 
             //Crear conexion
             Connection conexionBD = DriverManager.getConnection(sourceURL, usuario, password);

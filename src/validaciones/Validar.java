@@ -101,8 +101,9 @@ public class Validar <T extends Enum<T>>{
         System.out.println("2. Ver datos del ciclo actual ");
         System.out.println("3. Marcar fin del ciclo actual");
         System.out.println("4. Eliminar ciclo");
+        System.out.println("5. Ver ciclos anteriores");
         opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 4);
+        }while (opcion < 0 || opcion > 5);
         return opcion;
     }
 
@@ -663,22 +664,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
         do{
             System.out.println("Ciclos menstruales");
             System.out.println("0. Volver atras");
-            if(gestion.obtenerListaCiclosMenstruales(user).size() == 0){
-                System.out.println("No existen ciclos menstruales registrados para este usuario");
-            }else{
-                for(int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++){
-                    System.out.println("Ciclo: "+(i+1) );
-                    System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()) );
-                    System.out.print("Fecha fin: ");
-                    if(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null ){
-                        System.out.println("Sin fecha de fin establecida");
-                    }else{
-                        GregorianCalendar fecha = gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal();
-                        System.out.println(util.formatearFecha(fecha));
-                    }
-
-                }
-            }
+            util.imprimirCiclos(user);
             opcion = sc.nextInt();
         }while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
 
@@ -688,6 +674,8 @@ public int pedirValidarMenuReglaOEmbarazo(){
 
         return idCiclo;
     }
+
+
 
 
     /*INTERFAZ
@@ -708,26 +696,8 @@ public int pedirValidarMenuReglaOEmbarazo(){
         do{
             System.out.println("Embarazos");
             System.out.println("0. Volver atras");
-
-            if(gestion.obtenerListaEmbarazos(user).size() == 0){
-                System.out.println("No existen embarazos registrados para este usuario");
-            }else{
-                for(int i = 0; i < gestion.obtenerListaEmbarazos(user).size(); i++){
-                    System.out.println("Embarazo: "+(i+1) );
-                    System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaEmbarazos(user).get(i).getFechaInicio()) );
-                    System.out.print("Fecha fin: ");
-                    if(gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal() == null ){
-                        System.out.println("Sin fecha de fin establecida");
-                    }else{
-                        GregorianCalendar fecha = gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal();
-                        System.out.println(util.formatearFecha(fecha));
-                    }
-
-                }
-            }
-
+            util.imprimirEmbarazos(user);
             opcion = sc.nextInt();
-
         }while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
         if(opcion != 0){
             idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion-1).getID();

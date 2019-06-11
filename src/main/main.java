@@ -495,10 +495,30 @@ public class main {
                                                             }
                                                             if(IDCicloABorrar != null){
                                                                 gestion.eliminarCicloBBDD(usuarioLogado, IDCicloABorrar);
+                                                                System.out.println("Ciclo eliminado");
                                                             }
                                                         }
                                                     }while (opcionReglaOEmbarazo != 0);
                                                     break;
+                                                case 5:
+                                                    //ver ciclos anteriores
+                                                    do{
+                                                        opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
+                                                        if(opcionReglaOEmbarazo != 0){
+                                                            switch (opcionReglaOEmbarazo){
+                                                                case 1:
+                                                                    utilidades.imprimirCiclos(usuarioLogado);
+                                                                    break;
+                                                                case 2:
+                                                                    utilidades.imprimirEmbarazos(usuarioLogado);
+                                                                    break;
+                                                            }
+                                                        }
+                                                    }while (opcionReglaOEmbarazo != 0);
+
+
+                                                    break;
+
                                             }
                                         }
                                     }while (opcionCiclo != 0);
