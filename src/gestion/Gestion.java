@@ -1,11 +1,7 @@
 package gestion;
 
 import clasesBasicas.*;
-import enumerado.EstadoAnimico;
-import enumerado.FlujoVaginal;
-import enumerado.Sexo;
-import enumerado.Sintoma;
-import sun.usagetracker.UsageTrackerClient;
+import enumerado.*;
 import utilidades.Utilidades;
 import validaciones.Validar;
 

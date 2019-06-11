@@ -31,6 +31,7 @@ package clasesBasicas;
 import java.util.GregorianCalendar;
 
 public class MedicamentoImpl {
+    private String ID;
     private String nombre;
     private boolean isRecetado;
     private GregorianCalendar fechaInicio;
@@ -55,6 +56,15 @@ public class MedicamentoImpl {
     }
 
 //getters y setters
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     public String getNombre() {
         return nombre;
     }

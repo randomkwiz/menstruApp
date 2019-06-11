@@ -27,6 +27,7 @@ import java.util.GregorianCalendar;
 
 public class RevisionMedicaImpl implements RevisionMedica {
     CicloEmbarazo embarazo;
+    String ID;
     private double peso;
     private double cintura;
     private double cadera;
@@ -60,6 +61,13 @@ public class RevisionMedicaImpl implements RevisionMedica {
     public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio){embarazo.setFechaInicio(fechaInicio);};
     public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal){embarazo.setFechaFinReal(fechaFinReal);};
 
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public double getPeso() {
         return peso;
