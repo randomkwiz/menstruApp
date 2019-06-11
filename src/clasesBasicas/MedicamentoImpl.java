@@ -105,9 +105,9 @@ public class MedicamentoImpl {
         this.cantidad = cantidad;
     }
 
-    public boolean isTratamientoFinalizado(){
+    public boolean isTratamientoFinalizado() {
         boolean finalized = false;
-        if (getFechaFin() != null){
+        if (getFechaFin() != null) {
             finalized = true;
         }
         return finalized;

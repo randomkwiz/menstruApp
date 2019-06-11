@@ -2,52 +2,48 @@ package utilidades;
 
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
-import enumerado.EstadoAnimico;
 import gestion.Gestion;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
-public class Utilidades <T extends Enum<T>>{
+public class Utilidades<T extends Enum<T>> {
     /*
-    * INTERFAZ
-    * Comentario: dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
-    *              de forma "dd/MM/yyyy"
-    * Signatura: public String formatearFecha (GregorianCalendar fecha)
-    * Precondiciones:
-    * Entradas: objeto de tipo GregorianCalendar
-    * Salidas: String con la fecha formateada
-    * Postcondiciones: Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
-    *                   o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
-    * */
-    public String formatearFecha (GregorianCalendar fecha){
+     * INTERFAZ
+     * Comentario: dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
+     *              de forma "dd/MM/yyyy"
+     * Signatura: public String formatearFecha (GregorianCalendar fecha)
+     * Precondiciones:
+     * Entradas: objeto de tipo GregorianCalendar
+     * Salidas: String con la fecha formateada
+     * Postcondiciones: Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
+     *                   o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
+     * */
+    public String formatearFecha(GregorianCalendar fecha) {
         String fechaFormateada = " ";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if(fecha != null){
+        if (fecha != null) {
             fechaFormateada = sdf.format(fecha.getTime());
         }
         return fechaFormateada;
     }
 
 
-
     /*
-    * INTERFAZ
-    * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
-    * Signatura: public UsuarioImpl toObject(String nick, String pass)
-    * Precondiciones:
-    * Entradas: String nick, String pass
-    * Salidas: objeto UsuarioImpl
-    * Postcondiciones: Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
-    *                   combinacion es erronea devuelve null.
-    * */
-    public UsuarioImpl toObject(String nick, String pass){
+     * INTERFAZ
+     * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
+     * Signatura: public UsuarioImpl toObject(String nick, String pass)
+     * Precondiciones:
+     * Entradas: String nick, String pass
+     * Salidas: objeto UsuarioImpl
+     * Postcondiciones: Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
+     *                   combinacion es erronea devuelve null.
+     * */
+    public UsuarioImpl toObject(String nick, String pass) {
         UsuarioImpl user = new UsuarioImpl();
-        try{
+        try {
             // Define la fuente de datos para el driver
             String sourceURL = "jdbc:sqlserver://localhost";
             String usuario = "menstruApp";
@@ -65,9 +61,9 @@ public class Utilidades <T extends Enum<T>>{
             //Ejecuto
             ResultSet miResultado = preparedStatement.executeQuery();
 
-            if(miResultado.next()){
+            if (miResultado.next()) {
                 GregorianCalendar gc = null;
-                if(miResultado.getDate("FECHANACIMIENTO") != null){
+                if (miResultado.getDate("FECHANACIMIENTO") != null) {
                     gc = new GregorianCalendar();
                     gc.setTime(miResultado.getDate("FECHANACIMIENTO"));
                 }
@@ -86,10 +82,10 @@ public class Utilidades <T extends Enum<T>>{
             preparedStatement.close();
             conexionBD.close();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
         }
-        return  user;
+        return user;
     }
 
     /*
@@ -100,10 +96,10 @@ public class Utilidades <T extends Enum<T>>{
      * Salidas:
      * Postcondiciones: en pantalla imprimira los valores del enum recibido por parametros
      * */
-    public void imprimirValoresEnum(T[] enumerado){
+    public void imprimirValoresEnum(T[] enumerado) {
 
-        for(int i = 1; i < enumerado.length; i ++){
-            System.out.println(i +". "+enumerado[i]);
+        for (int i = 1; i < enumerado.length; i++) {
+            System.out.println(i + ". " + enumerado[i]);
         }
         System.out.println("-------------------------------------------------------------------------------");
 
@@ -111,16 +107,16 @@ public class Utilidades <T extends Enum<T>>{
     }
 
     /*
-    * INTERFAZ
-    * Comentario: metodo que busca el valor del enum en la BBDD y devuelve su ID
-    * Signatura: public String obtenerIDEnum (T enumerado)
-    * Precondiciones:
-    * Entradas: enum
-    * Salidas: String
-    * Postcondiciones: si el enum no esta registrado en la BBDD se devolvera un null. Asociado al nombre se devuelve
-    *                   el ID del enum registrado en la BBDD.
-    * */
-    public String obtenerIDEnum (T enumerado){
+     * INTERFAZ
+     * Comentario: metodo que busca el valor del enum en la BBDD y devuelve su ID
+     * Signatura: public String obtenerIDEnum (T enumerado)
+     * Precondiciones:
+     * Entradas: enum
+     * Salidas: String
+     * Postcondiciones: si el enum no esta registrado en la BBDD se devolvera un null. Asociado al nombre se devuelve
+     *                   el ID del enum registrado en la BBDD.
+     * */
+    public String obtenerIDEnum(T enumerado) {
         String idEnum = null;
         try {
 
@@ -158,18 +154,16 @@ public class Utilidades <T extends Enum<T>>{
 
             // execute insert SQL stetement
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 idEnum = resultSet.getString("ID");
             }
-
 
 
             // Cerrar
             resultSet.close();
             preparedStatement.close();
             connexionBaseDatos.close();
-        }
-        catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             System.err.println(sqle);
         }
 
@@ -178,40 +172,39 @@ public class Utilidades <T extends Enum<T>>{
 
 
     /*
-    * INTERFAZ
-    * Comentario: imprime en pantalla los datos de una revision personal
-    * Signatura: public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
-    * Precondiciones:
-    * Entradas:
-    * Salidas:
-    * Postcondiciones: imprime en pantalla
-    * */
-    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision){
+     * INTERFAZ
+     * Comentario: imprime en pantalla los datos de una revision personal
+     * Signatura: public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: imprime en pantalla
+     * */
+    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
         Gestion gestion = new Gestion();
         //carga los datos
         gestion.cargarRevisionPersonalCompleta(revision);
 
-        System.out.println("Revision personal del dia : "+ formatearFecha(revision.getFecha()));
+        System.out.println("Revision personal del dia : " + formatearFecha(revision.getFecha()));
         System.out.println("Estados de animo:");
 
-        if(revision.getArraylistEstadoAnimico().size() == 0){
+        if (revision.getArraylistEstadoAnimico().size() == 0) {
             System.out.println("No tienes ningún estado de ánimo registrado para el día de hoy.");
-        }else{
-            for(int i = 0; i < revision.getArraylistEstadoAnimico().size(); i ++){
-                if (i == revision.getArraylistEstadoAnimico().size() -1){
-                    System.out.println(revision.getArraylistEstadoAnimico().get(i) + ". " );
-                }else{
-                    System.out.print(revision.getArraylistEstadoAnimico().get(i) + ", " );
+        } else {
+            for (int i = 0; i < revision.getArraylistEstadoAnimico().size(); i++) {
+                if (i == revision.getArraylistEstadoAnimico().size() - 1) {
+                    System.out.println(revision.getArraylistEstadoAnimico().get(i) + ". ");
+                } else {
+                    System.out.print(revision.getArraylistEstadoAnimico().get(i) + ", ");
                 }
             }
         }
 
 
-
         System.out.println("Sintomas:");
-        if(revision.getArraylistSintoma().size() == 0){
+        if (revision.getArraylistSintoma().size() == 0) {
             System.out.println("No tienes ningún síntoma registrado para el día de hoy.");
-        }else {
+        } else {
             for (int i = 0; i < revision.getArraylistSintoma().size(); i++) {
                 if (i == revision.getArraylistSintoma().size() - 1) {
                     System.out.println(revision.getArraylistSintoma().get(i) + ". ");
@@ -223,9 +216,9 @@ public class Utilidades <T extends Enum<T>>{
 
 
         System.out.println("Flujo Vaginal:");
-        if(revision.getArraylistFlujoVaginal().size() == 0){
+        if (revision.getArraylistFlujoVaginal().size() == 0) {
             System.out.println("No tienes ningún tipo de flujo vaginal registrado para el día de hoy.");
-        }else {
+        } else {
             for (int i = 0; i < revision.getArraylistFlujoVaginal().size(); i++) {
                 if (i == revision.getArraylistFlujoVaginal().size() - 1) {
                     System.out.println(revision.getArraylistFlujoVaginal().get(i) + ". ");
@@ -236,9 +229,9 @@ public class Utilidades <T extends Enum<T>>{
         }
 
         System.out.println("Sexo:");
-        if(revision.getArraylistSexo().size() == 0){
+        if (revision.getArraylistSexo().size() == 0) {
             System.out.println("No tienes ninguna observación sexual registrada para el día de hoy.");
-        }else {
+        } else {
             for (int i = 0; i < revision.getArraylistSexo().size(); i++) {
                 if (i == revision.getArraylistSexo().size() - 1) {
                     System.out.println(revision.getArraylistSexo().get(i) + ". ");
@@ -261,14 +254,13 @@ public class Utilidades <T extends Enum<T>>{
      * Salidas:
      * Postcondiciones: imprime en pantalla
      * */
-    public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones){
+    public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones) {
 
-        for(int i = 0; i < revisiones.size(); i ++){
-            System.out.print((i+1)+". ");
+        for (int i = 0; i < revisiones.size(); i++) {
+            System.out.print((i + 1) + ". ");
             imprimirDatosRevisionPersonal(revisiones.get(i));
         }
     }
-
 
 
     /*INTERFAZ
@@ -279,20 +271,20 @@ public class Utilidades <T extends Enum<T>>{
      * Salidas:
      * Postcondiciones: Imprime en pantalla
      * */
-    public void imprimirCiclos(UsuarioImpl user){
+    public void imprimirCiclos(UsuarioImpl user) {
         Gestion gestion = new Gestion();
         Utilidades util = new Utilidades();
 
-        if(gestion.obtenerListaCiclosMenstruales(user).size() == 0){
+        if (gestion.obtenerListaCiclosMenstruales(user).size() == 0) {
             System.out.println("No existen ciclos menstruales registrados para este usuario");
-        }else{
-            for(int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++){
-                System.out.println("Menstruacion: "+(i+1) );
-                System.out.println("Fecha inicio: " +util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()) );
+        } else {
+            for (int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++) {
+                System.out.println("Menstruacion: " + (i + 1));
+                System.out.println("Fecha inicio: " + util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()));
                 System.out.print("Fecha fin: ");
-                if(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null ){
+                if (gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null) {
                     System.out.println("Sin fecha de fin establecida");
-                }else{
+                } else {
                     GregorianCalendar fecha = gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal();
                     System.out.println(util.formatearFecha(fecha));
                 }
@@ -310,19 +302,19 @@ public class Utilidades <T extends Enum<T>>{
      * Salidas:
      * Postcondiciones: Imprime en pantalla
      * */
-    public void imprimirEmbarazos(UsuarioImpl user){
+    public void imprimirEmbarazos(UsuarioImpl user) {
         Gestion gestion = new Gestion();
 
-        if(gestion.obtenerListaEmbarazos(user).size() == 0){
+        if (gestion.obtenerListaEmbarazos(user).size() == 0) {
             System.out.println("No existen embarazos registrados para este usuario");
-        }else{
-            for(int i = 0; i < gestion.obtenerListaEmbarazos(user).size(); i++){
-                System.out.println("Embarazo: "+(i+1) );
-                System.out.println("Fecha inicio: " +formatearFecha(gestion.obtenerListaEmbarazos(user).get(i).getFechaInicio()) );
+        } else {
+            for (int i = 0; i < gestion.obtenerListaEmbarazos(user).size(); i++) {
+                System.out.println("Embarazo: " + (i + 1));
+                System.out.println("Fecha inicio: " + formatearFecha(gestion.obtenerListaEmbarazos(user).get(i).getFechaInicio()));
                 System.out.print("Fecha fin: ");
-                if(gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal() == null ){
+                if (gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal() == null) {
                     System.out.println("Sin fecha de fin establecida");
-                }else{
+                } else {
                     GregorianCalendar fecha = gestion.obtenerListaEmbarazos(user).get(i).getFechaFinReal();
                     System.out.println(formatearFecha(fecha));
                 }

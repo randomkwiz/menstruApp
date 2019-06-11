@@ -1,7 +1,5 @@
 package interfaces;
 
-import clasesBasicas.CicloEmbarazo;
-
 import java.util.GregorianCalendar;
 
 public interface RevisionMedica {
@@ -10,39 +8,41 @@ public interface RevisionMedica {
     //public void setEmbarazo(CicloEmbarazo embarazo);
 
 
-    public GregorianCalendar getEmbarazoFechaInicio();
-    public GregorianCalendar getEmbarazoFechaFinReal();
-    public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio);
-    public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal);
+    GregorianCalendar getEmbarazoFechaInicio();
+
+    GregorianCalendar getEmbarazoFechaFinReal();
+
+    void setEmbarazoFechaInicio(GregorianCalendar fechaInicio);
+
+    void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal);
 
 
+    double getPeso();
 
-    public double getPeso();
+    void setPeso(double peso);
 
-    public void setPeso(double peso);
+    double getCintura();
 
-    public double getCintura();
+    void setCintura(double cintura);
 
-    public void setCintura(double cintura);
+    double getCadera();
 
-    public double getCadera();
+    void setCadera(double cadera);
 
-    public void setCadera(double cadera);
+    String getEstadoFeto();
 
-    public String getEstadoFeto();
-
-    public void setEstadoFeto(String estadoFeto) ;
+    void setEstadoFeto(String estadoFeto);
 
 
-    public String getObservaciones();
+    String getObservaciones();
 
-    public void setObservaciones(String observaciones);
+    void setObservaciones(String observaciones);
 
-    public GregorianCalendar getFechaCitaActual();
+    GregorianCalendar getFechaCitaActual();
 
-    public void setFechaCitaActual(GregorianCalendar fechaCitaActual);
+    void setFechaCitaActual(GregorianCalendar fechaCitaActual);
 
-    public GregorianCalendar getFechaSiguienteCita();
+    GregorianCalendar getFechaSiguienteCita();
 
-    public void setFechaSiguienteCita(GregorianCalendar fechaSiguienteCita);
+    void setFechaSiguienteCita(GregorianCalendar fechaSiguienteCita);
 }

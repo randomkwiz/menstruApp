@@ -8,17 +8,16 @@ import utilidades.Utilidades;
 import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class Validar <T extends Enum<T>>{
+public class Validar<T extends Enum<T>> {
 
     /*
-    * Mostrar y validar menu log in or sign up
-    * */
+     * Mostrar y validar menu log in or sign up
+     * */
 
-    public int logInOrSignUp (){
+    public int logInOrSignUp() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do {
@@ -26,7 +25,7 @@ public class Validar <T extends Enum<T>>{
             System.out.println("1. Crear cuenta");
             System.out.println("2. Iniciar sesion");
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 2);
+        } while (opcion < 0 || opcion > 2);
         return opcion;
     }
 
@@ -35,17 +34,17 @@ public class Validar <T extends Enum<T>>{
      * Mostrar y validar menu principal
      * */
 
-    public int menuPrincipal (){
+    public int menuPrincipal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do{
-        System.out.println("0. Salir al menu de login");
-        System.out.println("1. Cuenta");
-        System.out.println("2. Revision personal");
-        System.out.println("3. Ciclo");
-        System.out.println("4. Revision medica (solo si existe embarazo)");
-        opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 4);
+        do {
+            System.out.println("0. Salir al menu de login");
+            System.out.println("1. Cuenta");
+            System.out.println("2. Revision personal");
+            System.out.println("3. Ciclo");
+            System.out.println("4. Revision medica (solo si existe embarazo)");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 4);
         return opcion;
     }
 
@@ -55,16 +54,16 @@ public class Validar <T extends Enum<T>>{
      * Mostrar y validar submenu CUENTA
      * */
 
-    public int subMenuCuenta (){
+    public int subMenuCuenta() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do{
-        System.out.println("0. Volver atras");
-        System.out.println("1. Ver datos de la cuenta");
-        System.out.println("2. Modificar datos de la cuenta");
-        System.out.println("3. Eliminar cuenta");
-        opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 3);
+        do {
+            System.out.println("0. Volver atras");
+            System.out.println("1. Ver datos de la cuenta");
+            System.out.println("2. Modificar datos de la cuenta");
+            System.out.println("3. Eliminar cuenta");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 3);
         return opcion;
     }
 
@@ -73,7 +72,7 @@ public class Validar <T extends Enum<T>>{
      * Mostrar y validar submenu RevisionPersonal
      * */
 
-    public int subMenuRevisionPersonal (){
+    public int subMenuRevisionPersonal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do {
@@ -83,7 +82,7 @@ public class Validar <T extends Enum<T>>{
             System.out.println("3. Buscar revision personal");
             System.out.println("4. Eliminar revision personal");
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 4);
+        } while (opcion < 0 || opcion > 4);
         return opcion;
     }
 
@@ -92,18 +91,18 @@ public class Validar <T extends Enum<T>>{
      * Mostrar y validar submenu Ciclo
      * */
 
-    public int subMenuCiclo (){
+    public int subMenuCiclo() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do{
-        System.out.println("0. Volver atras");
-        System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
-        System.out.println("2. Ver datos del ciclo actual ");
-        System.out.println("3. Marcar fin del ciclo actual");
-        System.out.println("4. Eliminar ciclo");
-        System.out.println("5. Ver ciclos anteriores");
-        opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 5);
+        do {
+            System.out.println("0. Volver atras");
+            System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
+            System.out.println("2. Ver datos del ciclo actual ");
+            System.out.println("3. Marcar fin del ciclo actual");
+            System.out.println("4. Eliminar ciclo");
+            System.out.println("5. Ver ciclos anteriores");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 5);
         return opcion;
     }
 
@@ -112,42 +111,42 @@ public class Validar <T extends Enum<T>>{
      * Mostrar y validar submenu RevisionMedica
      * */
 
-    public int subMenuRevisionMedica (){
+    public int subMenuRevisionMedica() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do{
-        System.out.println("0. Volver atras");
-        System.out.println("1. Registrar revision medica");
-        System.out.println("2. Ver revisiones pasadas ");
-        System.out.println("3. Buscar revision");
-        System.out.println("4. Modificar revision");
-        System.out.println("5. Ver fecha siguiente revision");
-        System.out.println("6. Eliminar revision");
-        opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 6);
+        do {
+            System.out.println("0. Volver atras");
+            System.out.println("1. Registrar revision medica");
+            System.out.println("2. Ver revisiones pasadas ");
+            System.out.println("3. Buscar revision");
+            System.out.println("4. Modificar revision");
+            System.out.println("5. Ver fecha siguiente revision");
+            System.out.println("6. Eliminar revision");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 6);
         return opcion;
     }
 
 
     /*
-    * INTERFAZ
-    *  Comentario: Pide y valida un nuevo nick de usuario. La forma de validarlo sera comprobar
-    *               que ese nick no exista en la base de datos y que el numero de caracteres este entre 3 y 25.
-    * Signatura: public String nuevoNickUsuario()
-    * Precondiciones:
-    * Entradas:
-    * Salidas: String con el nuevo nick de usuario
-    * Postcondiciones: asociado al nombre se devolvera un String que contendra un nick de usuario no existente aun en la base
-    *                   de datos del programa.
-    * */
-    public String nuevoNickUsuario(){
+     * INTERFAZ
+     *  Comentario: Pide y valida un nuevo nick de usuario. La forma de validarlo sera comprobar
+     *               que ese nick no exista en la base de datos y que el numero de caracteres este entre 3 y 25.
+     * Signatura: public String nuevoNickUsuario()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: String con el nuevo nick de usuario
+     * Postcondiciones: asociado al nombre se devolvera un String que contendra un nick de usuario no existente aun en la base
+     *                   de datos del programa.
+     * */
+    public String nuevoNickUsuario() {
         Scanner sc = new Scanner(System.in);
         String nuevoNick = " ";
-        do{
+        do {
             System.out.println("Introduce tu nuevo nick: ");
             System.out.println("Recuerda que tu nick no puede contener espacios en blanco y debe tener entre 3 y 25 caracteres.");
             nuevoNick = sc.next();
-        }while (nuevoNick.length() < 3 || nuevoNick.length() > 25 || isRegistrado(nuevoNick));
+        } while (nuevoNick.length() < 3 || nuevoNick.length() > 25 || isRegistrado(nuevoNick));
 
         return nuevoNick;
     }
@@ -162,7 +161,7 @@ public class Validar <T extends Enum<T>>{
      * Postcondiciones: asociado al nombre se devolvera un boolean que sera true si el nick de usuario ya existe en la base de datos
      *                  y sera false si el nick de usuario no existe en la base de datos.
      * */
-    public boolean isRegistrado(String nickUsuario){
+    public boolean isRegistrado(String nickUsuario) {
         boolean registrado = false;
         Utilidades util = new Utilidades();
         try {
@@ -171,7 +170,7 @@ public class Validar <T extends Enum<T>>{
             String sourceURL = "jdbc:sqlserver://localhost";
             String usuario = "menstruApp";
             String password = "menstruApp";
-            String miSelect = "SELECT NICK FROM USUARIO WHERE NICK = '" + nickUsuario+ "'"; //hay que ponerle las comillas simples
+            String miSelect = "SELECT NICK FROM USUARIO WHERE NICK = '" + nickUsuario + "'"; //hay que ponerle las comillas simples
 
             // Crear una conexion con el DriverManager
             //Connection connexionBaseDatos = util.iniciarConexion(sourceURL, usuario, password); -> no funciona
@@ -184,8 +183,8 @@ public class Validar <T extends Enum<T>>{
 
 
             // Recorremos el ResultSet
-            while (resultados.next()){
-                if(resultados.getString("NICK").equals(nickUsuario)){
+            while (resultados.next()) {
+                if (resultados.getString("NICK").equals(nickUsuario)) {
                     registrado = true;
                 }
             }
@@ -195,8 +194,7 @@ public class Validar <T extends Enum<T>>{
             resultados.close();
             connexionBaseDatos.close();
 
-        }
-        catch (SQLException sqle) {
+        } catch (SQLException sqle) {
             System.err.println(sqle);
         }
         return registrado;
@@ -213,9 +211,9 @@ public class Validar <T extends Enum<T>>{
      * Salidas: String con la password
      * Postcondiciones: asociado al nombre se devolvera un String que contendra una contraseña de usuario de entre 8 y 50 caracteres.
      * */
-    public String establecerPassword(){
+    public String establecerPassword() {
         Scanner sc = new Scanner(System.in);
-       String password ;
+        String password;
         //referencia a la consola
         Console con = System.console();
         do {
@@ -229,7 +227,7 @@ public class Validar <T extends Enum<T>>{
                 //converting char array into string
                 password = String.valueOf(ch);
             }
-        }while (password.length() < 8 || password.length() > 50);
+        } while (password.length() < 8 || password.length() > 50);
 
         return password;
     }
@@ -245,15 +243,15 @@ public class Validar <T extends Enum<T>>{
      * Postcondiciones: asociado al nombre se devolvera un String que contendra el nombre del usuario de entre 3 y 50 caracteres, o bien
      *                  un null si el usuario no desea rellenar el campo.
      * */
-    public String nombreUsuario(){
+    public String nombreUsuario() {
         Scanner sc = new Scanner(System.in);
-        String nombreUsuario ;
-        do{
+        String nombreUsuario;
+        do {
             System.out.println("Introduce tu nombre real:");
             System.out.println("Escribe 0 si no deseas rellenar este campo.");
             nombreUsuario = sc.nextLine();
-        }while ( !nombreUsuario.equals("0") && (nombreUsuario.length() < 3 || nombreUsuario.length() > 50) );
-        if(nombreUsuario.equals("0")){
+        } while (!nombreUsuario.equals("0") && (nombreUsuario.length() < 3 || nombreUsuario.length() > 50));
+        if (nombreUsuario.equals("0")) {
             nombreUsuario = null;   //devuelvo un null en vez de espacio en blanco para que en la bbdd se ponga NULL y no " "
         }
         return nombreUsuario;
@@ -269,14 +267,14 @@ public class Validar <T extends Enum<T>>{
      * Postcondiciones: asociado al nombre se devolvera un double que contendra el peso del usuario o bien
      *                  un 0 si el usuario no desea rellenar el campo.
      * */
-    public double pesoUsuario(){
+    public double pesoUsuario() {
         Scanner sc = new Scanner(System.in);
         double peso;
-        do{
+        do {
             System.out.println("Introduce peso en kg:");
             System.out.println("Escribe 0 si no deseas rellenar este campo.");
             peso = sc.nextDouble();
-        }while (peso < 0);
+        } while (peso < 0);
 
         return peso;
     }
@@ -297,11 +295,11 @@ public class Validar <T extends Enum<T>>{
      * Entrada/Salida: --
      * Postcondiciones: asociado al nombre se devuelve un boolean como true si el año es bisiesto y como false si no lo es
      * */
-    public boolean esBisiesto(int anno){
-        boolean bisiesto=false;
+    public boolean esBisiesto(int anno) {
+        boolean bisiesto = false;
 
-        if ( anno >= 1582 && (anno % 400 ==0 || (anno %4 == 0 && anno %100 != 0) )) {
-            bisiesto=true;
+        if (anno >= 1582 && (anno % 400 == 0 || (anno % 4 == 0 && anno % 100 != 0))) {
+            bisiesto = true;
         }
 
 
@@ -325,16 +323,16 @@ public class Validar <T extends Enum<T>>{
      * Postcondiciones: asociado al nombre se devolverá un boolean que tendrá el valor true si la fecha es valida y false si no lo es
      * */
 
-    public boolean fechaEsValida (int dia, int mes, int anno){
-        boolean fechaValida=false;
+    public boolean fechaEsValida(int dia, int mes, int anno) {
+        boolean fechaValida = false;
 
-        if (dia>= 1 && dia<=31 && (mes >= 1 || mes <= 12) && anno >= 1582){
+        if (dia >= 1 && dia <= 31 && (mes >= 1 || mes <= 12) && anno >= 1582) {
 
             /* Meses con 31: 1,3,5,7,8,10,12
              * Meses con 30: 4,6,9,11
              * Meses con 28 o 29: 2
              * */
-            switch (mes){
+            switch (mes) {
                 case 1:
                 case 3:
                 case 5:
@@ -342,11 +340,11 @@ public class Validar <T extends Enum<T>>{
                 case 8:
                 case 10:
                 case 12:
-                    fechaValida=true;
+                    fechaValida = true;
                     break;
                 case 2:
-                    if (dia <= 28  || ( dia==29 && esBisiesto(anno) ) ) {
-                        fechaValida=true;
+                    if (dia <= 28 || (dia == 29 && esBisiesto(anno))) {
+                        fechaValida = true;
                     }
 
                     break;
@@ -354,8 +352,8 @@ public class Validar <T extends Enum<T>>{
                 case 6:
                 case 9:
                 case 11:
-                    if(dia <=30){
-                        fechaValida=true;
+                    if (dia <= 30) {
+                        fechaValida = true;
                     }
                     break;
             }
@@ -367,30 +365,29 @@ public class Validar <T extends Enum<T>>{
     }
 
 
-
     /*
-    * INTERFAZ
-    * Comentario: pide y valida una fecha. Devuelve un objeto GregorianCalendar
-    * Signatura: public GregorianCalendar validarFecha()
-    * Precondiciones:
-    * Entradas:
-    * Salidas: objeto gregorianCalendar
-    * Postcondiciones: asociado al nombre se devuelve un objeto gregorian calendar con la fecha validada previamente.
-    *                   Esto es para asegurar que la fecha que indica el usuario y la que refleja GregorianCalendar coinciden, debido
-    *                   a que si el usuario introduce el 31 de junio, Gregorian Calendar automaticamente entenderia
-    *                   el 1 de julio. Para evitar esto, valido la entrada del usuario previamente y ya no podria introducir
-    *                   el 31 de junio.
-    *                   Tambien valida que la fecha introducida no sea superior a la actual.
-    * */
-    public GregorianCalendar validarFecha(){
+     * INTERFAZ
+     * Comentario: pide y valida una fecha. Devuelve un objeto GregorianCalendar
+     * Signatura: public GregorianCalendar validarFecha()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: objeto gregorianCalendar
+     * Postcondiciones: asociado al nombre se devuelve un objeto gregorian calendar con la fecha validada previamente.
+     *                   Esto es para asegurar que la fecha que indica el usuario y la que refleja GregorianCalendar coinciden, debido
+     *                   a que si el usuario introduce el 31 de junio, Gregorian Calendar automaticamente entenderia
+     *                   el 1 de julio. Para evitar esto, valido la entrada del usuario previamente y ya no podria introducir
+     *                   el 31 de junio.
+     *                   Tambien valida que la fecha introducida no sea superior a la actual.
+     * */
+    public GregorianCalendar validarFecha() {
         Scanner sc = new Scanner(System.in);
         GregorianCalendar fechaCumple = new GregorianCalendar();
         GregorianCalendar fechaHoy = new GregorianCalendar();
         int dia;
         int mes;
         int anyo;
-        do{
-            do{
+        do {
+            do {
 
                 System.out.print("Dia: ");
                 dia = sc.nextInt();
@@ -398,79 +395,78 @@ public class Validar <T extends Enum<T>>{
                 mes = sc.nextInt();
                 System.out.print("Año: ");
                 anyo = sc.nextInt();
-            }while (!fechaEsValida(dia, mes, anyo));
+            } while (!fechaEsValida(dia, mes, anyo));
 
             fechaCumple.set(GregorianCalendar.YEAR, anyo);
-            fechaCumple.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
+            fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
             fechaCumple.set(GregorianCalendar.DATE, dia);
-        }while (fechaCumple.after(fechaHoy));
+        } while (fechaCumple.after(fechaHoy));
 
-    return fechaCumple;
+        return fechaCumple;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: comprueba una combinacion de nick/password
-    * Signatura public boolean combinacionInicioSesion(String nick, String pass)
-    * Precondiciones:
-    * Entradas: nick del usuario y contraseña
-    * Salidas: boolean
-    * Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la combinacion de nick y contraseña es correcta y false si no.
-    * */
-    public boolean combinacionInicioSesion(String nick, String pass){
+     * INTERFAZ
+     * Comentario: comprueba una combinacion de nick/password
+     * Signatura public boolean combinacionInicioSesion(String nick, String pass)
+     * Precondiciones:
+     * Entradas: nick del usuario y contraseña
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la combinacion de nick y contraseña es correcta y false si no.
+     * */
+    public boolean combinacionInicioSesion(String nick, String pass) {
         boolean exito = false;
-            try {
-                // Define la fuente de datos para el driver
-                String sourceURL = "jdbc:sqlserver://localhost";
-                String usuario = "menstruApp";
-                String password = "menstruApp";
-                String miSelect = "select nick from USUARIO where NICK =? and PWDCOMPARE(?,PASS)= 1";
+        try {
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select nick from USUARIO where NICK =? and PWDCOMPARE(?,PASS)= 1";
 
 
-                //Crear conexion con la BBDD
-                Connection conexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+            //Crear conexion con la BBDD
+            Connection conexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
 
-                //Preparo el prepared statement indicando que son cada ? del select
-                PreparedStatement preparedStatement = conexionBaseDatos.prepareStatement(miSelect);
-                preparedStatement.setString(1, nick);
-                preparedStatement.setString(2, pass);
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = conexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, nick);
+            preparedStatement.setString(2, pass);
 
-                //Ejecutar
-                ResultSet miResultado = preparedStatement.executeQuery();
-                if (miResultado.next()) {    //el metodo .next() devuelve false si no hay mas filas
-                    exito = true;
-                    //System.out.println("Entra");
-                }
-
-                //Cerrar
-                miResultado.close();
-                preparedStatement.close();
-                conexionBaseDatos.close();
-            } catch (SQLException e) {
-                System.err.println(e);
+            //Ejecutar
+            ResultSet miResultado = preparedStatement.executeQuery();
+            if (miResultado.next()) {    //el metodo .next() devuelve false si no hay mas filas
+                exito = true;
+                //System.out.println("Entra");
             }
-    return exito;
+
+            //Cerrar
+            miResultado.close();
+            preparedStatement.close();
+            conexionBaseDatos.close();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return exito;
     }
 
 
-
     /*
-    * INTERFAZ
-    * Comentario: pide los datos del login y devuelve el objeto Usuario
-    * Signatura: public UsuarioImpl pedirLogin()
-    *
-    * */
-    public UsuarioImpl pedirLogin(){
-        String nick ;
+     * INTERFAZ
+     * Comentario: pide los datos del login y devuelve el objeto Usuario
+     * Signatura: public UsuarioImpl pedirLogin()
+     *
+     * */
+    public UsuarioImpl pedirLogin() {
+        String nick;
         String pass;
-        UsuarioImpl usuario ;
+        UsuarioImpl usuario;
         Utilidades util = new Utilidades();
         Scanner sc = new Scanner(System.in);
         do {
             System.out.println("Introduce el nick: ");
             nick = sc.next();
             pass = establecerPassword();
-        }while (combinacionInicioSesion(nick,pass) == false);
+        } while (combinacionInicioSesion(nick, pass) == false);
 
         usuario = util.toObject(nick, pass);
         return usuario;
@@ -485,16 +481,16 @@ public class Validar <T extends Enum<T>>{
      * Salidas: boolean
      * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario efectivamente desea eliminar su cuenta y false si no
      * */
-    public boolean borrarCuenta(){
+    public boolean borrarCuenta() {
         Scanner sc = new Scanner(System.in);
         boolean seguro = false;
-        String respuesta=" ";
+        String respuesta = " ";
         do {
             System.out.println("¿Estas segura de que deseas eliminar tu cuenta? SI/NO");
             respuesta = sc.nextLine().toUpperCase();
-        }while(!respuesta.equals("SI") && !respuesta.equals("NO"));
+        } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
 
-        if (respuesta.equals("SI")){
+        if (respuesta.equals("SI")) {
             seguro = true;
         }
         return seguro;
@@ -509,32 +505,30 @@ public class Validar <T extends Enum<T>>{
      * Salidas: boolean
      * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario efectivamente desea eliminar su revision y false si no
      * */
-    public boolean borrarRevision(){
+    public boolean borrarRevision() {
         Scanner sc = new Scanner(System.in);
         boolean seguro = false;
-        String respuesta=" ";
+        String respuesta = " ";
         do {
             System.out.println("¿Estas segura de que deseas eliminar la revision? SI/NO");
             respuesta = sc.nextLine().toUpperCase();
-        }while(!respuesta.equals("SI") && !respuesta.equals("NO"));
+        } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
 
-        if (respuesta.equals("SI")){
+        if (respuesta.equals("SI")) {
             seguro = true;
         }
         return seguro;
     }
 
 
-
-
     /*
-    * INTERFAZ
-    * Comentario: Submenu del apartado RevisionPersonal, lee y valida la opcion elegida
-    * Signatura public int submenuRegistrarRevisionPersonal()
-    * Salida: entero que es la opcion del menu (0 - 4)
-    * Postcondiciones: asociado al nombre devuelve una opcion elegida por el usuario entre 0 y 4
-    * */
-    public int submenuRegistrarRevisionPersonal(){
+     * INTERFAZ
+     * Comentario: Submenu del apartado RevisionPersonal, lee y valida la opcion elegida
+     * Signatura public int submenuRegistrarRevisionPersonal()
+     * Salida: entero que es la opcion del menu (0 - 4)
+     * Postcondiciones: asociado al nombre devuelve una opcion elegida por el usuario entre 0 y 4
+     * */
+    public int submenuRegistrarRevisionPersonal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do {
@@ -545,22 +539,22 @@ public class Validar <T extends Enum<T>>{
             System.out.println("3. Sexo");
             System.out.println("4. Sintomas");
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 4);
+        } while (opcion < 0 || opcion > 4);
 
         return opcion;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: muestra en pantalla, pide y valida la opcion de una lista de valores de un enum
-    * Signatura: public String pedirValidarOpcionEnum(T[] enumerados)
-    * Precondiciones: como entrada se debe pasar un enum
-    * Entradas: un enum
-    * Salidas: String que es el valor del enum elegido por el usuario
-    * Postcondiciones: asociado al nombre se devuelve como cadena el valor del enum elegido por el usuario
-    *               o null si el usuario desea salir de este menu
-    * */
-    public String pedirValidarOpcionEnum(T[] enumerados){
+     * INTERFAZ
+     * Comentario: muestra en pantalla, pide y valida la opcion de una lista de valores de un enum
+     * Signatura: public String pedirValidarOpcionEnum(T[] enumerados)
+     * Precondiciones: como entrada se debe pasar un enum
+     * Entradas: un enum
+     * Salidas: String que es el valor del enum elegido por el usuario
+     * Postcondiciones: asociado al nombre se devuelve como cadena el valor del enum elegido por el usuario
+     *               o null si el usuario desea salir de este menu
+     * */
+    public String pedirValidarOpcionEnum(T[] enumerados) {
         Scanner sc = new Scanner(System.in);
         Utilidades utilidades = new Utilidades();
         int opcion = -1;
@@ -569,12 +563,11 @@ public class Validar <T extends Enum<T>>{
             System.out.println("0. Volver atras");
             utilidades.imprimirValoresEnum(enumerados);
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > enumerados.length);
+        } while (opcion < 0 || opcion > enumerados.length);
 
-        if(opcion != 0){
-            for (T col : enumerados)
-            {
-                if(col.ordinal() == opcion){
+        if (opcion != 0) {
+            for (T col : enumerados) {
+                if (col.ordinal() == opcion) {
                     value = col.toString();
                 }
             }
@@ -584,66 +577,66 @@ public class Validar <T extends Enum<T>>{
         return value;
     }
 
-/*
-* INTERFAZ
-* Signatura: public GregorianCalendar pedirFechaInicioCiclo()
-* Comentario: pide y valida una fecha, o devuelve la fecha actual si el usuario no desea establecer otra fecha.
-* Precondiciones:
-* Entradas:
-* Salidas: fecha GregorianCalendar
-* Postcondiciones: Asociado al nombre devuelve una fecha valida o devuelve la fecha actual si el usuario no desea establecer otra fecha.
-* */
-public GregorianCalendar pedirFechaInicioFinCiclo(){
-    GregorianCalendar fecha = new GregorianCalendar();
-    GregorianCalendar hoy = new GregorianCalendar();
-    Scanner sc = new Scanner(System.in);
-    int opcion = -1;
-    int dia, mes, anyo;
-    do{
-        do{
-            System.out.println("Introduce 0 en los tres campos para establecer la fecha por defecto (actual)");
-            System.out.print("Dia: ");
-            dia = sc.nextInt();
-            System.out.print("Mes: ");
-            mes = sc.nextInt();
-            System.out.print("Año: ");
-            anyo = sc.nextInt();
+    /*
+     * INTERFAZ
+     * Signatura: public GregorianCalendar pedirFechaInicioCiclo()
+     * Comentario: pide y valida una fecha, o devuelve la fecha actual si el usuario no desea establecer otra fecha.
+     * Precondiciones:
+     * Entradas:
+     * Salidas: fecha GregorianCalendar
+     * Postcondiciones: Asociado al nombre devuelve una fecha valida o devuelve la fecha actual si el usuario no desea establecer otra fecha.
+     * */
+    public GregorianCalendar pedirFechaInicioFinCiclo() {
+        GregorianCalendar fecha = new GregorianCalendar();
+        GregorianCalendar hoy = new GregorianCalendar();
+        Scanner sc = new Scanner(System.in);
+        int opcion = -1;
+        int dia, mes, anyo;
+        do {
+            do {
+                System.out.println("Introduce 0 en los tres campos para establecer la fecha por defecto (actual)");
+                System.out.print("Dia: ");
+                dia = sc.nextInt();
+                System.out.print("Mes: ");
+                mes = sc.nextInt();
+                System.out.print("Año: ");
+                anyo = sc.nextInt();
 
-        }while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
+            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
 
-        if(dia != 0 && mes != 0 && anyo != 0){
-            fecha.set(GregorianCalendar.YEAR, anyo);
-            fecha.set(GregorianCalendar.MONTH, mes-1);    //va de 0 a 11
-            fecha.set(GregorianCalendar.DATE, dia);
-        }
-    }while (fecha.after(hoy));
+            if (dia != 0 && mes != 0 && anyo != 0) {
+                fecha.set(GregorianCalendar.YEAR, anyo);
+                fecha.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+                fecha.set(GregorianCalendar.DATE, dia);
+            }
+        } while (fecha.after(hoy));
 
-    return fecha;
+        return fecha;
 
-}
+    }
 
-/*
-* INTERFAZ
-* Comentario: Elegir si el usuario desea registrar el inicio de un ciclo menstrual o de un embarazo
-* Signatura: public int pedirValidarMenuReglaOEmbarazo()
-* Precondiciones:
-* Entradas:
-* Salidas: entero
-* Postcondiciones: Asociado al nombre se devolvera 1 para regla, 2 para embarazo o 0 para ninguno
-* */
-public int pedirValidarMenuReglaOEmbarazo(){
-    Scanner sc = new Scanner(System.in);
-    int opcion = -1;
+    /*
+     * INTERFAZ
+     * Comentario: Elegir si el usuario desea registrar el inicio de un ciclo menstrual o de un embarazo
+     * Signatura: public int pedirValidarMenuReglaOEmbarazo()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: entero
+     * Postcondiciones: Asociado al nombre se devolvera 1 para regla, 2 para embarazo o 0 para ninguno
+     * */
+    public int pedirValidarMenuReglaOEmbarazo() {
+        Scanner sc = new Scanner(System.in);
+        int opcion = -1;
 
-    do{
-        System.out.println("Elige");
-        System.out.println("0. Volver atras");
-        System.out.println("1. Menstruacion");
-        System.out.println("2. Embarazo");
-        opcion = sc.nextInt();
-    }while (opcion <0 || opcion > 2);
-    return opcion;
-}
+        do {
+            System.out.println("Elige");
+            System.out.println("0. Volver atras");
+            System.out.println("1. Menstruacion");
+            System.out.println("2. Embarazo");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 2);
+        return opcion;
+    }
 
 
     /*INTERFAZ
@@ -655,27 +648,25 @@ public int pedirValidarMenuReglaOEmbarazo(){
      * Postcondiciones: Imprime en pantalla y devuelve asociado al nombre el ID del ciclo elegido por el usuario
      *                  o null si no desea eliminar ninguno.
      * */
-    public String pedirValidarCiclosMenstrualesDeUsuario(UsuarioImpl user){
+    public String pedirValidarCiclosMenstrualesDeUsuario(UsuarioImpl user) {
         Gestion gestion = new Gestion();
         Utilidades util = new Utilidades();
         Scanner sc = new Scanner(System.in);
-       int opcion = -1;
+        int opcion = -1;
         String idCiclo = null;
-        do{
+        do {
             System.out.println("Ciclos menstruales");
             System.out.println("0. Volver atras");
             util.imprimirCiclos(user);
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
+        } while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
 
-        if(opcion > 0){
-            idCiclo = gestion.obtenerListaCiclosMenstruales(user).get(opcion-1).getID();
+        if (opcion > 0) {
+            idCiclo = gestion.obtenerListaCiclosMenstruales(user).get(opcion - 1).getID();
         }
 
         return idCiclo;
     }
-
-
 
 
     /*INTERFAZ
@@ -687,44 +678,44 @@ public int pedirValidarMenuReglaOEmbarazo(){
      * Postcondiciones: Imprime en pantalla y devuelve asociado al nombre el ID del ciclo elegido por el usuario
      * o null si no desea eliminar ninguno.
      * */
-    public String pedirValidarEmbarazosDeUsuario(UsuarioImpl user){
+    public String pedirValidarEmbarazosDeUsuario(UsuarioImpl user) {
         Gestion gestion = new Gestion();
         Utilidades util = new Utilidades();
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         String idCiclo = null;
-        do{
+        do {
             System.out.println("Embarazos");
             System.out.println("0. Volver atras");
             util.imprimirEmbarazos(user);
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
-        if(opcion != 0){
-            idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion-1).getID();
+        } while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
+        if (opcion != 0) {
+            idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion - 1).getID();
         }
 
         return idCiclo;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: metodo que pide y valida si el usuario desea buscar revisiones personales por fecha, o por estado individual.
-    * Signatura: public int pedirValidarSiBuscarPorFechaOEstadoEnum()
-    * Precondiciones:
-    * Entradas:
-    * Salidas:
-    * Postcondiciones: asociado al nombre devuelve un entero que sera 0 si el usuario no desea ninguna de las opciones, 1 si el usuario desea buscar por fecha
-    *                   y 2 si el usuario desea buscar por enum.
-    * */
-    public int pedirValidarSiBuscarPorFechaOEstadoEnum(){
+     * INTERFAZ
+     * Comentario: metodo que pide y valida si el usuario desea buscar revisiones personales por fecha, o por estado individual.
+     * Signatura: public int pedirValidarSiBuscarPorFechaOEstadoEnum()
+     * Precondiciones:
+     * Entradas:
+     * Salidas:
+     * Postcondiciones: asociado al nombre devuelve un entero que sera 0 si el usuario no desea ninguna de las opciones, 1 si el usuario desea buscar por fecha
+     *                   y 2 si el usuario desea buscar por enum.
+     * */
+    public int pedirValidarSiBuscarPorFechaOEstadoEnum() {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
-        do{
+        do {
             System.out.println("0. Volver atras");
             System.out.println("1. Buscar por fecha");
             System.out.println("2. Buscar por registro");
             opcion = sc.nextInt();
-        }while (opcion < 0 || opcion > 2);
+        } while (opcion < 0 || opcion > 2);
 
         return opcion;
     }
@@ -738,13 +729,13 @@ public int pedirValidarMenuReglaOEmbarazo(){
      * Salidas: int
      * Postcondiciones: asociado al nombre se devuelve un año
      * */
-    public int anyo(){
+    public int anyo() {
         Scanner sc = new Scanner(System.in);
         int anyo_buscado = 1582;
         do {
             System.out.println("Introduce el año de la/s revision/es a buscar: ");
             anyo_buscado = sc.nextInt();
-        }while(anyo_buscado < 1582);
+        } while (anyo_buscado < 1582);
 
         return anyo_buscado;
     }
@@ -758,13 +749,13 @@ public int pedirValidarMenuReglaOEmbarazo(){
      * Salidas: int
      * Postcondiciones: asociado al nombre se devuelve un mes
      * */
-    public int mes(){
+    public int mes() {
         Scanner sc = new Scanner(System.in);
-        int mes_buscado ;
+        int mes_buscado;
         do {
             System.out.println("Introduce el mes de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el mes: ");
             mes_buscado = sc.nextInt();
-        }while(mes_buscado < 0 || mes_buscado > 12);
+        } while (mes_buscado < 0 || mes_buscado > 12);
 
         return mes_buscado;
     }
@@ -778,43 +769,43 @@ public int pedirValidarMenuReglaOEmbarazo(){
      * Salidas: int
      * Postcondiciones: asociado al nombre se devuelve un dia
      * */
-    public int dia(){
+    public int dia() {
         Scanner sc = new Scanner(System.in);
-        int dia_buscado ;
+        int dia_buscado;
         do {
             System.out.println("Introduce el dia de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el dia: ");
             dia_buscado = sc.nextInt();
-        }while(dia_buscado < 0 || dia_buscado > 31);
+        } while (dia_buscado < 0 || dia_buscado > 31);
 
         return dia_buscado;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: Metodo que muestra, pide y valida una lista de RevisionesPersonalesImpl y devuelve la revision seleccionada
-    *           por el usuario
-    * Signatura: public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista)
-    * Precondiciones:
-    * Entradas:
-    * Salidas: revision personal
-    * Postcondiciones: asociado al nombre devuelve una revision que sera la elegida por el usuario o null si el usuario no
-    *                   elige ninguna
-    * */
-    public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista){
+     * INTERFAZ
+     * Comentario: Metodo que muestra, pide y valida una lista de RevisionesPersonalesImpl y devuelve la revision seleccionada
+     *           por el usuario
+     * Signatura: public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista)
+     * Precondiciones:
+     * Entradas:
+     * Salidas: revision personal
+     * Postcondiciones: asociado al nombre devuelve una revision que sera la elegida por el usuario o null si el usuario no
+     *                   elige ninguna
+     * */
+    public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista) {
         RevisionPersonalImpl revisionElegida = null;
         Scanner sc = new Scanner(System.in);
         Utilidades util = new Utilidades();
         int opcion = 0;
-        do{
+        do {
             util.imprimirDatosRevisionPersonalLista(lista);
             opcion = sc.nextInt();
 
-        }while (opcion < 0 || opcion > lista.size());
-        if(opcion != 0){
-            revisionElegida = lista.get(opcion-1);
+        } while (opcion < 0 || opcion > lista.size());
+        if (opcion != 0) {
+            revisionElegida = lista.get(opcion - 1);
         }
 
-     return revisionElegida;
+        return revisionElegida;
     }
 
 

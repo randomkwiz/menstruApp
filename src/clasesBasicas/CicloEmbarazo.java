@@ -32,11 +32,11 @@ public class CicloEmbarazo extends Ciclo {
         super();
     }
 
-    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal){
+    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super(usuario, fechaInicio, fechaFinReal);
     }
 
-    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio){
+    public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
         super(usuario, fechaInicio);
     }
 

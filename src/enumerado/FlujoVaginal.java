@@ -1,4 +1,5 @@
 package enumerado;
+
 public enum FlujoVaginal {
     NULL, NADA_DE_FLUJO, MANCHADO_INTERMENSTRUAL, PEGAJOSO, CREMOSO, CLARA_DE_HUEVO, AGUADO, INUSUAL, OTRO
 }

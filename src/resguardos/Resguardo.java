@@ -7,15 +7,15 @@ import clasesBasicas.UsuarioImpl;
 public class Resguardo {
 
     /*
-    *   INTERFAZ
-    * Comentario: método para saber si existe un registro de revision personal para el dia en curso
-    * Signatura: public boolean existeRegistroRevisionPersonalDiaEnCurso(UsuarioImpl user)
-    * Precondiciones:
-    * Entradas: objeto UsuarioImpl que es el usuario en uso
-    * Salidas: boolean
-    * Postcondiciones: asociado al nombre devuelve un boolean true si existe un registro de revision personal para el dia en curso
-    *                  para el usuario pasado por parametro y false si no.
-    * */
+     *   INTERFAZ
+     * Comentario: método para saber si existe un registro de revision personal para el dia en curso
+     * Signatura: public boolean existeRegistroRevisionPersonalDiaEnCurso(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: objeto UsuarioImpl que es el usuario en uso
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre devuelve un boolean true si existe un registro de revision personal para el dia en curso
+     *                  para el usuario pasado por parametro y false si no.
+     * */
 
     /*
      *   INTERFAZ
@@ -29,16 +29,16 @@ public class Resguardo {
      * */
 
     /*
-    * INTERFAZ
-    * Comentario: carga en un objeto RevisionPersonal su array de estados de animo cogiendo los datos de la BBDD
-    * Signatura: public boolean cargarEstadosDeAnimoRevisionPersonal (RevisionPersonalImpl revision)
-    * Precondiciones:
-    * Entradas: Objeto RevisionPersonalImpl
-    * Salidas: boolean
-    * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
-    *                   Se modifica el objeto RevisionPersonalImpl.
-    *
-    * */
+     * INTERFAZ
+     * Comentario: carga en un objeto RevisionPersonal su array de estados de animo cogiendo los datos de la BBDD
+     * Signatura: public boolean cargarEstadosDeAnimoRevisionPersonal (RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: Objeto RevisionPersonalImpl
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
+     *                   Se modifica el objeto RevisionPersonalImpl.
+     *
+     * */
 
 
     /*
@@ -131,34 +131,34 @@ public class Resguardo {
 
 
     /*
-    * INTERFAZ
-    * Comentario: Metodo para insertar un ciclo menstrual en la BBDD.
-    * Signatura: public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru)
-    * Precondiciones:
-    * Entradas: UsuarioImpl user y CicloMenstrual menstru
-    * Salidas: boolean
-    * Postcondiciones: asociado al nombre se devuelve un boolean
-    *                   -true si la insercion se realizo correctamente
-    *                   -false si hubo algun problema
-    * */
-    public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru){
+     * INTERFAZ
+     * Comentario: Metodo para insertar un ciclo menstrual en la BBDD.
+     * Signatura: public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru)
+     * Precondiciones:
+     * Entradas: UsuarioImpl user y CicloMenstrual menstru
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean
+     *                   -true si la insercion se realizo correctamente
+     *                   -false si hubo algun problema
+     * */
+    public boolean insertarCicloMenstrual(UsuarioImpl user, CicloMenstrual menstru) {
 
         return false;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente.
-    * Signatura public Ciclo obtenerCicloActual (UsuarioImpl user)
-    * Precondiciones:
-    * Entradas: UsuarioImpl user, usuario del que se desea comprobar el ciclo actual.
-    * Salidas: Ciclo
-    * Postcondiciones: Asociado al nombre devolverá un Ciclo que será el Ciclo en curso en el día actual para el usuario
-    *                   pasado por parametro. De no existir o haber algun problema,
-    *                   devolverá null.
-    *
-    * */
-    public Ciclo obtenerCicloActual (UsuarioImpl user){
+     * INTERFAZ
+     * Comentario: Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente.
+     * Signatura public Ciclo obtenerCicloActual (UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: UsuarioImpl user, usuario del que se desea comprobar el ciclo actual.
+     * Salidas: Ciclo
+     * Postcondiciones: Asociado al nombre devolverá un Ciclo que será el Ciclo en curso en el día actual para el usuario
+     *                   pasado por parametro. De no existir o haber algun problema,
+     *                   devolverá null.
+     *
+     * */
+    public Ciclo obtenerCicloActual(UsuarioImpl user) {
         return null;
     }
 
@@ -172,7 +172,7 @@ public class Resguardo {
      * Postcondiciones: asociado al nombre se devuelve un boolean que indica si la inserccion se realizo correctamente
      *                   o no.
      * */
-    public boolean insertarFechaFinCiclo(Ciclo ciclo, UsuarioImpl user){
+    public boolean insertarFechaFinCiclo(Ciclo ciclo, UsuarioImpl user) {
 
         return false;
     }

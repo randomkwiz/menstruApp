@@ -52,7 +52,6 @@ package clasesBasicas;
 
 import interfaces.Usuario;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class UsuarioImpl implements Usuario {
@@ -61,7 +60,6 @@ public class UsuarioImpl implements Usuario {
     private String password;
     private double peso;
     private GregorianCalendar fechaNacimiento;
-
 
 
     //Constructores

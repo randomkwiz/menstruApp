@@ -1,25 +1,25 @@
 /*
-* Nombre: CicloMenstrual
-* Propiedades:
-*   Basicas:
-*       GregorianCalendar fechaInicio
-*       GregorianCalendar fechaFinReal
-*   Derivadas:
-*       fechaFinEstimada
-*       diasRestantesEstimados
-*       duracionReal
-*       isFinalizado
-*
-*   Compartidas:
-* Metodos añadidos:
-*   getFechaFinEstimada
-*   getDiasRestantesEstimados
-*   getDuracionReal
-*   isFinalizado
-* Metodos interface:
-*
-*
-* */
+ * Nombre: CicloMenstrual
+ * Propiedades:
+ *   Basicas:
+ *       GregorianCalendar fechaInicio
+ *       GregorianCalendar fechaFinReal
+ *   Derivadas:
+ *       fechaFinEstimada
+ *       diasRestantesEstimados
+ *       duracionReal
+ *       isFinalizado
+ *
+ *   Compartidas:
+ * Metodos añadidos:
+ *   getFechaFinEstimada
+ *   getDiasRestantesEstimados
+ *   getDuracionReal
+ *   isFinalizado
+ * Metodos interface:
+ *
+ *
+ * */
 package clasesBasicas;
 
 import java.util.Calendar;
@@ -27,16 +27,16 @@ import java.util.GregorianCalendar;
 
 public class CicloMenstrual extends Ciclo {
 
-      //Constructores
-      public CicloMenstrual() {
-          super();
-      }
+    //Constructores
+    public CicloMenstrual() {
+        super();
+    }
 
-    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal){
+    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super(usuario, fechaInicio, fechaFinReal);
     }
 
-    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio){
+    public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
         super(usuario, fechaInicio);
     }
 
@@ -74,7 +74,6 @@ public class CicloMenstrual extends Ciclo {
         fechaComienzoSiguienteCicloEstimada.add(Calendar.DAY_OF_MONTH, 28);
         return fechaComienzoSiguienteCicloEstimada;
     }
-
 
 
 }

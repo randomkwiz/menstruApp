@@ -19,18 +19,22 @@
  * */
 package clasesBasicas;
 
-import enumerado.*;
+import enumerado.EstadoAnimico;
+import enumerado.FlujoVaginal;
+import enumerado.Sexo;
+import enumerado.Sintoma;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class RevisionPersonalImpl {
-           UsuarioImpl usuario;
-           String ID;
-           ArrayList<EstadoAnimico> arraylistEstadoAnimico;
-           ArrayList<Sintoma> arraylistSintoma;
-           ArrayList<Sexo> arraylistSexo;
-           ArrayList<FlujoVaginal> arraylistFlujoVaginal;
-           GregorianCalendar fecha;
+    UsuarioImpl usuario;
+    String ID;
+    ArrayList<EstadoAnimico> arraylistEstadoAnimico;
+    ArrayList<Sintoma> arraylistSintoma;
+    ArrayList<Sexo> arraylistSexo;
+    ArrayList<FlujoVaginal> arraylistFlujoVaginal;
+    GregorianCalendar fecha;
 
     public RevisionPersonalImpl(UsuarioImpl usuario) {
         this.usuario = usuario;
@@ -88,6 +92,7 @@ public class RevisionPersonalImpl {
     public void setArraylistSintoma(ArrayList<Sintoma> arraylistSintoma) {
         this.arraylistSintoma = arraylistSintoma;
     }
+
     public void addSintoma(Sintoma sintoma) {
         arraylistSintoma.add(sintoma);
     }
@@ -100,7 +105,7 @@ public class RevisionPersonalImpl {
         this.arraylistSexo = arraylistSexo;
     }
 
-    public void addSexo(Sexo sexo){
+    public void addSexo(Sexo sexo) {
         arraylistSexo.add(sexo);
     }
 
@@ -111,7 +116,8 @@ public class RevisionPersonalImpl {
     public void setArraylistFlujoVaginal(ArrayList<FlujoVaginal> arraylistFlujoVaginal) {
         this.arraylistFlujoVaginal = arraylistFlujoVaginal;
     }
-    public void addFlujoVaginal(FlujoVaginal flujoVaginal){
+
+    public void addFlujoVaginal(FlujoVaginal flujoVaginal) {
         arraylistFlujoVaginal.add(flujoVaginal);
     }
 

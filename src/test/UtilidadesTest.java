@@ -2,16 +2,10 @@ package test;
 
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
-import enumerado.EstadoAnimico;
-import enumerado.FlujoVaginal;
-import enumerado.Sexo;
-import enumerado.Sintoma;
 import gestion.Gestion;
 import utilidades.Utilidades;
-import validaciones.Validar;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class UtilidadesTest {
     public static void main(String[] args) {
@@ -58,8 +52,7 @@ public class UtilidadesTest {
         ArrayList<RevisionPersonalImpl> lista = gestion.buscarRevisionPersonalPorFecha(usuario, 2019);
 
 
-
-        for(int i = 0; i < lista.size(); i ++){
+        for (int i = 0; i < lista.size(); i++) {
             util.imprimirDatosRevisionPersonal(lista.get(i));
         }
 

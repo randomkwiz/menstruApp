@@ -5,8 +5,6 @@ import gestion.Gestion;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
-import java.util.Calendar;
-
 public class ValidarTest {
     public static void main(String[] args) {
         Validar validar = new Validar();
@@ -33,7 +31,7 @@ public class ValidarTest {
         System.out.println(validar.fechaEsValida(32,7,2008));
         System.out.println(validar.fechaEsValida(31,7,2008));
 */
-      //  validar.fechaCumple();
+        //  validar.fechaCumple();
 
        /* System.out.println(validar.combinacionInicioSesion("randomkwiz", "12345"));
         System.out.println(validar.combinacionInicioSesion("randomkwiz", "123456789"));
@@ -61,16 +59,13 @@ public class ValidarTest {
         Utilidades util = new Utilidades();
         UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
         Gestion gestion = new Gestion();
-        String prueba  = validar.pedirValidarCiclosMenstrualesDeUsuario(usuario);
+        String prueba = validar.pedirValidarCiclosMenstrualesDeUsuario(usuario);
         System.out.println(prueba);
 
-        gestion.eliminarCicloBBDD(usuario,prueba);
+        gestion.eliminarCicloBBDD(usuario, prueba);
 
 
-
-
-      //  System.out.println(util.formatearFecha(validar.pedirFechaInicioFinCiclo()));
-
+        //  System.out.println(util.formatearFecha(validar.pedirFechaInicioFinCiclo()));
 
 
     }

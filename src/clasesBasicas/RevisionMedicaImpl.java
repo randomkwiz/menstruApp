@@ -1,24 +1,24 @@
 /*
-* Nombre: RevisionMedicaImpl
-* Propiedades
-*   Basicas
-*       CicloEmbarazo embarazo
-*       double peso
-*       double cintura
-*       double cadera
-*       String estadoFeto
-*       String observaciones
-*       GregorianCalendar fechaCitaActual
-*       GregorianCalendar fechaSiguienteCita
-*
-*   Derivadas
-*   Compartidas
-* Requisitos:
-*
-* Metodos interface
-* Metodos añadidos
-* Metodos object y otros:
-* */
+ * Nombre: RevisionMedicaImpl
+ * Propiedades
+ *   Basicas
+ *       CicloEmbarazo embarazo
+ *       double peso
+ *       double cintura
+ *       double cadera
+ *       String estadoFeto
+ *       String observaciones
+ *       GregorianCalendar fechaCitaActual
+ *       GregorianCalendar fechaSiguienteCita
+ *
+ *   Derivadas
+ *   Compartidas
+ * Requisitos:
+ *
+ * Metodos interface
+ * Metodos añadidos
+ * Metodos object y otros:
+ * */
 package clasesBasicas;
 
 import interfaces.RevisionMedica;
@@ -51,15 +51,26 @@ public class RevisionMedicaImpl implements RevisionMedica {
 
     //setters y getters
 
-   // public CicloEmbarazo getEmbarazo() { return embarazo;    }
+    // public CicloEmbarazo getEmbarazo() { return embarazo;    }
 
     // public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
 
     /*Patron delegacion*/
-    public GregorianCalendar getEmbarazoFechaInicio(){ return embarazo.getFechaInicio();}
-    public GregorianCalendar getEmbarazoFechaFinReal(){return embarazo.getFechaFinReal();}
-    public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio){embarazo.setFechaInicio(fechaInicio);};
-    public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal){embarazo.setFechaFinReal(fechaFinReal);};
+    public GregorianCalendar getEmbarazoFechaInicio() {
+        return embarazo.getFechaInicio();
+    }
+
+    public GregorianCalendar getEmbarazoFechaFinReal() {
+        return embarazo.getFechaFinReal();
+    }
+
+    public void setEmbarazoFechaInicio(GregorianCalendar fechaInicio) {
+        embarazo.setFechaInicio(fechaInicio);
+    }
+
+    public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal) {
+        embarazo.setFechaFinReal(fechaFinReal);
+    }
 
     public String getID() {
         return ID;

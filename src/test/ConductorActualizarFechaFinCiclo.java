@@ -11,7 +11,7 @@ public class ConductorActualizarFechaFinCiclo {
     public static void main(String[] args) {
 
         Gestion gestion = new Gestion();
-        UsuarioImpl usuario = new UsuarioImpl("randomkwiz","123456789");
+        UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
         Ciclo miCiclo = gestion.obtenerCicloActual(usuario);
         gestion.actualizarFechaFinCiclo(miCiclo, new GregorianCalendar());
     }

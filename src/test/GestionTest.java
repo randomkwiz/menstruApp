@@ -1,12 +1,7 @@
 package test;
 
-import clasesBasicas.CicloMenstrual;
-import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
-import utilidades.Utilidades;
-
-import java.util.ArrayList;
 
 public class GestionTest {
     public static void main(String[] args) {
@@ -40,7 +35,7 @@ public class GestionTest {
         UsuarioImpl u = utilidades.toObject("randomkwiz", "123456789");
         ArrayList<CicloMenstrual> arrayList =gestion.obtenerListaCiclosMenstruales(u);
 */
-       // System.out.println(arrayList.size());
+        // System.out.println(arrayList.size());
 /*
         for(int i = 0; i < arrayList.size(); i ++){
             System.out.println(arrayList.get(i).getUsuario().getNick());
@@ -48,14 +43,14 @@ public class GestionTest {
 
         }
  */
-       // System.out.println(gestion.estaEmbarazada(u));
+        // System.out.println(gestion.estaEmbarazada(u));
 
         //System.out.println(utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(u).getFechaFinEstimada()));
-   //     UsuarioImpl u2 = utilidades.toObject("aabbayrl", "123456789");
+        //     UsuarioImpl u2 = utilidades.toObject("aabbayrl", "123456789");
 
 
-     //   System.out.println(gestion.estaEmbarazada(u2));
-      //  gestion.eliminarCuenta(u2);
+        //   System.out.println(gestion.estaEmbarazada(u2));
+        //  gestion.eliminarCuenta(u2);
 
 
         //System.out.println( gestion.existeRevisionPersonalDelDiaEnCurso(u2));

@@ -16,10 +16,9 @@ public class CicloMenstrualTest {
         String fechaInicio = sdf.format(inicioPeriodo.getTime());
         String fechaFinEstimada = " ";
         System.out.println(fechaInicio);
-        CicloMenstrual miCiclo = new CicloMenstrual(new UsuarioImpl(),inicioPeriodo);
+        CicloMenstrual miCiclo = new CicloMenstrual(new UsuarioImpl(), inicioPeriodo);
 
         fechaFinEstimada = sdf.format(miCiclo.getFechaFinEstimada().getTime());
-
 
 
         System.out.println(fechaFinEstimada);

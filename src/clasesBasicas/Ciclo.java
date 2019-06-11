@@ -19,7 +19,9 @@
  *
  * */
 package clasesBasicas;
+
 import java.util.GregorianCalendar;
+
 public abstract class Ciclo {
     private UsuarioImpl usuario;
     private String ID;
@@ -34,8 +36,8 @@ public abstract class Ciclo {
 
     public Ciclo() {
         this.usuario = null;
-       this.fechaInicio = null;
-       this.fechaFinReal = null;
+        this.fechaInicio = null;
+        this.fechaFinReal = null;
 
     }
 
@@ -94,13 +96,13 @@ public abstract class Ciclo {
                             O bien, un numero negativo con los dias que han pasado desde la fecha de fin estimada si esa fecha ya pasó.
      */
 
-    public int getDiasRestantesEstimados(){
+    public int getDiasRestantesEstimados() {
         final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
         GregorianCalendar fechaActual = new GregorianCalendar();
         GregorianCalendar fechaFinalEstimada = getFechaFinEstimada();
 
-        long diasRestantes = (fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis() )/MILLSECS_PER_DAY;
-        return (int)diasRestantes;
+        long diasRestantes = (fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis()) / MILLSECS_PER_DAY;
+        return (int) diasRestantes;
     }
 
     /*
@@ -112,16 +114,17 @@ public abstract class Ciclo {
     Salidas: entero que es la cantidad de dias que duro el ciclo realmente
     Postcondiciones: asociado al nombre devolvera la cantidad de dias reales que duro el ciclo, o -1 si el ciclo no termino aun o hubo algun error.
     */
-    public int getDuracionReal(){
+    public int getDuracionReal() {
         long duracionRealEnDias = -1;
-        if(getFechaFinReal() != null){
+        if (getFechaFinReal() != null) {
             GregorianCalendar fechaInicio = getFechaInicio();
             GregorianCalendar fechaFin = getFechaFinReal();
 
-            duracionRealEnDias = (fechaFin.getTimeInMillis() - fechaInicio.getTimeInMillis()) ;
+            duracionRealEnDias = (fechaFin.getTimeInMillis() - fechaInicio.getTimeInMillis());
         }
-        return (int)duracionRealEnDias;
+        return (int) duracionRealEnDias;
     }
+
     /*
     INTERFAZ
     Comentario: Método que devuelve si el ciclo está finalizado o no.
@@ -131,9 +134,9 @@ public abstract class Ciclo {
     Salidas: boolean
     Postcondiciones: asociado al nombre devolvera un boolean que sera true si el ciclo ha finalizado o false si aun no tiene fecha de fin real.
     */
-    public boolean isFinalizado(){
+    public boolean isFinalizado() {
         boolean finalizado = false;
-        if (getFechaFinReal() != null){
+        if (getFechaFinReal() != null) {
             finalizado = true;
         }
         return finalizado;

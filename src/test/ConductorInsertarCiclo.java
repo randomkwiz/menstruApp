@@ -1,7 +1,6 @@
 package test;
 
 import clasesBasicas.Ciclo;
-import clasesBasicas.CicloMenstrual;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 
@@ -13,7 +12,7 @@ public class ConductorInsertarCiclo {
 
         Gestion gestion = new Gestion();
         Ciclo miCiclo = gestion.obtenerCicloActual(usuario);
-       // gestion.insertarCiclo(miCiclo);
+        // gestion.insertarCiclo(miCiclo);
 
 
         gestion.actualizarFechaFinCiclo(miCiclo, new GregorianCalendar());
