@@ -535,7 +535,6 @@ public class main {
                                                         //Eliminar revision
                                                         System.out.println("Modulo eliminar revision medica en construccion");
                                                         break;
-
                                                 }
                                             }
                                         }while (opcionRevisionMedica != 0);
