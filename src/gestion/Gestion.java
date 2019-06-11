@@ -1919,11 +1919,13 @@ public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFechaModulo(Usua
 /*
 * INTERFAZ
 * Comentario: Modulo pedir validar enum
-* Signatura: public String preguntarEnums()
+* Signatura: public String preguntarEnums(int opcionSubMenuRegistrarRevisionPersonal)
 * Precondiciones:
-* Entradas:
-* Salidas:
-* Postcondiciones:
+* Entradas: entero opcion
+* Salidas: String con el valor del enum elegido
+* Postcondiciones: asociado al nombre devolvera una cadena con el valor del enum elegido, o cadena
+*                   con espacio en blanco si no se elige nada o la opcion pasada como parametro no esta
+*                   dentro del rango elegible (1-4)
 * */
 public String preguntarEnums(int opcionSubMenuRegistrarRevisionPersonal){
     String opcionEnum = "";
@@ -1956,10 +1958,10 @@ public String preguntarEnums(int opcionSubMenuRegistrarRevisionPersonal){
 * INTERFAZ
 * Comentario: metodo que imprime por pantalla datos del ultimo ciclo sin cierre de un usuario
 * Signatura: public void imprimirDatosCicloEnCurso(Ciclo cicloActual)
-* Precondiciones:
-* Entradas:
+* Precondiciones: el ciclo no debe ser null
+* Entradas: Ciclo que sera ciclo actual
 * Salidas:
-* Postcondiciones:
+* Postcondiciones: imprime en pantalla
 * */
 public void imprimirDatosCicloEnCurso(Ciclo cicloActual, UsuarioImpl usuarioLogado){
     Utilidades utilidades = new Utilidades();
