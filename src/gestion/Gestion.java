@@ -1704,8 +1704,6 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
         ArrayList<RevisionPersonalImpl> revisionPersonalLista = new ArrayList<RevisionPersonalImpl>();
         RevisionPersonalImpl revisionPersonal = null;
         GregorianCalendar fecha;
-
-
         try {
 
             // Define la fuente de datos para el driver
@@ -1814,5 +1812,51 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
     }
 
 
+    /*
+    * INTERFAZ
+    * Comentario: metodo para eliminar de la BBDD una revision personal concreta
+    * Signatura: public boolean eliminarRevisionPersonal(RevisionPersonalImpl revision)
+    * Precondiciones:
+    * Entradas:
+    * Salidas:
+    * Postcondiciones:
+    * */
+    public boolean eliminarRevisionPersonal(RevisionPersonalImpl revision){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "delete\n" +
+                    "from REVISIONPERSONAL\n" +
+                    "where ID = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getID());
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            exito = true;
+
+            // Cerrar
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        }
+        catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return exito;
+    }
 
 }

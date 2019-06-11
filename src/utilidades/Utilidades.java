@@ -264,6 +264,7 @@ public class Utilidades <T extends Enum<T>>{
     public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones){
 
         for(int i = 0; i < revisiones.size(); i ++){
+            System.out.print((i+1)+". ");
             imprimirDatosRevisionPersonal(revisiones.get(i));
         }
     }

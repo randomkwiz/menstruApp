@@ -1,11 +1,13 @@
 package validaciones;
 
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 import utilidades.Utilidades;
 
 import java.io.Console;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -37,7 +39,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do{
-        System.out.println("0. Salir");
+        System.out.println("0. Salir al menu de login");
         System.out.println("1. Cuenta");
         System.out.println("2. Revision personal");
         System.out.println("3. Ciclo");
@@ -57,7 +59,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do{
-        System.out.println("0. Salir");
+        System.out.println("0. Volver atras");
         System.out.println("1. Ver datos de la cuenta");
         System.out.println("2. Modificar datos de la cuenta");
         System.out.println("3. Eliminar cuenta");
@@ -75,7 +77,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do {
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
             System.out.println("1. Registrar revision personal");
             System.out.println("2. Ver revisiones personales ");
             System.out.println("3. Buscar revision personal");
@@ -94,7 +96,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do{
-        System.out.println("0. Salir");
+        System.out.println("0. Volver atras");
         System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
         System.out.println("2. Ver datos del ciclo actual ");
         System.out.println("3. Marcar fin del ciclo actual");
@@ -113,7 +115,7 @@ public class Validar <T extends Enum<T>>{
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         do{
-        System.out.println("0. Salir");
+        System.out.println("0. Volver atras");
         System.out.println("1. Registrar revision medica");
         System.out.println("2. Ver revisiones pasadas ");
         System.out.println("3. Buscar revision");
@@ -498,6 +500,33 @@ public class Validar <T extends Enum<T>>{
     }
 
     /*
+     * INTERFAZ
+     * Signatura: public boolean borrarRevision()
+     * Comentario: pide y valida si el usuario desea realmente eliminar su revision.
+     * Precondiciones:
+     * Entradas:
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario efectivamente desea eliminar su revision y false si no
+     * */
+    public boolean borrarRevision(){
+        Scanner sc = new Scanner(System.in);
+        boolean seguro = false;
+        String respuesta=" ";
+        do {
+            System.out.println("¿Estas segura de que deseas eliminar la revision? SI/NO");
+            respuesta = sc.nextLine().toUpperCase();
+        }while(!respuesta.equals("SI") && !respuesta.equals("NO"));
+
+        if (respuesta.equals("SI")){
+            seguro = true;
+        }
+        return seguro;
+    }
+
+
+
+
+    /*
     * INTERFAZ
     * Comentario: Submenu del apartado RevisionPersonal, lee y valida la opcion elegida
     * Signatura public int submenuRegistrarRevisionPersonal()
@@ -509,7 +538,7 @@ public class Validar <T extends Enum<T>>{
         int opcion = -1;
         do {
             System.out.println("Opciones:");
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
             System.out.println("1. Estado animico");
             System.out.println("2. Flujo vaginal");
             System.out.println("3. Sexo");
@@ -536,7 +565,7 @@ public class Validar <T extends Enum<T>>{
         int opcion = -1;
         String value = null;
         do {
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
             utilidades.imprimirValoresEnum(enumerados);
             opcion = sc.nextInt();
         }while (opcion < 0 || opcion > enumerados.length);
@@ -607,7 +636,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
 
     do{
         System.out.println("Elige");
-        System.out.println("0. Salir");
+        System.out.println("0. Volver atras");
         System.out.println("1. Menstruacion");
         System.out.println("2. Embarazo");
         opcion = sc.nextInt();
@@ -633,7 +662,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
         String idCiclo = null;
         do{
             System.out.println("Ciclos menstruales");
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
             if(gestion.obtenerListaCiclosMenstruales(user).size() == 0){
                 System.out.println("No existen ciclos menstruales registrados para este usuario");
             }else{
@@ -678,7 +707,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
         String idCiclo = null;
         do{
             System.out.println("Embarazos");
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
 
             if(gestion.obtenerListaEmbarazos(user).size() == 0){
                 System.out.println("No existen embarazos registrados para este usuario");
@@ -721,7 +750,7 @@ public int pedirValidarMenuReglaOEmbarazo(){
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         do{
-            System.out.println("0. Salir");
+            System.out.println("0. Volver atras");
             System.out.println("1. Buscar por fecha");
             System.out.println("2. Buscar por registro");
             opcion = sc.nextInt();
@@ -788,6 +817,34 @@ public int pedirValidarMenuReglaOEmbarazo(){
         }while(dia_buscado < 0 || dia_buscado > 31);
 
         return dia_buscado;
+    }
+
+    /*
+    * INTERFAZ
+    * Comentario: Metodo que muestra, pide y valida una lista de RevisionesPersonalesImpl y devuelve la revision seleccionada
+    *           por el usuario
+    * Signatura: public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista)
+    * Precondiciones:
+    * Entradas:
+    * Salidas: revision personal
+    * Postcondiciones: asociado al nombre devuelve una revision que sera la elegida por el usuario o null si el usuario no
+    *                   elige ninguna
+    * */
+    public RevisionPersonalImpl pedirValidarListaRevisionesPersonalesImpl(ArrayList<RevisionPersonalImpl> lista){
+        RevisionPersonalImpl revisionElegida = null;
+        Scanner sc = new Scanner(System.in);
+        Utilidades util = new Utilidades();
+        int opcion = 0;
+        do{
+            util.imprimirDatosRevisionPersonalLista(lista);
+            opcion = sc.nextInt();
+
+        }while (opcion < 0 || opcion > lista.size());
+        if(opcion != 0){
+            revisionElegida = lista.get(opcion-1);
+        }
+
+     return revisionElegida;
     }
 
 
