@@ -187,23 +187,7 @@ public class main {
                                                 case 1:
                                                     //Ver datos de la cuenta
                                                     //System.out.println("Modulo ver datos de la cuenta en construccion");
-                                                    System.out.println("Nick: "+ usuarioLogado.getNick());
-                                                    System.out.println("Nombre: "+usuarioLogado.getNombre());
-                                                    System.out.println("Edad: "+gestion.obtenerEdad(usuarioLogado));
-                                                    System.out.print("Embarazada: ");
-                                                    System.out.println((gestion.estaEmbarazada(usuarioLogado))? "Si" : "No"  );
-                                                    if(gestion.estaEmbarazada(usuarioLogado)){
-                                                        System.out.println("Fecha aproximada para dar a luz: "
-                                                                + utilidades.formatearFecha(gestion.obtenerEmbarazoEnCurso(usuarioLogado).getFechaFinEstimada()) );
-                                                    }else{
-                                                        if(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaInicio() != null){
-                                                            System.out.println("Fecha aproximada de tu siguiente periodo: "
-                                                                    +utilidades.formatearFecha(gestion.ultimoCicloMenstrual(usuarioLogado).getFechaComienzoEstimadaSiguientePeriodo()));
-                                                        }else{
-                                                            System.out.println("Sin ciclo menstrual registrado");
-                                                        }
-
-                                                    }
+                                                    gestion.imprimirDatosDeLaCuenta(usuarioLogado);
                                                     break;
                                                 case 2:
                                                     //Modificar datos de la cuenta
@@ -336,18 +320,7 @@ public class main {
                                                                 case 1:
                                                                     //Buscar por fecha
                                                                     //System.out.println("Buscar por fecha en construccion");
-                                                                    int dia, mes, anyo;
-                                                                    dia = validar.dia();
-                                                                    mes = validar.mes();
-                                                                    anyo = validar.anyo();
-                                                                    if (mes == 0 && dia == 0) {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo);
-                                                                    } else if (mes != 0 && dia == 0) {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes);
-                                                                    } else {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes, dia);
-                                                                    }
-
+                                                                   revisionesBuscadas = gestion.buscarRevisionPersonalPorFechaModulo(usuarioLogado);
                                                                     if (revisionesBuscadas.size() > 0) {
                                                                         utilidades.imprimirDatosRevisionPersonalLista(revisionesBuscadas);
                                                                     } else {
@@ -363,26 +336,7 @@ public class main {
                                                                         opcionSubMenuRegistrarRevisionPersonal = validar.submenuRegistrarRevisionPersonal();
 
                                                                         if(opcionSubMenuRegistrarRevisionPersonal != 0){
-                                                                            switch (opcionSubMenuRegistrarRevisionPersonal){
-                                                                                case 1:
-                                                                                    //EstadoAnimico
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
-
-                                                                                    break;
-                                                                                case 2:
-                                                                                    //FlujoVaginal
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(FlujoVaginal.values());
-                                                                                    break;
-                                                                                case 3:
-                                                                                    //Sexo
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(Sexo.values());
-                                                                                    break;
-                                                                                case 4:
-                                                                                    //Sintomas
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(Sintoma.values());
-                                                                                    break;
-
-                                                                            }
+                                                                            opcionEnum = gestion.preguntarEnums(opcionSubMenuRegistrarRevisionPersonal);
                                                                             revisionesBuscadas = gestion.buscarRevisionPersonalPorRegistro(usuarioLogado, opcionEnum);
 
                                                                             if(revisionesBuscadas.size() == 0){
@@ -391,16 +345,10 @@ public class main {
                                                                                 System.out.println("Revisiones que contienen el registro: "+ opcionEnum);
                                                                                 utilidades.imprimirDatosRevisionPersonalLista(revisionesBuscadas);
                                                                             }
-
-
                                                                         }
 
                                                                     }while (opcionSubMenuRegistrarRevisionPersonal != 0);
-
-
-
                                                                     break;
-
                                                             }
                                                         }
 
@@ -409,7 +357,7 @@ public class main {
 
                                                 case 4:
                                                     //Eliminar revision personal
-                                                    System.out.println("Modulo eliminar revision personal en construccion");
+                                                    //System.out.println("Modulo eliminar revision personal en construccion");
                                                     //Primero busca la revision que desea borrar
                                                     RevisionPersonalImpl revisionAEliminar = null;
                                                     do{
@@ -419,34 +367,20 @@ public class main {
                                                                 case 1:
                                                                     //Buscar por fecha
                                                                     //System.out.println("Buscar por fecha en construccion");
-                                                                    int dia, mes, anyo;
-                                                                    dia = validar.dia();
-                                                                    mes = validar.mes();
-                                                                    anyo = validar.anyo();
-                                                                    if (mes == 0 && dia == 0) {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo);
-                                                                    } else if (mes != 0 && dia == 0) {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes);
-                                                                    } else {
-                                                                        revisionesBuscadas = gestion.buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes, dia);
-                                                                    }
-
+                                                                    revisionesBuscadas = gestion.buscarRevisionPersonalPorFechaModulo(usuarioLogado);
                                                                     if (revisionesBuscadas.size() > 0) {
                                                                         System.out.println("Elija aquella que desea borrar: ");
                                                                         revisionAEliminar = validar.pedirValidarListaRevisionesPersonalesImpl(revisionesBuscadas);
-
                                                                         if(revisionAEliminar != null ){
                                                                             if (validar.borrarRevision()) {
                                                                                 gestion.eliminarRevisionPersonal(revisionAEliminar);
                                                                                 System.out.println("Revision personal eliminada correctamente.");
-
                                                                             } else {
                                                                                 System.out.println("No se elimino su revision personal.");
                                                                             }
                                                                         }else{
                                                                             System.out.println("Volviendo atras");
                                                                         }
-
                                                                     } else {
                                                                         System.out.println("No existen revisiones con esas caracteristicas.");
                                                                     }
@@ -456,67 +390,34 @@ public class main {
                                                                     //System.out.println("Buscar por registro en construccion");
                                                                     do{
                                                                         System.out.println("¿Por qué registro quieres buscar?");
-
                                                                         opcionSubMenuRegistrarRevisionPersonal = validar.submenuRegistrarRevisionPersonal();
-
                                                                         if(opcionSubMenuRegistrarRevisionPersonal != 0){
-                                                                            switch (opcionSubMenuRegistrarRevisionPersonal){
-                                                                                case 1:
-                                                                                    //EstadoAnimico
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
-
-                                                                                    break;
-                                                                                case 2:
-                                                                                    //FlujoVaginal
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(FlujoVaginal.values());
-                                                                                    break;
-                                                                                case 3:
-                                                                                    //Sexo
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(Sexo.values());
-                                                                                    break;
-                                                                                case 4:
-                                                                                    //Sintomas
-                                                                                    opcionEnum = validar.pedirValidarOpcionEnum(Sintoma.values());
-                                                                                    break;
-
-                                                                            }
+                                                                            opcionEnum = gestion.preguntarEnums(opcionSubMenuRegistrarRevisionPersonal);
                                                                             revisionesBuscadas = gestion.buscarRevisionPersonalPorRegistro(usuarioLogado, opcionEnum);
-
                                                                             if (revisionesBuscadas.size() > 0) {
                                                                                 System.out.println("Revisiones con el registro " + opcionEnum);
                                                                                 System.out.println("Elija aquella que desea borrar: ");
                                                                                 revisionAEliminar = validar.pedirValidarListaRevisionesPersonalesImpl(revisionesBuscadas);
-
                                                                                 if(revisionAEliminar != null){
                                                                                     if (validar.borrarRevision()) {
                                                                                         gestion.eliminarRevisionPersonal(revisionAEliminar);
                                                                                         System.out.println("Revision personal eliminada correctamente.");
-
                                                                                     } else {
                                                                                         System.out.println("No se elimino su revision personal.");
                                                                                     }
                                                                                 }else{
-                                                                                    System.out.println("Volviendo atras");
                                                                                 }
                                                                             }else{
                                                                                 System.out.println("No se encontraron revisiones con esas caracteristicas");
                                                                             }
-
                                                                         }
-
                                                                     }while (opcionSubMenuRegistrarRevisionPersonal != 0);
 
-
-
                                                                     break;
-
                                                             }
                                                         }
-
                                                     }while (opcionBuscarRevisionPersonal != 0);
-
                                                     break;
-
                                             }
                                         }
                                     }while (opcionRevisionPersonal != 0);
@@ -534,7 +435,6 @@ public class main {
                                                     //System.out.println("Modulo registrar ciclo en construccion");
                                                     int opcionReglaOEmbarazo;
                                                     opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
-
                                                     if (cicloActual == null && opcionReglaOEmbarazo != 0){
                                                         fechaInicioCicloActual = validar.pedirFechaInicioFinCiclo();
                                                         switch (opcionReglaOEmbarazo){
@@ -549,29 +449,16 @@ public class main {
 
                                                         }
                                                         gestion.insertarCiclo(cicloActual);
-
                                                     }else if (cicloActual != null ){
                                                         System.out.println("Ya existe un ciclo en curso.");
                                                     }
-
                                                     break;
                                                 case 2:
                                                     //Ver datos del ciclo actual
                                                     //System.out.println("Modulo ver datos del ciclo actual en construccion");
                                                     cicloActual = gestion.obtenerCicloActual(usuarioLogado);
                                                     if(cicloActual != null){
-                                                        System.out.println("Datos del ciclo actual");
-                                                        System.out.println("Fecha inicio del ciclo actual: "+utilidades.formatearFecha(cicloActual.getFechaInicio()));
-
-                                                        if(gestion.estaEmbarazada(usuarioLogado)){
-                                                            CicloEmbarazo cicloEmbarazo =(CicloEmbarazo) cicloActual;
-                                                            System.out.println("Fecha estimada de fin del embarazo: " + utilidades.formatearFecha(cicloActual.getFechaFinEstimada()));
-                                                        }else{
-                                                            CicloMenstrual cicloMenstrual =(CicloMenstrual) cicloActual;
-                                                            System.out.println("Fecha estimada de fin de la regla: " + utilidades.formatearFecha(cicloActual.getFechaFinEstimada()));
-                                                            System.out.println("Fecha estimada de inicio de tu siguiente periodo: " + utilidades.formatearFecha(((CicloMenstrual) cicloActual).getFechaComienzoEstimadaSiguientePeriodo()));
-                                                        }
-
+                                                        gestion.imprimirDatosCicloEnCurso(cicloActual, usuarioLogado);
                                                     }else{
                                                         System.out.println("No existe un ciclo actual registrado ");
                                                     }
@@ -579,10 +466,8 @@ public class main {
                                                 case 3:
                                                     //Marcar fin del ciclo actual
                                                     //System.out.println("Modulo marcar fin del ciclo actual en construccion");
-
                                                     if (cicloActual == null){
                                                         System.out.println("No existe un ciclo actualmente");
-
                                                     }else{
                                                         fechaFinCicloActual = validar.pedirFechaInicioFinCiclo();
                                                         cicloActual.setFechaFinReal(fechaFinCicloActual);   //para tener el dato en memoria principal
@@ -611,21 +496,15 @@ public class main {
                                                             if(IDCicloABorrar != null){
                                                                 gestion.eliminarCicloBBDD(usuarioLogado, IDCicloABorrar);
                                                             }
-
                                                         }
                                                     }while (opcionReglaOEmbarazo != 0);
-
-
-
                                                     break;
-
                                             }
                                         }
                                     }while (opcionCiclo != 0);
                                     break;
                                 case 4:
                                     //Revision medica (solo si existe embarazo)
-
                                     if(gestion.estaEmbarazada(usuarioLogado)){
                                         System.out.println("Modulo Revision medica del menu principal en construccion");
                                         do{
@@ -664,22 +543,13 @@ public class main {
                                     }else{
                                         System.out.println("No existe un embarazo en curso, no tiene acceso a esta seccion");
                                     }
-
                                     break;
-
                             }
                         }
-
                     } while (opcionMenuPrincipal != 0);
-
-
                     break;
-
             } //fin del switch ( opcionLogInOrSignUp )
         }   //fin del if (opcionLogInOrSignUp != 0)
-
         }while(opcionLogInOrSignUp != 0);
-
-
     }
 }

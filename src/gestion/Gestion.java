@@ -5,6 +5,7 @@ import enumerado.EstadoAnimico;
 import enumerado.FlujoVaginal;
 import enumerado.Sexo;
 import enumerado.Sintoma;
+import sun.usagetracker.UsageTrackerClient;
 import utilidades.Utilidades;
 import validaciones.Validar;
 
@@ -1858,5 +1859,122 @@ public String obtenerIDRevisionPersonalDelDiaEnCurso(UsuarioImpl user){
 
         return exito;
     }
+
+    /*
+    * INTERFAZ
+    * Comentario: muestra los datos de la cuenta del usuario pasado como parametro
+    * Signatura: public void imprimirDatosDeLaCuenta(UsuarioImpl usuario)
+    * Precondiciones:
+    * Entradas:
+    * Salidas:
+    * Postcondiciones:
+    * */
+    public void imprimirDatosDeLaCuenta(UsuarioImpl usuarioLogado){
+        Utilidades utilidades = new Utilidades();
+        System.out.println("Nick: "+ usuarioLogado.getNick());
+        System.out.println("Nombre: "+usuarioLogado.getNombre());
+        System.out.println("Edad: "+obtenerEdad(usuarioLogado));
+        System.out.print("Embarazada: ");
+        System.out.println((estaEmbarazada(usuarioLogado))? "Si" : "No"  );
+        if(estaEmbarazada(usuarioLogado)){
+            System.out.println("Fecha aproximada para dar a luz: "
+                    + utilidades.formatearFecha(obtenerEmbarazoEnCurso(usuarioLogado).getFechaFinEstimada()) );
+        }else{
+            if(ultimoCicloMenstrual(usuarioLogado).getFechaInicio() != null){
+                System.out.println("Fecha aproximada de tu siguiente periodo: "
+                        +utilidades.formatearFecha(ultimoCicloMenstrual(usuarioLogado).getFechaComienzoEstimadaSiguientePeriodo()));
+            }else{
+                System.out.println("Sin ciclo menstrual registrado");
+            }
+
+        }
+    }
+
+/*
+* INTERFAZ
+* Comentario: Modulo de buscar por fecha
+* Signatura: public void buscarPorFechaModulo(UsuarioImpl usuarioLogado)
+* Precondiciones:
+* Entradas:
+* Salidas:
+* Postcondiciones:
+* */
+public ArrayList<RevisionPersonalImpl> buscarRevisionPersonalPorFechaModulo(UsuarioImpl usuarioLogado){
+    Validar validar = new Validar();
+    ArrayList<RevisionPersonalImpl> revisionesBuscadas = new ArrayList<RevisionPersonalImpl>();
+    int dia, mes, anyo;
+    dia = validar.dia();
+    mes = validar.mes();
+    anyo = validar.anyo();
+    if (mes == 0 && dia == 0) {
+        revisionesBuscadas = buscarRevisionPersonalPorFecha(usuarioLogado, anyo);
+    } else if (mes != 0 && dia == 0) {
+        revisionesBuscadas = buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes);
+    } else {
+        revisionesBuscadas = buscarRevisionPersonalPorFecha(usuarioLogado, anyo, mes, dia);
+    }
+    return revisionesBuscadas;
+}
+
+/*
+* INTERFAZ
+* Comentario: Modulo pedir validar enum
+* Signatura: public String preguntarEnums()
+* Precondiciones:
+* Entradas:
+* Salidas:
+* Postcondiciones:
+* */
+public String preguntarEnums(int opcionSubMenuRegistrarRevisionPersonal){
+    String opcionEnum = "";
+    Validar validar = new Validar();
+    switch (opcionSubMenuRegistrarRevisionPersonal){
+        case 1:
+            //EstadoAnimico
+            opcionEnum = validar.pedirValidarOpcionEnum(EstadoAnimico.values());
+
+            break;
+        case 2:
+            //FlujoVaginal
+            opcionEnum = validar.pedirValidarOpcionEnum(FlujoVaginal.values());
+            break;
+        case 3:
+            //Sexo
+            opcionEnum = validar.pedirValidarOpcionEnum(Sexo.values());
+            break;
+        case 4:
+            //Sintomas
+            opcionEnum = validar.pedirValidarOpcionEnum(Sintoma.values());
+            break;
+
+    }
+
+    return opcionEnum;
+}
+
+/*
+* INTERFAZ
+* Comentario: metodo que imprime por pantalla datos del ultimo ciclo sin cierre de un usuario
+* Signatura: public void imprimirDatosCicloEnCurso(Ciclo cicloActual)
+* Precondiciones:
+* Entradas:
+* Salidas:
+* Postcondiciones:
+* */
+public void imprimirDatosCicloEnCurso(Ciclo cicloActual, UsuarioImpl usuarioLogado){
+    Utilidades utilidades = new Utilidades();
+    System.out.println("Datos del ciclo actual");
+    System.out.println("Fecha inicio del ciclo actual: "+utilidades.formatearFecha(cicloActual.getFechaInicio()));
+    if(estaEmbarazada(usuarioLogado)){
+        CicloEmbarazo cicloEmbarazo =(CicloEmbarazo) cicloActual;
+        System.out.println("Fecha estimada de fin del embarazo: " + utilidades.formatearFecha(cicloActual.getFechaFinEstimada()));
+    }else{
+        CicloMenstrual cicloMenstrual =(CicloMenstrual) cicloActual;
+        System.out.println("Fecha estimada de fin de la regla: " + utilidades.formatearFecha(cicloActual.getFechaFinEstimada()));
+        System.out.println("Fecha estimada de inicio de tu siguiente periodo: " + utilidades.formatearFecha(((CicloMenstrual) cicloActual).getFechaComienzoEstimadaSiguientePeriodo()));
+    }
+}
+
+
 
 }
