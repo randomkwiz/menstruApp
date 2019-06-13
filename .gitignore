@@ -30,6 +30,8 @@ hs_err_pid*
 *.xml
 .idea/workspace.xml
 ./out
+./Javadoc
+*.html
 out/production/menstruApp/META-INF/menstruApp.kotlin_module
 BBDD/USUARIO_DATA2.sql
 
