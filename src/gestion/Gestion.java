@@ -64,7 +64,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Inserta un objeto UsuarioImpl en la BBDD del programa.
+     * Inserta un objeto UsuarioImpl en la BBDD del programa.
      * @param user usuario a insertar en la base de datos del programa, en la tabla usuario.
      * @return asociado al nombre devuelve un boolean que sera true si la inserción se realizó correctamente y false si hubo algún problema.
      */
@@ -125,7 +125,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve el objeto CicloMenstrual sin fecha de fin del usuario
+     *Este metodo consulta la BBDD del programa y devuelve el objeto CicloMenstrual sin fecha de fin del usuario
      * @param user que es el usuario del que se consultaran los datos del ciclo menstrual
      * @return asociado al nombre se devuelve el ciclo menstrual que el usuario tenga sin fecha de fin, o si todos tienen fecha de
      *         fin, se devuelve el que tenga una fecha de inicio mayor.
@@ -192,7 +192,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los ciclos menstruales del usuario
+     * Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los ciclos menstruales del usuario
      * @param user usuario del que se buscaran los ciclos menstruales
      * @return asociado al nombre se devuelve un arraylist con todos los objetos ciclo menstrual del usuario.
      */
@@ -265,7 +265,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los embarazos del usuario
+     * Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los embarazos del usuario
      * @param user usuario del que se consultaran los datos
      * @return asociado al nombre se devuelve un arraylist de objetos CicloEmbarazo del usuario.
      */
@@ -340,7 +340,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Este metodo comprueba si un usuario tiene un embarazo en curso actualmente (sin fecha de fin)
+     * Este metodo comprueba si un usuario tiene un embarazo en curso actualmente (sin fecha de fin)
      * @param user el usuario del que se desean buscar los datos
      * @return asociado al nombre devuelve un boolean que indica si el usuario tiene un embarazo en curso en la fecha actual,
      *         el boolean sera true si sí y false si no o si hay algun problema.
@@ -398,7 +398,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve el objeto CicloEmbarazo en curso de un usuario,
+     * Este metodo consulta la BBDD del programa y devuelve el objeto CicloEmbarazo en curso de un usuario,
      *             o null si no tuviera ninguno
      * @param user el usuario del que se extraera el embarazo en curso.
      * @return asociado al nombre se devuelve un objeto embarazo o null si no hay ninguno embarazo en curso.
@@ -465,7 +465,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: obtiene la edad de un usuario a partir de su fecha de nacimiento.
+     * obtiene la edad de un usuario a partir de su fecha de nacimiento.
      * @param usuario usuario del que se calculara la edad
      * @return asociado al nombre se devuelve la edad, o -1 si el usuario no posee fecha de nacimiento registrada o hay algun error.
      */
@@ -491,7 +491,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Elimina una cuenta de usuario
+     * Elimina una cuenta de usuario
      * @param user usuario del que se eliminara la cuenta
      * @return asociado al nombre devuelve un boolean que sera true si la cuenta se ha borrado satisfactoriamente y
      *      false si no, o hubo algun problema. Si el usuario no existe, no se eliminara su cuenta (pues no existe) y devolvera false.
@@ -553,7 +553,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Comprobar si existe una revision personal para el dia en curso para el usuario indicado y si no
+     * Comprobar si existe una revision personal para el dia en curso para el usuario indicado y si no
      *          existe la crea.
      * @see  #crearRevisionPersonalDiaEnCurso
      * @param user usuario sobre el que se realizara la operacion
@@ -622,7 +622,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Crea una nueva revision personal para el dia actual y el usuario indicado
+     * Crea una nueva revision personal para el dia actual y el usuario indicado
      * @param user usuario del cual se creara una revision personal
      * @return Asociado al nombre devuelve un boolean que sera true si se inserta correctamente y false si no.
      */
@@ -677,7 +677,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Comprueba si existe una revision personal para el dia en curso para el usuario indicado
+     * Comprueba si existe una revision personal para el dia en curso para el usuario indicado
      * @param user usuario del cual se realizara la comprobacion
      * @return asociado al nombre devuelve un boolean que sera true si existe una revision para el dia actual y false si no.
      *       Si el usuario pasado como parametro no existe devolvera false.
@@ -740,7 +740,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: método para instanciar un objeto RevisionPersonalImpl en java con los datos
+     * método para instanciar un objeto RevisionPersonalImpl en java con los datos
      *      de la BBDD de una revision personal en concreto
      * @param user objeto UsuarioImpl que es el usuario
      * @param identificador el ID de la revision personal del citado usuario
@@ -805,7 +805,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: carga en un objeto RevisionPersonal su array de estados de animo cogiendo los datos de la BBDD
+     * carga en un objeto RevisionPersonal su array de estados de animo cogiendo los datos de la BBDD
      * @param revision revision en la que se cargaran los datos
      * @return asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
      *
@@ -873,7 +873,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: carga en un objeto RevisionPersonal su array de Sintomas cogiendo los datos de la BBDD
+     * carga en un objeto RevisionPersonal su array de Sintomas cogiendo los datos de la BBDD
      * @param revision revision en la que se cargaran los datos
      * @return asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
      */
@@ -939,7 +939,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: carga en un objeto RevisionPersonal su array de Sexo cogiendo los datos de la BBDD
+     * carga en un objeto RevisionPersonal su array de Sexo cogiendo los datos de la BBDD
      * @param revision revision en la que se cargaran los datos
      * @return asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
      */
@@ -1006,7 +1006,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: carga en un objeto RevisionPersonal su array de FlujoVaginal cogiendo los datos de la BBDD
+     * carga en un objeto RevisionPersonal su array de FlujoVaginal cogiendo los datos de la BBDD
      * @param revision revision en la que se cargaran los datos
      * @return asociado al nombre se devuelve un boolean que sera true si se cargo con exito o false si no.
      */
@@ -1070,7 +1070,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un estado de animo
+     * Inserta en la BBDD la relacion entre una revision personal y un estado de animo
      * @param revision revision sobre la que operamos
      * @param estado estado que queremos insertar
      * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
@@ -1132,7 +1132,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un sintoma
+     * Inserta en la BBDD la relacion entre una revision personal y un sintoma
      * @param revision  revision sobre la que operamos
      * @param sintoma sintoma que queremos insertar
      * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
@@ -1190,7 +1190,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un sintoma
+     * Inserta en la BBDD la relacion entre una revision personal y un sintoma
      * @param revision  revision sobre la que operamos
      * @param flujoVaginal flujo vaginal que queremos insertar
      * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
@@ -1246,7 +1246,7 @@ public class Gestion {
      * si se intenta insertar un valor repetido saltara excepcion de SQL Server
      * */
     /**
-     * Comentario: Inserta en la BBDD la relacion entre una revision personal y un sintoma
+     * Inserta en la BBDD la relacion entre una revision personal y un sintoma
      * @param revision  revision sobre la que operamos
      * @param sexo sexo que queremos insertar
      * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo con exito y false si no
@@ -1305,7 +1305,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: este metodo se encarga de llamar a otros metodos para cargar todos los arraylist
+     * este metodo se encarga de llamar a otros metodos para cargar todos los arraylist
      *       del objeto RevisionPersonalImpl recibido como parametro
      * @see #cargarEstadosDeAnimoRevisionPersonal(RevisionPersonalImpl)
      * @see #cargarFlujoVaginalRevisionPersonal(RevisionPersonalImpl)
@@ -1347,7 +1347,7 @@ public class Gestion {
      *
      * */
     /**
-     * Comentario: Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente (sin fecha de fin real en la base de datos).
+     * Metodo para obtener un ciclo (CicloMenstrual o Embarazo) que esté en curso actualmente (sin fecha de fin real en la base de datos).
      * @param user usuario sobre el cual se realizara la consulta
      * @return Asociado al nombre devolverá un Ciclo que será el Ciclo en curso en el día actual para el usuario
      *      pasado por parametro. De no existir o haber algun problema,
@@ -1442,7 +1442,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: metodo para insertar la fecha de fin de un ciclo en la BBDD
+     * metodo para insertar la fecha de fin de un ciclo en la BBDD
      * @param ciclo Ciclo del cual actualizaremos la fecha de fin
      * @param fechaFinCiclo fecha nueva de fin de ciclo
      * @return asociado al nombre se devuelve un boolean que indica si la actualizacion se realizo correctamente
@@ -1514,7 +1514,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: metodo para insertar un ciclo en la BBDD
+     * metodo para insertar un ciclo en la BBDD
      * @param ciclo Ciclo a insertar en la BBDD
      * @return asociado al nombre se devuelve un boolean que indica si la inserccion se realizo correctamente (true)
      *        o no (false).
@@ -1595,7 +1595,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: metodo para borrar un ciclo de un usuario de la BBDD
+     * metodo para borrar un ciclo de un usuario de la BBDD
      * @param user usuario del cual modificaremos su ciclo
      * @param IDCiclo ID del ciclo a eliminar
      * @return asociado al nombre se devolvera un boolean que indicara si el borrado se realizo correctamente.
@@ -1666,7 +1666,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: busca las revisiones que ha hecho un usuario en la fecha dada
+     * busca las revisiones que ha hecho un usuario en la fecha dada
      * @param user usuario del cual se buscaran las revisiones
      * @param anyo año del que se buscaran las revisiones
      * @return asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
@@ -1740,7 +1740,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: busca las revisiones que ha hecho un usuario en la fecha dada
+     * busca las revisiones que ha hecho un usuario en la fecha dada
      * @param user usuario del cual se buscaran las revisiones
      * @param anyo año del cual se buscaran las revisiones
      * @param mes mes del cual se buscaran las revisiones
@@ -2025,7 +2025,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: metodo para eliminar de la BBDD una revision personal concreta
+     * metodo para eliminar de la BBDD una revision personal concreta
      * @param revision revision a eliminar
      * @return asociado al nombre se devuelve un boolean que sera true si se ha ejecutado correctamente la instruccion y el
      *         registro ha sido borrado y false si hubo algun problema o no se elimino ninguna fila.
@@ -2083,7 +2083,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: muestra los datos de la cuenta del usuario pasado como parametro
+     * muestra los datos de la cuenta del usuario pasado como parametro
      * @see #estaEmbarazada(UsuarioImpl)
      * @see #obtenerEdad(UsuarioImpl)
      * @see #obtenerEmbarazoEnCurso(UsuarioImpl)
@@ -2123,7 +2123,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Modulo de buscar por fecha
+     * Modulo de buscar por fecha
      * @see #buscarRevisionPersonalPorFecha(UsuarioImpl, int)
      * @see #buscarRevisionPersonalPorFecha(UsuarioImpl, int, int)
      * @see #buscarRevisionPersonalPorFecha(UsuarioImpl, int, int, int)
@@ -2161,7 +2161,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: Metodo que se encarga de llamar a los metodos que piden y validan una opcion de varias listas de enum
+     * Metodo que se encarga de llamar a los metodos que piden y validan una opcion de varias listas de enum
      *      *             y devuelve el valor de la opcion escogida.
      * @param opcionSubMenuRegistrarRevisionPersonal entero opcion que es la opcion elegida por el usuario
      * @return asociado al nombre devolvera una cadena con el valor del enum elegido, o cadena
@@ -2206,7 +2206,7 @@ public class Gestion {
      * */
 
     /**
-     * Comentario: metodo que imprime por pantalla datos del ultimo ciclo sin cierre de un usuario
+     * metodo que imprime por pantalla datos del ultimo ciclo sin cierre de un usuario
      * @param cicloActual Ciclo que sera el ultimo ciclo sin cierre, del que se mostraran los datos
      * @param usuarioLogado usuario al cual pertenece el ciclo
      */

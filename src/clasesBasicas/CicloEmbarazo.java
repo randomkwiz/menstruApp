@@ -71,7 +71,7 @@ public class CicloEmbarazo extends Ciclo {
  */
 
     /**
-     * Comentario: Método que devuelve la fecha de fin estimada del ciclo.
+     *  Método que devuelve la fecha de fin estimada del ciclo.
      * @return asociado al nombre devolvera la fecha de fin estimada, que sera 260 dias posterior a la fecha
      *         de inicio del ciclo, o null si no hay fecha de inicio.
      */

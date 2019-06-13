@@ -115,7 +115,7 @@ public abstract class Ciclo {
      */
 
     /**
-     * Comentario: Método que devuelve la cantidad de días restantes estimados que quedan del ciclo.
+     * Método que devuelve la cantidad de días restantes estimados que quedan del ciclo.
      * @return asociado al nombre devolvera la cantidad de dias restantes del ciclo.
      *         O bien, un numero negativo con los dias que han pasado desde la fecha de fin estimada si esa fecha ya pasó.
      */
