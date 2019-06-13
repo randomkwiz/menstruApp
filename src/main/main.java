@@ -120,7 +120,6 @@ import validaciones.Validar;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
@@ -128,7 +127,6 @@ public class main {
         Resguardo resguardo = new Resguardo();
         Gestion gestion = new Gestion();
         Utilidades utilidades = new Utilidades();
-        Scanner sc = new Scanner(System.in);
         UsuarioImpl usuario = null;
         UsuarioImpl usuarioLogado = null;
         RevisionPersonalImpl revisionPersonal = null;
@@ -138,18 +136,18 @@ public class main {
         String revisionPersonalID = null;
         int opcionLogInOrSignUp, opcionMenuPrincipal, opcionCuenta, opcionRevisionPersonal, opcionCiclo, opcionRevisionMedica;
         int opcionSubMenuRegistrarRevisionPersonal;
-        String respuesta = "";
         String mensaje = " ";
-        String nick;
-        String pass;
         String opcionEnum = "";
+        ArrayList<RevisionPersonalImpl> revisionesBuscadas;
+        int opcionBuscarRevisionPersonal;
+        int opcionReglaOEmbarazo;
+        String IDCicloABorrar = "";
 
 
         do {
             //preguntarLogInOrSignUp
             opcionLogInOrSignUp = validar.logInOrSignUp();
             if (opcionLogInOrSignUp != 0) {
-
                 switch (opcionLogInOrSignUp) {
                     case 1:
                         //Crear cuenta
@@ -170,7 +168,6 @@ public class main {
                         System.out.println("Buenas " + usuarioLogado.getNick() + ", has iniciado sesion con exito");
                         revisionPersonalID = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioLogado);
                         revisionPersonal = gestion.construirObjeto(usuarioLogado, revisionPersonalID);
-                        cicloActual = gestion.obtenerCicloActual(usuarioLogado);
 
                         do {
                             //mostrarMenuPedirValidarOpcion
@@ -307,8 +304,8 @@ public class main {
                                                     case 3:
                                                         //Buscar revision personal
                                                         // System.out.println("Modulo buscar revision personal en construccion");
-                                                        int opcionBuscarRevisionPersonal;
-                                                        ArrayList<RevisionPersonalImpl> revisionesBuscadas;
+
+
                                                         do {
                                                             opcionBuscarRevisionPersonal = validar.pedirValidarSiBuscarPorFechaOEstadoEnum();
                                                             if (opcionBuscarRevisionPersonal != 0) {
@@ -429,7 +426,7 @@ public class main {
                                                     case 1:
                                                         //Registrar ciclo (menstruacion o embarazo)
                                                         //System.out.println("Modulo registrar ciclo en construccion");
-                                                        int opcionReglaOEmbarazo;
+
                                                         opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
                                                         if (cicloActual == null && opcionReglaOEmbarazo != 0) {
                                                             fechaInicioCicloActual = validar.pedirFechaInicioFinCiclo();
@@ -468,7 +465,7 @@ public class main {
                                                             fechaFinCicloActual = validar.pedirFechaInicioFinCiclo();
                                                             cicloActual.setFechaFinReal(fechaFinCicloActual);   //para tener el dato en memoria principal
                                                             gestion.actualizarFechaFinCiclo(cicloActual, fechaFinCicloActual);  //para guardarlo en la BBDD
-                                                            cicloActual = null;
+
                                                         }
 
                                                         break;
@@ -478,7 +475,7 @@ public class main {
                                                         //System.out.println("Modulo eliminar ciclo en construccion");
                                                         do {
                                                             opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
-                                                            String IDCicloABorrar = "";
+
                                                             if (opcionReglaOEmbarazo != 0) {
                                                                 switch (opcionReglaOEmbarazo) {
                                                                     case 1:
