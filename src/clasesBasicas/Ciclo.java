@@ -139,7 +139,7 @@ public abstract class Ciclo {
     */
 
     /**
-     * Comentario: Método que devuelve la duracion real del ciclo en dias.
+     * Método que devuelve la duracion real del ciclo en dias.
      * @return asociado al nombre devolvera la cantidad de dias reales que duro el ciclo, o -1 si el ciclo no termino aun o hubo algun error.
      */
     public int getDuracionReal() {
@@ -164,7 +164,7 @@ public abstract class Ciclo {
     */
 
     /**
-     * Comentario: Método que devuelve si el ciclo está finalizado o no.
+     * Método que devuelve si el ciclo está finalizado o no.
      * @return asociado al nombre devolvera un boolean que sera true si el ciclo ha finalizado o false si aun no tiene fecha de fin real.
      */
     public boolean isFinalizado() {
