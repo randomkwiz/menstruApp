@@ -35,3 +35,7 @@ hs_err_pid*
 out/production/menstruApp/META-INF/menstruApp.kotlin_module
 BBDD/USUARIO_DATA2.sql
 
+Javadoc/element-list
+*.js
+*.png
+*.css
