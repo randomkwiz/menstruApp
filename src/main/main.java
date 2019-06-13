@@ -500,7 +500,7 @@ public class main {
                                                             if (opcionReglaOEmbarazo != 0) {
                                                                 switch (opcionReglaOEmbarazo) {
                                                                     case 1:
-                                                                        utilidades.imprimirCiclos(usuarioLogado);
+                                                                        utilidades.imprimirCiclosMenstruales(usuarioLogado);
                                                                         break;
                                                                     case 2:
                                                                         utilidades.imprimirEmbarazos(usuarioLogado);

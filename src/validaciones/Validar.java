@@ -657,7 +657,7 @@ public class Validar<T extends Enum<T>> {
         do {
             System.out.println("Ciclos menstruales");
             System.out.println("0. Volver atras");
-            util.imprimirCiclos(user);
+            util.imprimirCiclosMenstruales(user);
             opcion = sc.nextInt();
         } while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
 
