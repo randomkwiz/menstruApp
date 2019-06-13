@@ -32,4 +32,4 @@ hs_err_pid*
 ./out
 out/production/menstruApp/META-INF/menstruApp.kotlin_module
 BBDD/USUARIO_DATA2.sql
-*.html
+
