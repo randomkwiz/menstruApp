@@ -1,5 +1,6 @@
 package test;
 
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 
@@ -131,10 +132,26 @@ public class GestionTest {
 
  */
 
-        UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
-        System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
+        UsuarioImpl usuario = new UsuarioImpl("iventadoxdxd", "123456789");
+        UsuarioImpl user = new UsuarioImpl("randomkwiz", "123456789");
+        RevisionPersonalImpl revisionPersonal = new RevisionPersonalImpl(usuario);
+      //  System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
 
-        gestion.obtenerCicloActual(usuario);
+        //System.out.println(gestion.eliminarCuenta(usuario));
+        //gestion.crearRevisionPersonalDiaEnCurso(usuario);
+
+
+        //System.out.println(gestion.existeRevisionPersonalActual(usuario));
+        //System.out.println(gestion.existeRevisionPersonalActual(user));
+
+
+        //System.out.println(rev.toString());
+       // System.out.println(gestion.cargarEstadosDeAnimoRevisionPersonal(null));
+
+        System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
+
+
+        //gestion.obtenerCicloActual(usuario);
 
     }
 }
