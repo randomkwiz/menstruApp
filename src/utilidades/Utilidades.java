@@ -21,6 +21,14 @@ public class Utilidades<T extends Enum<T>> {
      * Postcondiciones: Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
      *                   o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
      * */
+
+    /**
+     * Comentario: dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
+     *     de forma "dd/MM/yyyy"
+     * @param fecha fecha a formatear
+     * @return Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
+     *      o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
+     */
     public String formatearFecha(GregorianCalendar fecha) {
         String fechaFormateada = " ";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -41,8 +49,16 @@ public class Utilidades<T extends Enum<T>> {
      * Postcondiciones: Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
      *                   combinacion es erronea devuelve null.
      * */
+
+    /**
+     * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
+     * @param nick nick del usuario
+     * @param pass contraseña del usuario
+     * @return Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
+     *       combinacion es erronea devuelve null.
+     */
     public UsuarioImpl toObject(String nick, String pass) {
-        UsuarioImpl user = new UsuarioImpl();
+        UsuarioImpl user = null;
         try {
             // Define la fuente de datos para el driver
             String sourceURL = "jdbc:sqlserver://localhost";
@@ -63,6 +79,7 @@ public class Utilidades<T extends Enum<T>> {
 
             if (miResultado.next()) {
                 GregorianCalendar gc = null;
+                user = new UsuarioImpl();
                 if (miResultado.getDate("FECHANACIMIENTO") != null) {
                     gc = new GregorianCalendar();
                     gc.setTime(miResultado.getDate("FECHANACIMIENTO"));
@@ -92,10 +109,15 @@ public class Utilidades<T extends Enum<T>> {
      * Comentario: Imprime en pantalla los valores de un enum
      * Signatura: public void imprimirValoresEnum(<T> enumerado)
      * Precondiciones:
-     * Entradas:
+     * Entradas: enum del cual se imprimiran sus valores
      * Salidas:
-     * Postcondiciones: en pantalla imprimira los valores del enum recibido por parametros
+     * Postcondiciones: en pantalla imprimira los valores del enum recibido por parametro
      * */
+
+    /**
+     * Comentario: Imprime en pantalla los valores de un enum
+     * @param enumerado enum del cual se imprimiran sus valores
+     */
     public void imprimirValoresEnum(T[] enumerado) {
 
         for (int i = 1; i < enumerado.length; i++) {
@@ -116,6 +138,12 @@ public class Utilidades<T extends Enum<T>> {
      * Postcondiciones: si el enum no esta registrado en la BBDD se devolvera un null. Asociado al nombre se devuelve
      *                   el ID del enum registrado en la BBDD.
      * */
+
+    /**
+     * Comentario: metodo que busca el valor del enum en la BBDD y devuelve su ID
+     * @param enumerado enum cuyo valor se buscara en la base de datos
+     * @return Asociado al nombre se devuelve el ID del enum registrado en la BBDD.
+     */
     public String obtenerIDEnum(T enumerado) {
         String idEnum = null;
         try {
@@ -176,10 +204,17 @@ public class Utilidades<T extends Enum<T>> {
      * Comentario: imprime en pantalla los datos de una revision personal
      * Signatura: public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
      * Precondiciones:
-     * Entradas:
+     * Entradas: revision de la que se imprimiran los datos
      * Salidas:
-     * Postcondiciones: imprime en pantalla
+     * Postcondiciones: imprime en pantalla los datos de la revision pasada como parametro. Si la revision
+     *                  es null o sus atributos son null, saltara excepcion.
      * */
+
+    /**
+     * Comentario: imprime en pantalla los datos de una revision personal
+     * @see #formatearFecha(GregorianCalendar)
+     * @param revision revision de la que se imprimiran los datos
+     */
     public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
         Gestion gestion = new Gestion();
         //carga los datos
@@ -199,7 +234,6 @@ public class Utilidades<T extends Enum<T>> {
                 }
             }
         }
-
 
         System.out.println("Sintomas:");
         if (revision.getArraylistSintoma().size() == 0) {
@@ -250,10 +284,16 @@ public class Utilidades<T extends Enum<T>> {
      * Comentario: imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
      * Signatura: public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones)
      * Precondiciones:
-     * Entradas:
+     * Entradas: arraylist de revisiones que seran las impresas en pantalla
      * Salidas:
-     * Postcondiciones: imprime en pantalla
+     * Postcondiciones: imprime en pantalla los datos del arraylist de revisiones recibido por parametros.
      * */
+
+    /**
+     * Comentario: imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
+     * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
+     * @param revisiones arraylist de revisiones que seran las impresas en pantalla
+     */
     public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones) {
 
         for (int i = 0; i < revisiones.size(); i++) {
@@ -264,29 +304,34 @@ public class Utilidades<T extends Enum<T>> {
 
 
     /*INTERFAZ
-     * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario
-     * Signatura public void imprimirCiclos(UsuarioImpl user)
+     * Comentario: metodo para listar en pantalla todos los ciclos menstruales que haya tenido un usuario
+     * Signatura public void imprimirCiclosMenstruales(UsuarioImpl user)
      * Precondiciones:
-     * Entradas:
+     * Entradas: usuario del cual se imprimiran los ciclos
      * Salidas:
-     * Postcondiciones: Imprime en pantalla
+     * Postcondiciones: Imprime en pantalla los datos de los ciclos de un usuario. Si el usuario o sus atributos son null, saltara excepcion.
      * */
-    public void imprimirCiclos(UsuarioImpl user) {
+
+    /**
+     * Comentario: metodo para listar en pantalla todos los ciclos menstruales que haya tenido un usuario
+     * @see #formatearFecha(GregorianCalendar)
+     * @param user usuario del cual se imprimiran los ciclos menstruales
+     */
+    public void imprimirCiclosMenstruales(UsuarioImpl user) {
         Gestion gestion = new Gestion();
-        Utilidades util = new Utilidades();
 
         if (gestion.obtenerListaCiclosMenstruales(user).size() == 0) {
             System.out.println("No existen ciclos menstruales registrados para este usuario");
         } else {
             for (int i = 0; i < gestion.obtenerListaCiclosMenstruales(user).size(); i++) {
                 System.out.println("Menstruacion: " + (i + 1));
-                System.out.println("Fecha inicio: " + util.formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()));
+                System.out.println("Fecha inicio: " + formatearFecha(gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaInicio()));
                 System.out.print("Fecha fin: ");
                 if (gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal() == null) {
                     System.out.println("Sin fecha de fin establecida");
                 } else {
                     GregorianCalendar fecha = gestion.obtenerListaCiclosMenstruales(user).get(i).getFechaFinReal();
-                    System.out.println(util.formatearFecha(fecha));
+                    System.out.println(formatearFecha(fecha));
                 }
 
             }
@@ -295,13 +340,20 @@ public class Utilidades<T extends Enum<T>> {
     }
 
     /*INTERFAZ
-     * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario
-     * Signatura public void imprimirEmbarazos(UsuarioImpl user)
+     * Comentario: metodo para listar en pantalla todos los embarazos que haya tenido un usuario
+     * Signatura : public void imprimirEmbarazos(UsuarioImpl user)
      * Precondiciones:
-     * Entradas:
+     * Entradas: usuario del cual se imprimiran los embarazos
      * Salidas:
-     * Postcondiciones: Imprime en pantalla
+     * Postcondiciones: Imprime en pantalla los datos de todos los embarazos que haya tenido un usuario. Si el usuario o sus
+     *                  atributos son null, saltara excepcion.
      * */
+
+    /**
+     * Comentario: metodo para listar en pantalla todos los embarazos que haya tenido un usuario
+     * @see #formatearFecha(GregorianCalendar)
+     * @param user usuario del cual se imprimiran los embarazos
+     */
     public void imprimirEmbarazos(UsuarioImpl user) {
         Gestion gestion = new Gestion();
 
