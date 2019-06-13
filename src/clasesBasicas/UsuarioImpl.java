@@ -65,6 +65,10 @@ public class UsuarioImpl implements Usuario {
     //Constructores
 
     //sin parametros
+
+    /**
+     * Constructor por defecto
+     */
     public UsuarioImpl() {
         this.nombre = "";
         this.nick = "";
@@ -76,6 +80,15 @@ public class UsuarioImpl implements Usuario {
     }
 
     //con todos los parametros
+
+    /**
+     * Constructor con parametros
+     * @param nombre nombre del usuario
+     * @param nick nick del usuario
+     * @param password contraseña del usuario
+     * @param peso peso del usuario
+     * @param fechaNacimiento fecha de nacimiento del usuario
+     */
     public UsuarioImpl(String nombre, String nick, String password, double peso, GregorianCalendar fechaNacimiento) {
         this.nombre = nombre;
         this.nick = nick;
@@ -86,6 +99,12 @@ public class UsuarioImpl implements Usuario {
     }
 
     //con menos parametros
+
+    /**
+     * Constructor con parametros
+     * @param nick nick del usuario
+     * @param password contraseña del usuario
+     */
     public UsuarioImpl(String nick, String password) {
         this.nick = nick;
         this.password = password;

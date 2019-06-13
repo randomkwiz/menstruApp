@@ -23,7 +23,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
+     * dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
      *     de forma "dd/MM/yyyy"
      * @param fecha fecha a formatear
      * @return Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
@@ -51,7 +51,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
+     * Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
      * @param nick nick del usuario
      * @param pass contraseña del usuario
      * @return Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
@@ -115,7 +115,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: Imprime en pantalla los valores de un enum
+     * Imprime en pantalla los valores de un enum
      * @param enumerado enum del cual se imprimiran sus valores
      */
     public void imprimirValoresEnum(T[] enumerado) {
@@ -140,7 +140,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: metodo que busca el valor del enum en la BBDD y devuelve su ID
+     * metodo que busca el valor del enum en la BBDD y devuelve su ID
      * @param enumerado enum cuyo valor se buscara en la base de datos
      * @return Asociado al nombre se devuelve el ID del enum registrado en la BBDD.
      */
@@ -211,7 +211,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: imprime en pantalla los datos de una revision personal
+     * imprime en pantalla los datos de una revision personal
      * @see #formatearFecha(GregorianCalendar)
      * @param revision revision de la que se imprimiran los datos
      */
@@ -290,7 +290,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
+     * imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
      * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
      * @param revisiones arraylist de revisiones que seran las impresas en pantalla
      */
@@ -313,7 +313,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: metodo para listar en pantalla todos los ciclos menstruales que haya tenido un usuario
+     * metodo para listar en pantalla todos los ciclos menstruales que haya tenido un usuario
      * @see #formatearFecha(GregorianCalendar)
      * @param user usuario del cual se imprimiran los ciclos menstruales
      */
@@ -350,7 +350,7 @@ public class Utilidades<T extends Enum<T>> {
      * */
 
     /**
-     * Comentario: metodo para listar en pantalla todos los embarazos que haya tenido un usuario
+     * metodo para listar en pantalla todos los embarazos que haya tenido un usuario
      * @see #formatearFecha(GregorianCalendar)
      * @param user usuario del cual se imprimiran los embarazos
      */

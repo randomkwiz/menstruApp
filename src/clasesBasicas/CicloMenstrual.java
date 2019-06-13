@@ -70,7 +70,7 @@ public class CicloMenstrual extends Ciclo {
  */
 
     /**
-     * Comentario: Método que devuelve la fecha de fin estimada del ciclo.
+     * Método que devuelve la fecha de fin estimada del ciclo.
      * @return asociado al nombre devolvera la fecha de fin estimada, que sera 4 dias posterior a la fecha
      *         de inicio del ciclo, o null si no hay fecha de inicio.
      */
@@ -96,7 +96,7 @@ public class CicloMenstrual extends Ciclo {
     */
 
     /**
-     * Comentario: Método que devuelve la fecha estimada de comienzo del siguiente periodo.
+     *  Método que devuelve la fecha estimada de comienzo del siguiente periodo.
      * @return asociado al nombre devolvera la fecha de comienzo estimada del siguiente ciclo, que sera 28 dias posterior a la fecha
      *         de inicio del ultimo ciclo menstrual sin cierre actual (el vigesimo octavo dia del ciclo actual seria el primer dia del siguiente ciclo).
      *
