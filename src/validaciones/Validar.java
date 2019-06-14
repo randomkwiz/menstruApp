@@ -468,7 +468,7 @@ public class Validar<T extends Enum<T>> {
             pass = establecerPassword();
         } while (combinacionInicioSesion(nick, pass) == false);
 
-        usuario = util.toObject(nick, pass);
+        usuario = util.cargarUsuario(nick, pass);
         return usuario;
     }
 
@@ -638,6 +638,74 @@ public class Validar<T extends Enum<T>> {
         return opcion;
     }
 
+    /*
+     * INTERFAZ
+     * Comentario:Pide y valida la opcion del usuario sobre qué campo de la cuenta desea modificar
+     * Signatura: public int pedirValidarMenuCampoAModificar()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: entero
+     * Postcondiciones: Asociado al nombre se devolvera 1 para el nombre, 2 para el peso
+     *                  3 para la contraseña o 0 para volver atras
+     * */
+    public int pedirValidarMenuCampoAModificar() {
+        Scanner sc = new Scanner(System.in);
+        int opcion = -1;
+
+        do {
+            System.out.println("Elige");
+            System.out.println("0. Volver atras");
+            System.out.println("1. Nombre");
+            System.out.println("2. Peso");
+            System.out.println("3. Contraseña");
+            opcion = sc.nextInt();
+        } while (opcion < 0 || opcion > 3);
+        return opcion;
+    }
+
+    /*
+    * INTERFAZ
+    * Comentario: pide y valida un nombre para el usuario
+    * Signatura: public String pedirValidarNuevoNombre(UsuarioImpl usuario)
+    * Precondiciones:
+    * Entradas: Usuario que sera el usuario del que pediremos el nuevo nombre
+    * Salidas: String que sera el nuevo nombre del usuario
+    * Postcondiciones: Asociado al nombre devuelve un String con el nuevo nombre de usuario o null si el usuario
+    *                   finalmente no desea cambiar el nombre.
+    * */
+    public String pedirValidarNuevoNombre(UsuarioImpl usuario) {
+        Scanner sc = new Scanner(System.in);
+        String nuevoNombre = null;
+
+        do {
+            System.out.println("Introduce tu nombre:");
+            System.out.println("Pulsa 0 para volver atras");
+            nuevoNombre = sc.next();
+        } while (!nuevoNombre.equals(0) && nuevoNombre.length() < 3 || nuevoNombre.length() > 50);
+        return nuevoNombre;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: pide y valida un nuevo peso para el usuario
+     * Signatura: public double pedirValidarNuevoPeso(UsuarioImpl usuario)
+     * Precondiciones:
+     * Entradas: Usuario que sera el usuario del que pediremos el nuevo peso
+     * Salidas: double que sera el nuevo peso del usuario
+     * Postcondiciones: Asociado al nombre devuelve un double con el nuevo peso de usuario o 0 si el usuario
+     *                   finalmente no desea cambiar el peso.
+     * */
+    public double pedirValidarNuevoPeso(UsuarioImpl usuario) {
+        Scanner sc = new Scanner(System.in);
+        double nuevoPeso = -1;
+
+        do {
+            System.out.println("Introduce tu peso:");
+            System.out.println("Pulsa 0 para volver atras");
+            nuevoPeso = sc.nextInt();
+        } while (nuevoPeso < 0 || nuevoPeso > 400);
+        return nuevoPeso;
+    }
 
     /*INTERFAZ
      * Comentario: metodo para listar en pantalla todos los ciclos que haya tenido un usuario y devolver el Id del elegido

@@ -142,6 +142,7 @@ public class main {
         int opcionBuscarRevisionPersonal;
         int opcionReglaOEmbarazo;
         String IDCicloABorrar = "";
+        int opcionModificarDatosCuenta;
 
 
         do {
@@ -189,6 +190,47 @@ public class main {
                                                     case 2:
                                                         //Modificar datos de la cuenta
                                                         System.out.println("Modulo modificar datos de la cuenta en construccion");
+                                                        do{
+                                                            opcionModificarDatosCuenta = validar.pedirValidarMenuCampoAModificar();
+                                                            if(opcionModificarDatosCuenta != 0){
+                                                                switch (opcionModificarDatosCuenta){
+                                                                    case 1:
+                                                                        //Nombre
+                                                                        String nuevoNombre = validar.pedirValidarNuevoNombre(usuarioLogado);
+                                                                        if(nuevoNombre != null){
+                                                                            if (gestion.actualizarNombreUsuario(usuarioLogado,nuevoNombre)){
+                                                                                System.out.println("Nombre actualizado con exito.");
+                                                                            }else{
+                                                                                System.out.println("Hubo un error al actualizar su nombre, intentelo de nuevo mas tarde.");
+                                                                            }
+                                                                        }
+
+                                                                        break;
+                                                                    case 2:
+                                                                        //Peso
+                                                                        double nuevoPeso = validar.pedirValidarNuevoPeso(usuarioLogado);
+                                                                        if(nuevoPeso != 0){
+                                                                            if (gestion.actualizarPesoUsuario(usuarioLogado,nuevoPeso)){
+                                                                                System.out.println("Peso actualizado con exito.");
+                                                                            }else{
+                                                                                System.out.println("Hubo un error al actualizar su peso, intentelo de nuevo mas tarde.");
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case 3:
+                                                                        //Contraseña
+                                                                        UsuarioImpl usuarioParaConfirarCambio = validar.pedirLogin();
+                                                                        if(usuarioParaConfirarCambio.equals(usuarioLogado)){
+                                                                            //todo actualizar contraseña
+
+                                                                            System.out.println("Modulo actualizar contraseña en construccion");
+                                                                        }
+                                                                        break;
+
+                                                                }
+                                                            }
+
+                                                        }while (opcionModificarDatosCuenta != 0);
                                                         break;
                                                     case 3:
                                                         //Eliminar cuenta

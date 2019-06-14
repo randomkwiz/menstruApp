@@ -166,4 +166,24 @@ public class UsuarioImpl implements Usuario {
                 ", fechaNacimiento=" + fechaNacimiento +
                 '}';
     }
+
+    @Override
+    /*Criterio de igualdad: dos usuarios son iguales si tienen mismo nick y contraseña*/
+    public boolean equals (Object obj) {
+        boolean igual = false;
+        if (this == obj) {
+            igual = true;
+        } else {
+            if (obj != null && obj instanceof UsuarioImpl) {
+                UsuarioImpl otro = (UsuarioImpl) obj;
+                if (this.getNick().equals(otro.getNick()) &&
+                        this.getPassword().equals(otro.getPassword())
+                ) {
+                    igual = true;
+                }
+            }
+        }
+        return igual;
+    }
+
 }

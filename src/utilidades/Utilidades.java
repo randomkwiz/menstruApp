@@ -42,7 +42,7 @@ public class Utilidades<T extends Enum<T>> {
     /*
      * INTERFAZ
      * Comentario: Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
-     * Signatura: public UsuarioImpl toObject(String nick, String pass)
+     * Signatura: public UsuarioImpl cargarUsuario(String nick, String pass)
      * Precondiciones:
      * Entradas: String nick, String pass
      * Salidas: objeto UsuarioImpl
@@ -57,7 +57,7 @@ public class Utilidades<T extends Enum<T>> {
      * @return Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
      *       combinacion es erronea devuelve null.
      */
-    public UsuarioImpl toObject(String nick, String pass) {
+    public UsuarioImpl cargarUsuario(String nick, String pass) {
         UsuarioImpl user = null;
         try {
             // Define la fuente de datos para el driver

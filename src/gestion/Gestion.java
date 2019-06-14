@@ -114,7 +114,7 @@ public class Gestion {
 
     /*
      * INTERFAZ
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve el objeto CicloMenstrual sin fecha de fin del usuario
+     * Comentario: Este metodo consulta la BBDD del programa y devuelve el ciclo menstrual del usuario con la fecha de inicio mas reciente.
      * Signatura: public CicloMenstrual ultimoCicloMenstrual(UsuarioImpl user)
      * Precondiciones:
      * Entradas: UsuarioImpl usuario
@@ -125,7 +125,7 @@ public class Gestion {
      * */
 
     /**
-     *Este metodo consulta la BBDD del programa y devuelve el objeto CicloMenstrual sin fecha de fin del usuario
+     * Este metodo consulta la BBDD del programa y devuelve el ciclo menstrual del usuario con la fecha de inicio mas reciente.
      * @param user que es el usuario del que se consultaran los datos del ciclo menstrual
      * @return asociado al nombre se devuelve el ciclo menstrual que el usuario tenga sin fecha de fin, o si todos tienen fecha de
      *         fin, se devuelve el que tenga una fecha de inicio mayor.
@@ -2222,6 +2222,135 @@ public class Gestion {
             System.out.println("Fecha estimada de fin de la regla: " + utilidades.formatearFecha(cicloActual.getFechaFinEstimada()));
             System.out.println("Fecha estimada de inicio de tu siguiente periodo: " + utilidades.formatearFecha(((CicloMenstrual) cicloActual).getFechaComienzoEstimadaSiguientePeriodo()));
         }
+    }
+
+
+    /*
+    INTERFAZ
+    Comentario: metodo para actualizar el nombre de un usuario
+    Signatura: public boolean actualizarNombreUsuario(UsuarioImpl user, String nuevoNombre)
+    Precondiciones:
+    Entradas: usuario del que se modificaran los datos
+              nuevoNombre nuevo nombre del usuario
+    Salidas: boolean
+    Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+                    correctamente y false si no. Si el usuario no existe lanzara excepcion.
+
+     */
+
+    /**
+     * metodo para actualizar el nombre de un usuario
+     * @param user  usuario del que se modificaran los datos
+     * @param nuevoNombre nuevo nombre del usuario
+     * @return asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+     *          correctamente y false si no. Si el usuario no existe lanzara excepcion.
+     */
+    public boolean actualizarNombreUsuario(UsuarioImpl user, String nuevoNombre){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "UPDATE USUARIO\n" +
+                    "SET NOMBRE = ?\n" +
+                    "WHERE NICK = ?\n" +
+                    "\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, nuevoNombre );
+            preparedStatement.setString(2, user.getNick());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                if (resultSet.getInt("FILASAFECTADAS") == 1){
+                    exito = true;
+                }
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
+        /*
+    INTERFAZ
+    Comentario: metodo para actualizar el peso de un usuario
+    Signatura: public boolean actualizarPesoUsuario(UsuarioImpl user, double nuevoPeso)
+    Precondiciones:
+    Entradas: usuario del que se modificaran los datos
+              nuevoPeso nuevo peso del usuario
+    Salidas: boolean
+    Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+                    correctamente y false si no. Si el usuario no existe lanzara excepcion.
+
+     */
+
+    /**
+     * metodo para actualizar el peso de un usuario
+     * @param user  usuario del que se modificaran los datos
+     * @param nuevoPeso nuevo peso del usuario
+     * @return asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+     *          correctamente y false si no. Si el usuario no existe lanzara excepcion.
+     */
+    public boolean actualizarPesoUsuario(UsuarioImpl user, double nuevoPeso){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "UPDATE USUARIO\n" +
+                    "SET PESO = ?\n" +
+                    "WHERE NICK = ?\n" +
+                    "\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setDouble(1, nuevoPeso );
+            preparedStatement.setString(2, user.getNick());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                if (resultSet.getInt("FILASAFECTADAS") == 1){
+                    exito = true;
+                }
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
     }
 
 
