@@ -20,6 +20,10 @@
  * */
 package clasesBasicas;
 
+import utilidades.Utilidades;
+
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -121,13 +125,21 @@ public abstract class Ciclo {
      * @return asociado al nombre devolvera la cantidad de dias restantes del ciclo.
      * O bien, un numero negativo con los dias que han pasado desde la fecha de fin estimada si esa fecha ya pasó.
      */
+    @Deprecated
     public int getDiasRestantesEstimados() {
-        final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
-        GregorianCalendar fechaActual = new GregorianCalendar();
+        final long MILLSECS_PER_DAY = (24 * 60 * 60 * 1000); //Milisegundos al día
+        Utilidades utilidades = new Utilidades();
         GregorianCalendar fechaFinalEstimada = getFechaFinEstimada();
+        GregorianCalendar fechaActual = new GregorianCalendar();
 
-        long diasRestantes = (fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis()) / MILLSECS_PER_DAY;
-        return (int) diasRestantes;
+        System.out.println("Fecha actual: "+utilidades.formatearFecha(fechaActual));
+        long diasRestantes = 0;
+        //if (getFechaFinEstimada().after(fechaActual)) {
+          diasRestantes = ((fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis() ) / MILLSECS_PER_DAY);
+        //}
+
+
+        return (int)diasRestantes;
     }
 
     /*

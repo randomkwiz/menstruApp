@@ -194,3 +194,12 @@ SELECT * FROM hallarFlujoVaginalMasFrecuente('randomkwiz')
 
 
 select * from USUARIO
+
+update USUARIO
+set FECHANACIMIENTO = '20180526'
+where nick = 'randomkwiz'
+select @@ROWCOUNT as FILASAFECTADAS
+
+select * from USUARIO where nick = 'randomkwiz'
+
+//cambia localhost por tu ip pa que lo pruebe angel

@@ -68,14 +68,14 @@ public class CicloEmbarazo extends Ciclo {
     Precondiciones:
     Entradas:
     Salidas: objeto GregorianCalendar que es la fecha de fin estimada
-    Postcondiciones: asociado al nombre devolvera la fecha de fin estimada, que sera 260 dias posterior a la fecha
+    Postcondiciones: asociado al nombre devolvera la fecha de fin estimada, que sera 9 meses posterior a la fecha
                      de inicio del ciclo, o null si no hay fecha de inicio.
  */
 
     /**
      * Método que devuelve la fecha de fin estimada del ciclo.
      *
-     * @return asociado al nombre devolvera la fecha de fin estimada, que sera 260 dias posterior a la fecha
+     * @return asociado al nombre devolvera la fecha de fin estimada, que sera 9 meses posterior a la fecha
      * de inicio del ciclo, o null si no hay fecha de inicio.
      */
     public GregorianCalendar getFechaFinEstimada() {
@@ -83,7 +83,7 @@ public class CicloEmbarazo extends Ciclo {
 
         if (getFechaInicio() != null) {
             fechaFinEstimada = getFechaInicio();
-            fechaFinEstimada.add(Calendar.MONTH, 9);
+            fechaFinEstimada.add(Calendar.DATE, 280);
         }
 
         return fechaFinEstimada;
