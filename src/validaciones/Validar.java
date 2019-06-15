@@ -81,8 +81,9 @@ public class Validar<T extends Enum<T>> {
             System.out.println("2. Ver revisiones personales ");
             System.out.println("3. Buscar revision personal");
             System.out.println("4. Eliminar revision personal");
+            System.out.println("5. Ver analisis personal");
             opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 4);
+        } while (opcion < 0 || opcion > 5);
         return opcion;
     }
 

@@ -2432,6 +2432,14 @@ public class Gestion {
     * Postcondiciones: asociado al nombre se devuelve un arraylist de cadenas con los valores del estado de animo mas usado
     *                  o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
     * */
+
+    /**
+     * Metodo que devuelve los valores del estado de animo mas utilizado en las
+     *      revisiones personales de un usuario
+     * @param user usuario del que se buscara el estado de animo mas usado
+     * @return asociado al nombre se devuelve un arraylist de cadenas con los valores del estado de animo mas usado
+     *     o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     */
     public ArrayList<String> obtenerEstadoDeAnimoMasUsado(UsuarioImpl user){
         String estadoAnimico = null;
         ArrayList<String> listaEstadosAnimicos = new ArrayList<String>();
@@ -2472,21 +2480,228 @@ public class Gestion {
     }
 
     /*
-INTERFAZ
-Comentario: Metodo que imprime el analisis personal de un usuario dado
-Signatura: public void imprimirAnalisisPersonal(UsuarioImpl user)
-todo seguir haciendo esto
- */
-    public void imprimirAnalisisPersonal(UsuarioImpl user){
-        Utilidades utilidades = new Utilidades();
+     * INTERFAZ
+     * Comentario: Metodo que devuelve los valores del sintoma mas utilizado en las
+     *              revisiones personales de un usuario
+     * Signatura: public ArrayList<String> obtenerSintomaMasUsado(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: usuario del que se buscara el sintoma mas usado
+     * Salidas: valores de los sintomas mas usados
+     * Postcondiciones: asociado al nombre se devuelve un arraylist de cadenas con los valores del sintoma mas usado
+     *                  o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     * */
 
-        /*todo modula el metodoc imprimirDatosRevisionPersonal de Utilidades, para
-        poder reutilizar aqui la funcionalidad de imprimir estados de animo
+    /**
+     * Metodo que devuelve los valores del sintoma mas utilizado en las
+     *      revisiones personales de un usuario
+     * @param user usuario del que se buscara el sintoma mas usado
+     * @return asociado al nombre se devuelve un arraylist de cadenas con los valores del sintoma mas usado
+     *     o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     */
+    public ArrayList<String> obtenerSintomaMasUsado(UsuarioImpl user){
+        String sintoma = null;
+        ArrayList<String> listaSintomas = new ArrayList<String>();
+        try {
 
-         */
-        System.out.println("Estados de animo mas comunes: ");
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "SELECT * FROM hallarSintomaMasFrecuente(?)";
 
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick() );
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                sintoma = resultSet.getString("SINTOMA");
+                listaSintomas.add(sintoma);
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return listaSintomas;
     }
 
+
+    /*
+     * INTERFAZ
+     * Comentario: Metodo que devuelve los valores de la/s observacion/es sexual/es mas utilizada en las
+     *              revisiones personales de un usuario
+     * Signatura: public ArrayList<String> obtenerSexoMasUsado(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: usuario del que se buscara el sintoma mas usado
+     * Salidas: valores de las observaciones sexuales mas usadas
+     * Postcondiciones: asociado al nombre se devuelve un arraylist de cadenas con los valores mas usados
+     *                  o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     * */
+
+    /**
+     * Metodo que devuelve los valores de la/s observacion/es sexual/es mas utilizada en las
+     *     revisiones personales de un usuario
+     * @param user usuario del que se buscara el registro mas usado
+     * @return asociado al nombre se devuelve un arraylist de cadenas con los valores mas usado
+     *     o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     */
+    public ArrayList<String> obtenerSexoMasUsado(UsuarioImpl user){
+        String sexo = null;
+        ArrayList<String> listaSexo = new ArrayList<String>();
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "SELECT * FROM hallarSexoMasFrecuente(?)";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick() );
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                sexo = resultSet.getString("OBSERVACION");
+                listaSexo.add(sexo);
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return listaSexo;
+    }
+
+
+    /*
+     * INTERFAZ
+     * Comentario: Metodo que devuelve los valores del tipo de flujo vaginal mas utilizados en las
+     *              revisiones personales de un usuario
+     * Signatura: public ArrayList<String> obtenerFlujoVaginalMasUsado(UsuarioImpl user)
+     * Precondiciones:
+     * Entradas: usuario del que se buscara el o los tipos de flujo vaginales mas usados
+     * Salidas: valores de los tipos de flujo vaginal mas usados
+     * Postcondiciones: asociado al nombre se devuelve un arraylist de cadenas con los valores mas usados
+     *                  o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     * */
+
+    /**
+     * Metodo que devuelve los valores del tipo de flujo vaginal mas utilizados en las
+     *    revisiones personales de un usuario
+     * @param user usuario del que se buscara el registro mas usado
+     * @return asociado al nombre se devuelve un arraylist de cadenas con los valores mas usado
+     *     o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+     */
+    public ArrayList<String> obtenerFlujoVaginalMasUsado(UsuarioImpl user){
+        String tipoFlujo = null;
+        ArrayList<String> listaFlujoVaginal = new ArrayList<String>();
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "SELECT * FROM hallarFlujoVaginalMasFrecuente(?)";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick() );
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                tipoFlujo = resultSet.getString("TIPO");
+                listaFlujoVaginal.add(tipoFlujo);
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return listaFlujoVaginal;
+    }
+
+    /*
+    INTERFAZ
+    Comentario: Metodo que imprime el analisis personal de un usuario dado
+    Signatura: public void imprimirAnalisisRevisionesPersonales(UsuarioImpl user)
+    Precondiciones:
+    Entradas: usuario del que se imprimira el analisis personal
+    Salidas:
+    Postcondiciones: imprime en pantalla
+*/
+
+    /**
+     * Metodo que imprime el analisis personal de un usuario dado
+     * @param user usuario del que se imprimira el analisis personal
+     */
+    public void imprimirAnalisisRevisionesPersonales(UsuarioImpl user){
+        Utilidades utilidades = new Utilidades();
+        System.out.println("Aqui tienes tu analisis de revisiones personales, "+user.getNick());
+        System.out.println();
+        System.out.println("Tu/s estado/s de animo mas comun/es: ");
+        if(obtenerEstadoDeAnimoMasUsado(user).size() == 0){
+            System.out.println("No tenemos registros de ello.");
+        }else{
+            utilidades.imprimirArrayList(obtenerEstadoDeAnimoMasUsado(user));
+        }
+        System.out.println();
+        System.out.println("Tu/s tipo/s de flujo vaginal mas comun/es: ");
+        if(obtenerFlujoVaginalMasUsado(user).size() == 0){
+            System.out.println("No tenemos registros de ello.");
+        }else{
+            utilidades.imprimirArrayList(obtenerFlujoVaginalMasUsado(user));
+        }
+        System.out.println();
+        System.out.println("Tu/s sintoma/s mas comun/es: ");
+        if(obtenerSintomaMasUsado(user).size() == 0){
+            System.out.println("No tenemos registros de ello.");
+        }else{
+            utilidades.imprimirArrayList(obtenerSintomaMasUsado(user));
+        }
+        System.out.println();
+        System.out.println("Tu/s observacion/es sexual/es mas comun/es: ");
+        if(obtenerSexoMasUsado(user).size() == 0){
+            System.out.println("No tenemos registros de ello.");
+        }else{
+            utilidades.imprimirArrayList(obtenerSexoMasUsado(user));
+        }
+        System.out.println();
+
+    }
 
 }

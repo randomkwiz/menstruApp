@@ -69,6 +69,7 @@ PSEUDOCODIGO
  *           caso 2: Ver revisiones personales
  *           caso 3: Buscar revision personal
  *           caso 4: Eliminar revision personal
+             caso 5: Ver analisis personal
  *       finSegun
  *   finSi
  * mientras opcion no sea salir
@@ -84,6 +85,7 @@ PSEUDOCODIGO
  *           caso 2: Ver datos del ciclo actual
  *           caso 3: Marcar fin del ciclo actual
  *           caso 4: Eliminar ciclo
+             caso 5: Ver ciclos anteriores
  *       finSegun
  *   finSi
  * mientras opcion no sea salir
@@ -336,7 +338,6 @@ public class main {
                                                                         } while (opcionEnum != null);
 
                                                                         break;
-
                                                                 }
 
                                                             }
@@ -460,6 +461,12 @@ public class main {
                                                             }
                                                         } while (opcionBuscarRevisionPersonal != 0);
                                                         break;
+                                                    case 5:
+                                                        //Ver analisis personal
+                                                        gestion.imprimirAnalisisRevisionesPersonales(usuarioLogado);
+                                                        break;
+
+
                                                 }
                                             }
                                         } while (opcionRevisionPersonal != 0);
