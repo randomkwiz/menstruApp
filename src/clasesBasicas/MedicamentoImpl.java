@@ -28,9 +28,11 @@
 * */
 package clasesBasicas;
 
+import interfaces.Medicamento;
+
 import java.util.GregorianCalendar;
 
-public class MedicamentoImpl {
+public class MedicamentoImpl implements Medicamento {
     private String ID;
     private String nombre;
     private boolean isRecetado;
