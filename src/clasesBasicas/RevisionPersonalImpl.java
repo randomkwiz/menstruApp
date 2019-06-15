@@ -23,11 +23,12 @@ import enumerado.EstadoAnimico;
 import enumerado.FlujoVaginal;
 import enumerado.Sexo;
 import enumerado.Sintoma;
+import interfaces.RevisionPersonal;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class RevisionPersonalImpl {
+public class RevisionPersonalImpl implements RevisionPersonal {
     UsuarioImpl usuario;
     String ID;
     ArrayList<EstadoAnimico> arraylistEstadoAnimico;

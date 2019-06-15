@@ -2,7 +2,6 @@ package test;
 
 import clasesBasicas.CicloEmbarazo;
 import clasesBasicas.UsuarioImpl;
-import interfaces.Usuario;
 import utilidades.Utilidades;
 
 import java.text.SimpleDateFormat;
@@ -11,7 +10,7 @@ import java.util.GregorianCalendar;
 public class CicloEmbarazoTest {
     public static void main(String[] args) {
         UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
-        CicloEmbarazo miEmbarazo = new CicloEmbarazo(usuario,new GregorianCalendar());
+        CicloEmbarazo miEmbarazo = new CicloEmbarazo(usuario, new GregorianCalendar());
         Utilidades utilidades = new Utilidades();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = " ";

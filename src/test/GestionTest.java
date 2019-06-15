@@ -135,7 +135,7 @@ public class GestionTest {
         UsuarioImpl usuario = new UsuarioImpl("iventadoxdxd", "123456789");
         UsuarioImpl user = new UsuarioImpl("randomkwiz", "123456789");
         RevisionPersonalImpl revisionPersonal = new RevisionPersonalImpl(usuario);
-      //  System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
+        //  System.out.println(gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario));
 
         //System.out.println(gestion.eliminarCuenta(usuario));
         //gestion.crearRevisionPersonalDiaEnCurso(usuario);
@@ -146,7 +146,7 @@ public class GestionTest {
 
 
         //System.out.println(rev.toString());
-       // System.out.println(gestion.cargarEstadosDeAnimoRevisionPersonal(null));
+        // System.out.println(gestion.cargarEstadosDeAnimoRevisionPersonal(null));
 
         System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
 
