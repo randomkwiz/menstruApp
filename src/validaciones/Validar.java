@@ -9,6 +9,7 @@ import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validar<T extends Enum<T>> {
@@ -20,12 +21,16 @@ public class Validar<T extends Enum<T>> {
     public int logInOrSignUp() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Salir");
-            System.out.println("1. Crear cuenta");
-            System.out.println("2. Iniciar sesion");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 2);
+        try {
+            do {
+                System.out.println("0. Salir");
+                System.out.println("1. Crear cuenta");
+                System.out.println("2. Iniciar sesion");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 2);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
         return opcion;
     }
 
@@ -37,14 +42,18 @@ public class Validar<T extends Enum<T>> {
     public int menuPrincipal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Salir al menu de login");
-            System.out.println("1. Cuenta");
-            System.out.println("2. Revision personal");
-            System.out.println("3. Ciclo");
-            System.out.println("4. Revision medica (solo si existe embarazo)");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 4);
+        try {
+            do {
+                System.out.println("0. Salir al menu de login");
+                System.out.println("1. Cuenta");
+                System.out.println("2. Revision personal");
+                System.out.println("3. Ciclo");
+                System.out.println("4. Revision medica (solo si existe embarazo)");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 4);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
         return opcion;
     }
 
@@ -57,13 +66,18 @@ public class Validar<T extends Enum<T>> {
     public int subMenuCuenta() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Volver atras");
-            System.out.println("1. Ver datos de la cuenta");
-            System.out.println("2. Modificar datos de la cuenta");
-            System.out.println("3. Eliminar cuenta");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 3);
+        try {
+            do {
+                System.out.println("0. Volver atras");
+                System.out.println("1. Ver datos de la cuenta");
+                System.out.println("2. Modificar datos de la cuenta");
+                System.out.println("3. Eliminar cuenta");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 3);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
         return opcion;
     }
 
@@ -75,15 +89,20 @@ public class Validar<T extends Enum<T>> {
     public int subMenuRevisionPersonal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Volver atras");
-            System.out.println("1. Registrar revision personal");
-            System.out.println("2. Ver revisiones personales ");
-            System.out.println("3. Buscar revision personal");
-            System.out.println("4. Eliminar revision personal");
-            System.out.println("5. Ver analisis personal");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 5);
+        try {
+            do {
+                System.out.println("0. Volver atras");
+                System.out.println("1. Registrar revision personal");
+                System.out.println("2. Ver revisiones personales ");
+                System.out.println("3. Buscar revision personal");
+                System.out.println("4. Eliminar revision personal");
+                System.out.println("5. Ver analisis personal");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 5);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
         return opcion;
     }
 
@@ -95,15 +114,20 @@ public class Validar<T extends Enum<T>> {
     public int subMenuCiclo() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Volver atras");
-            System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
-            System.out.println("2. Ver datos del ciclo actual ");
-            System.out.println("3. Marcar fin del ciclo actual");
-            System.out.println("4. Eliminar ciclo");
-            System.out.println("5. Ver ciclos anteriores");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 5);
+        try {
+            do {
+                System.out.println("0. Volver atras");
+                System.out.println("1. Registrar ciclo (menstruacion o embarazo)");
+                System.out.println("2. Ver datos del ciclo actual ");
+                System.out.println("3. Marcar fin del ciclo actual");
+                System.out.println("4. Eliminar ciclo");
+                System.out.println("5. Ver ciclos anteriores");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 5);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
         return opcion;
     }
 
@@ -115,16 +139,21 @@ public class Validar<T extends Enum<T>> {
     public int subMenuRevisionMedica() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("0. Volver atras");
-            System.out.println("1. Registrar revision medica");
-            System.out.println("2. Ver revisiones pasadas ");
-            System.out.println("3. Buscar revision");
-            System.out.println("4. Modificar revision");
-            System.out.println("5. Ver fecha siguiente revision");
-            System.out.println("6. Eliminar revision");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 6);
+        try {
+            do {
+                System.out.println("0. Volver atras");
+                System.out.println("1. Registrar revision medica");
+                System.out.println("2. Ver revisiones pasadas ");
+                System.out.println("3. Buscar revision");
+                System.out.println("4. Modificar revision");
+                System.out.println("5. Ver fecha siguiente revision");
+                System.out.println("6. Eliminar revision");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 6);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
         return opcion;
     }
 
@@ -143,11 +172,16 @@ public class Validar<T extends Enum<T>> {
     public String nuevoNickUsuario() {
         Scanner sc = new Scanner(System.in);
         String nuevoNick = " ";
-        do {
-            System.out.println("Introduce tu nuevo nick: ");
-            System.out.println("Recuerda que tu nick no puede contener espacios en blanco y debe tener entre 3 y 25 caracteres.");
-            nuevoNick = sc.next();
-        } while (nuevoNick.length() < 3 || nuevoNick.length() > 25 || isRegistrado(nuevoNick));
+        try {
+            do {
+                System.out.println("Introduce tu nuevo nick: ");
+                System.out.println("Recuerda que tu nick no puede contener espacios en blanco y debe tener entre 3 y 25 caracteres.");
+                nuevoNick = sc.next();
+            } while (nuevoNick.length() < 3 || nuevoNick.length() > 25 || isRegistrado(nuevoNick));
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return nuevoNick;
     }
@@ -214,21 +248,26 @@ public class Validar<T extends Enum<T>> {
      * */
     public String establecerPassword() {
         Scanner sc = new Scanner(System.in);
-        String password;
+        String password = null;
         //referencia a la consola
         Console con = System.console();
-        do {
-            System.out.println("Introduce la contraseña (8-50 caracteres): ");
-            if (con == null) {  //si no hay consola, se pedira la contraseña de forma normal
-                password = sc.next();
-            } else {    //si si hay consola, pedira la contraseña de forma que no se veran los caracteres
-                //to read password
-                char[] ch = con.readPassword(); //el metodo readPassword no muestra los caracteres al escribirlos
+        try {
+            do {
+                System.out.println("Introduce la contraseña (8-50 caracteres): ");
+                if (con == null) {  //si no hay consola, se pedira la contraseña de forma normal
+                    password = sc.next();
+                } else {    //si si hay consola, pedira la contraseña de forma que no se veran los caracteres
+                    //to read password
+                    char[] ch = con.readPassword(); //el metodo readPassword no muestra los caracteres al escribirlos
 
-                //converting char array into string
-                password = String.valueOf(ch);
-            }
-        } while (password.length() < 8 || password.length() > 50);
+                    //converting char array into string
+                    password = String.valueOf(ch);
+                }
+            } while (password.length() < 8 || password.length() > 50);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return password;
     }
@@ -246,15 +285,21 @@ public class Validar<T extends Enum<T>> {
      * */
     public String nombreUsuario() {
         Scanner sc = new Scanner(System.in);
-        String nombreUsuario;
-        do {
-            System.out.println("Introduce tu nombre real:");
-            System.out.println("Escribe 0 si no deseas rellenar este campo.");
-            nombreUsuario = sc.nextLine();
-        } while (!nombreUsuario.equals("0") && (nombreUsuario.length() < 3 || nombreUsuario.length() > 50));
-        if (nombreUsuario.equals("0")) {
-            nombreUsuario = null;   //devuelvo un null en vez de espacio en blanco para que en la bbdd se ponga NULL y no " "
+        String nombreUsuario = null;
+        try {
+            do {
+                System.out.println("Introduce tu nombre real:");
+                System.out.println("Escribe 0 si no deseas rellenar este campo.");
+                nombreUsuario = sc.nextLine();
+            } while (!nombreUsuario.equals("0") && (nombreUsuario.length() < 3 || nombreUsuario.length() > 50));
+            if (nombreUsuario.equals("0")) {
+                nombreUsuario = null;   //devuelvo un null en vez de espacio en blanco para que en la bbdd se ponga NULL y no " "
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
+
         return nombreUsuario;
     }
 
@@ -270,12 +315,17 @@ public class Validar<T extends Enum<T>> {
      * */
     public double pesoUsuario() {
         Scanner sc = new Scanner(System.in);
-        double peso;
-        do {
-            System.out.println("Introduce peso en kg:");
-            System.out.println("Escribe 0 si no deseas rellenar este campo.");
-            peso = sc.nextDouble();
-        } while (peso < 0);
+        double peso = 0;
+        try {
+            do {
+                System.out.println("Introduce peso en kg:");
+                System.out.println("Escribe 0 si no deseas rellenar este campo.");
+                peso = sc.nextDouble();
+            } while (peso < 0);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return peso;
     }
@@ -387,21 +437,26 @@ public class Validar<T extends Enum<T>> {
         int dia;
         int mes;
         int anyo;
-        do {
+        try {
             do {
+                do {
 
-                System.out.print("Dia: ");
-                dia = sc.nextInt();
-                System.out.print("Mes: ");
-                mes = sc.nextInt();
-                System.out.print("Año: ");
-                anyo = sc.nextInt();
-            } while (!fechaEsValida(dia, mes, anyo));
+                    System.out.print("Dia: ");
+                    dia = sc.nextInt();
+                    System.out.print("Mes: ");
+                    mes = sc.nextInt();
+                    System.out.print("Año: ");
+                    anyo = sc.nextInt();
+                } while (!fechaEsValida(dia, mes, anyo));
 
-            fechaCumple.set(GregorianCalendar.YEAR, anyo);
-            fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
-            fechaCumple.set(GregorianCalendar.DATE, dia);
-        } while (fechaCumple.after(fechaHoy));
+                fechaCumple.set(GregorianCalendar.YEAR, anyo);
+                fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+                fechaCumple.set(GregorianCalendar.DATE, dia);
+            } while (fechaCumple.after(fechaHoy));
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return fechaCumple;
     }
@@ -458,18 +513,23 @@ public class Validar<T extends Enum<T>> {
      *
      * */
     public UsuarioImpl pedirLogin() {
-        String nick;
-        String pass;
-        UsuarioImpl usuario;
+        String nick = "";
+        String pass = "";
+        UsuarioImpl usuario = null;
         Utilidades util = new Utilidades();
         Scanner sc = new Scanner(System.in);
-        do {
-            System.out.println("Introduce el nick: ");
-            nick = sc.next();
-            pass = establecerPassword();
-        } while (combinacionInicioSesion(nick, pass) == false);
+        try {
+            do {
+                System.out.println("Introduce el nick: ");
+                nick = sc.next();
+                pass = establecerPassword();
+            } while (combinacionInicioSesion(nick, pass) == false);
 
-        usuario = util.cargarUsuario(nick, pass);
+            usuario = util.cargarUsuario(nick, pass);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
         return usuario;
     }
 
@@ -486,14 +546,19 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         boolean seguro = false;
         String respuesta = " ";
-        do {
-            System.out.println("¿Estas segura de que deseas eliminar tu cuenta? SI/NO");
-            respuesta = sc.nextLine().toUpperCase();
-        } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
+        try {
+            do {
+                System.out.println("¿Estas segura de que deseas eliminar tu cuenta? SI/NO");
+                respuesta = sc.nextLine().toUpperCase();
+            } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
 
-        if (respuesta.equals("SI")) {
-            seguro = true;
+            if (respuesta.equals("SI")) {
+                seguro = true;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
         return seguro;
     }
 
@@ -510,14 +575,19 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         boolean seguro = false;
         String respuesta = " ";
-        do {
-            System.out.println("¿Estas segura de que deseas eliminar la revision? SI/NO");
-            respuesta = sc.nextLine().toUpperCase();
-        } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
+        try {
+            do {
+                System.out.println("¿Estas segura de que deseas eliminar la revision? SI/NO");
+                respuesta = sc.nextLine().toUpperCase();
+            } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
 
-        if (respuesta.equals("SI")) {
-            seguro = true;
+            if (respuesta.equals("SI")) {
+                seguro = true;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
         return seguro;
     }
 
@@ -532,15 +602,20 @@ public class Validar<T extends Enum<T>> {
     public int submenuRegistrarRevisionPersonal() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-        do {
-            System.out.println("Opciones:");
-            System.out.println("0. Volver atras");
-            System.out.println("1. Estado animico");
-            System.out.println("2. Flujo vaginal");
-            System.out.println("3. Sexo");
-            System.out.println("4. Sintomas");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 4);
+        try {
+            do {
+                System.out.println("Opciones:");
+                System.out.println("0. Volver atras");
+                System.out.println("1. Estado animico");
+                System.out.println("2. Flujo vaginal");
+                System.out.println("3. Sexo");
+                System.out.println("4. Sintomas");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 4);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return opcion;
     }
@@ -560,20 +635,26 @@ public class Validar<T extends Enum<T>> {
         Utilidades utilidades = new Utilidades();
         int opcion = -1;
         String value = null;
-        do {
-            System.out.println("0. Volver atras");
-            utilidades.imprimirValoresEnum(enumerados);
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > enumerados.length);
+        try {
+            System.out.println("Opcion no contemplada");
+            do {
+                System.out.println("0. Volver atras");
+                utilidades.imprimirValoresEnum(enumerados);
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > enumerados.length);
 
-        if (opcion != 0) {
-            for (T col : enumerados) {
-                if (col.ordinal() == opcion) {
-                    value = col.toString();
+            if (opcion != 0) {
+                for (T col : enumerados) {
+                    if (col.ordinal() == opcion) {
+                        value = col.toString();
+                    }
                 }
-            }
 
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
 
         return value;
     }
@@ -593,24 +674,29 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         int dia, mes, anyo;
-        do {
+        try {
             do {
-                System.out.println("Introduce 0 en los tres campos para establecer la fecha por defecto (actual)");
-                System.out.print("Dia: ");
-                dia = sc.nextInt();
-                System.out.print("Mes: ");
-                mes = sc.nextInt();
-                System.out.print("Año: ");
-                anyo = sc.nextInt();
+                do {
+                    System.out.println("Introduce 0 en los tres campos para establecer la fecha por defecto (actual)");
+                    System.out.print("Dia: ");
+                    dia = sc.nextInt();
+                    System.out.print("Mes: ");
+                    mes = sc.nextInt();
+                    System.out.print("Año: ");
+                    anyo = sc.nextInt();
 
-            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
+                } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
 
-            if (dia != 0 && mes != 0 && anyo != 0) {
-                fecha.set(GregorianCalendar.YEAR, anyo);
-                fecha.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
-                fecha.set(GregorianCalendar.DATE, dia);
-            }
-        } while (fecha.after(hoy));
+                if (dia != 0 && mes != 0 && anyo != 0) {
+                    fecha.set(GregorianCalendar.YEAR, anyo);
+                    fecha.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+                    fecha.set(GregorianCalendar.DATE, dia);
+                }
+            } while (fecha.after(hoy));
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return fecha;
 
@@ -628,14 +714,19 @@ public class Validar<T extends Enum<T>> {
     public int pedirValidarMenuReglaOEmbarazo() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
+        try {
+            do {
+                System.out.println("Elige");
+                System.out.println("0. Volver atras");
+                System.out.println("1. Menstruacion");
+                System.out.println("2. Embarazo");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 2);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-        do {
-            System.out.println("Elige");
-            System.out.println("0. Volver atras");
-            System.out.println("1. Menstruacion");
-            System.out.println("2. Embarazo");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 2);
+
         return opcion;
     }
 
@@ -652,37 +743,46 @@ public class Validar<T extends Enum<T>> {
     public int pedirValidarMenuCampoAModificar() {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
+        try {
+            do {
+                System.out.println("Elige");
+                System.out.println("0. Volver atras");
+                System.out.println("1. Nombre");
+                System.out.println("2. Peso");
+                System.out.println("3. Contraseña");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 3);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-        do {
-            System.out.println("Elige");
-            System.out.println("0. Volver atras");
-            System.out.println("1. Nombre");
-            System.out.println("2. Peso");
-            System.out.println("3. Contraseña");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 3);
+
         return opcion;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: pide y valida un nombre para el usuario
-    * Signatura: public String pedirValidarNuevoNombre(UsuarioImpl usuario)
-    * Precondiciones:
-    * Entradas: Usuario que sera el usuario del que pediremos el nuevo nombre
-    * Salidas: String que sera el nuevo nombre del usuario
-    * Postcondiciones: Asociado al nombre devuelve un String con el nuevo nombre de usuario o null si el usuario
-    *                   finalmente no desea cambiar el nombre.
-    * */
+     * INTERFAZ
+     * Comentario: pide y valida un nombre para el usuario
+     * Signatura: public String pedirValidarNuevoNombre(UsuarioImpl usuario)
+     * Precondiciones:
+     * Entradas: Usuario que sera el usuario del que pediremos el nuevo nombre
+     * Salidas: String que sera el nuevo nombre del usuario
+     * Postcondiciones: Asociado al nombre devuelve un String con el nuevo nombre de usuario o null si el usuario
+     *                   finalmente no desea cambiar el nombre.
+     * */
     public String pedirValidarNuevoNombre(UsuarioImpl usuario) {
         Scanner sc = new Scanner(System.in);
         String nuevoNombre = null;
+        try {
+            do {
+                System.out.println("Introduce tu nombre:");
+                System.out.println("Pulsa 0 para volver atras");
+                nuevoNombre = sc.next();
+            } while (!nuevoNombre.equals(0) && nuevoNombre.length() < 3 || nuevoNombre.length() > 50);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-        do {
-            System.out.println("Introduce tu nombre:");
-            System.out.println("Pulsa 0 para volver atras");
-            nuevoNombre = sc.next();
-        } while (!nuevoNombre.equals(0) && nuevoNombre.length() < 3 || nuevoNombre.length() > 50);
         return nuevoNombre;
     }
 
@@ -699,12 +799,16 @@ public class Validar<T extends Enum<T>> {
     public double pedirValidarNuevoPeso(UsuarioImpl usuario) {
         Scanner sc = new Scanner(System.in);
         double nuevoPeso = -1;
+        try {
+            do {
+                System.out.println("Introduce tu peso:");
+                System.out.println("Pulsa 0 para volver atras");
+                nuevoPeso = sc.nextInt();
+            } while (nuevoPeso < 0 || nuevoPeso > 400);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-        do {
-            System.out.println("Introduce tu peso:");
-            System.out.println("Pulsa 0 para volver atras");
-            nuevoPeso = sc.nextInt();
-        } while (nuevoPeso < 0 || nuevoPeso > 400);
         return nuevoPeso;
     }
 
@@ -723,16 +827,21 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         String idCiclo = null;
-        do {
-            System.out.println("Ciclos menstruales");
-            System.out.println("0. Volver atras");
-            util.imprimirCiclosMenstruales(user);
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
+        try {
+            do {
+                System.out.println("Ciclos menstruales");
+                System.out.println("0. Volver atras");
+                util.imprimirCiclosMenstruales(user);
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > gestion.obtenerListaCiclosMenstruales(user).size());
 
-        if (opcion > 0) {
-            idCiclo = gestion.obtenerListaCiclosMenstruales(user).get(opcion - 1).getID();
+            if (opcion > 0) {
+                idCiclo = gestion.obtenerListaCiclosMenstruales(user).get(opcion - 1).getID();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
 
         return idCiclo;
     }
@@ -753,15 +862,20 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
         String idCiclo = null;
-        do {
-            System.out.println("Embarazos");
-            System.out.println("0. Volver atras");
-            util.imprimirEmbarazos(user);
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
-        if (opcion != 0) {
-            idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion - 1).getID();
+        try {
+            do {
+                System.out.println("Embarazos");
+                System.out.println("0. Volver atras");
+                util.imprimirEmbarazos(user);
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > gestion.obtenerListaEmbarazos(user).size());
+            if (opcion != 0) {
+                idCiclo = gestion.obtenerListaEmbarazos(user).get(opcion - 1).getID();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
         }
+
 
         return idCiclo;
     }
@@ -779,12 +893,17 @@ public class Validar<T extends Enum<T>> {
     public int pedirValidarSiBuscarPorFechaOEstadoEnum() {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
-        do {
-            System.out.println("0. Volver atras");
-            System.out.println("1. Buscar por fecha");
-            System.out.println("2. Buscar por registro");
-            opcion = sc.nextInt();
-        } while (opcion < 0 || opcion > 2);
+        try {
+            do {
+                System.out.println("0. Volver atras");
+                System.out.println("1. Buscar por fecha");
+                System.out.println("2. Buscar por registro");
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > 2);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
         return opcion;
     }
@@ -801,10 +920,15 @@ public class Validar<T extends Enum<T>> {
     public int anyo() {
         Scanner sc = new Scanner(System.in);
         int anyo_buscado = 1582;
-        do {
-            System.out.println("Introduce el año de la/s revision/es a buscar: ");
-            anyo_buscado = sc.nextInt();
-        } while (anyo_buscado < 1582);
+        try {
+            do {
+                System.out.println("Introduce el año de la/s revision/es a buscar: ");
+                anyo_buscado = sc.nextInt();
+            } while (anyo_buscado < 1582);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return anyo_buscado;
     }
@@ -820,11 +944,16 @@ public class Validar<T extends Enum<T>> {
      * */
     public int mes() {
         Scanner sc = new Scanner(System.in);
-        int mes_buscado;
-        do {
-            System.out.println("Introduce el mes de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el mes: ");
-            mes_buscado = sc.nextInt();
-        } while (mes_buscado < 0 || mes_buscado > 12);
+        int mes_buscado = 0;
+        try {
+            do {
+                System.out.println("Introduce el mes de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el mes: ");
+                mes_buscado = sc.nextInt();
+            } while (mes_buscado < 0 || mes_buscado > 12);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return mes_buscado;
     }
@@ -840,11 +969,16 @@ public class Validar<T extends Enum<T>> {
      * */
     public int dia() {
         Scanner sc = new Scanner(System.in);
-        int dia_buscado;
-        do {
-            System.out.println("Introduce el dia de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el dia: ");
-            dia_buscado = sc.nextInt();
-        } while (dia_buscado < 0 || dia_buscado > 31);
+        int dia_buscado = 0;
+        try {
+            do {
+                System.out.println("Introduce el dia de la/s revision/es a buscar. Escribe 0 si no deseas tener en cuenta el dia: ");
+                dia_buscado = sc.nextInt();
+            } while (dia_buscado < 0 || dia_buscado > 31);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
 
         return dia_buscado;
     }
@@ -865,11 +999,15 @@ public class Validar<T extends Enum<T>> {
         Scanner sc = new Scanner(System.in);
         Utilidades util = new Utilidades();
         int opcion = 0;
-        do {
-            util.imprimirDatosRevisionPersonalLista(lista);
-            opcion = sc.nextInt();
+        try {
+            do {
+                util.imprimirDatosRevisionPersonalLista(lista);
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > lista.size());
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-        } while (opcion < 0 || opcion > lista.size());
         if (opcion != 0) {
             revisionElegida = lista.get(opcion - 1);
         }

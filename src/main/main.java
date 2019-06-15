@@ -108,6 +108,7 @@ PSEUDOCODIGO
  *   finSi
  * mientras opcion no sea salir
  * */
+
 package main;
 
 import clasesBasicas.*;
@@ -192,18 +193,18 @@ public class main {
                                                     case 2:
                                                         //Modificar datos de la cuenta
                                                         System.out.println("Modulo modificar datos de la cuenta en construccion");
-                                                        do{
+                                                        do {
                                                             opcionModificarDatosCuenta = validar.pedirValidarMenuCampoAModificar();
-                                                            if(opcionModificarDatosCuenta != 0){
-                                                                switch (opcionModificarDatosCuenta){
+                                                            if (opcionModificarDatosCuenta != 0) {
+                                                                switch (opcionModificarDatosCuenta) {
                                                                     case 1:
                                                                         //Nombre
                                                                         String nuevoNombre = validar.pedirValidarNuevoNombre(usuarioLogado);
-                                                                        if(nuevoNombre != null){
-                                                                            if (gestion.actualizarNombreUsuario(usuarioLogado,nuevoNombre)){
+                                                                        if (nuevoNombre != null) {
+                                                                            if (gestion.actualizarNombreUsuario(usuarioLogado, nuevoNombre)) {
                                                                                 System.out.println("Nombre actualizado con exito.");
                                                                                 usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), usuarioLogado.getPassword());
-                                                                            }else{
+                                                                            } else {
                                                                                 System.out.println("Hubo un error al actualizar su nombre, intentelo de nuevo mas tarde.");
                                                                             }
                                                                         }
@@ -212,11 +213,11 @@ public class main {
                                                                     case 2:
                                                                         //Peso
                                                                         double nuevoPeso = validar.pedirValidarNuevoPeso(usuarioLogado);
-                                                                        if(nuevoPeso != 0){
-                                                                            if (gestion.actualizarPesoUsuario(usuarioLogado,nuevoPeso)){
+                                                                        if (nuevoPeso != 0) {
+                                                                            if (gestion.actualizarPesoUsuario(usuarioLogado, nuevoPeso)) {
                                                                                 System.out.println("Peso actualizado con exito.");
                                                                                 usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), usuarioLogado.getPassword());
-                                                                            }else{
+                                                                            } else {
                                                                                 System.out.println("Hubo un error al actualizar su peso, intentelo de nuevo mas tarde.");
                                                                             }
                                                                         }
@@ -226,11 +227,11 @@ public class main {
                                                                         UsuarioImpl usuarioParaConfirarCambio = validar.pedirLogin();
                                                                         System.out.println("NUEVA CONTRASEÑA: ");
                                                                         String nuevaPassword = validar.establecerPassword();
-                                                                        if(usuarioParaConfirarCambio.equals(usuarioLogado)){
-                                                                            if (gestion.actualizarPasswordUsuario(usuarioLogado,nuevaPassword)){
+                                                                        if (usuarioParaConfirarCambio.equals(usuarioLogado)) {
+                                                                            if (gestion.actualizarPasswordUsuario(usuarioLogado, nuevaPassword)) {
                                                                                 System.out.println("Contraseña actualizada con exito.");
                                                                                 usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), nuevaPassword);
-                                                                            }else{
+                                                                            } else {
                                                                                 System.out.println("Hubo un error al actualizar la contraseña, intentelo de nuevo mas tarde.");
                                                                             }
                                                                         }
@@ -239,7 +240,7 @@ public class main {
                                                                 }
                                                             }
 
-                                                        }while (opcionModificarDatosCuenta != 0);
+                                                        } while (opcionModificarDatosCuenta != 0);
                                                         break;
                                                     case 3:
                                                         //Eliminar cuenta

@@ -24,10 +24,11 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * dado un objeto GregorianCalendar, devuelve un String con la fecha formateada
-     *     de forma "dd/MM/yyyy"
+     * de forma "dd/MM/yyyy"
+     *
      * @param fecha fecha a formatear
      * @return Asociado al nombre se devuelve un String con la fecha formateada bajo patron "dd/MM/yyyy",
-     *      o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
+     * o bien una cadena vacia si hay algun error o el objeto GregorianCalendar de entrada es null.
      */
     public String formatearFecha(GregorianCalendar fecha) {
         String fechaFormateada = " ";
@@ -52,10 +53,11 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * Dados un usuario y contraseña, devuelve el objeto UsuarioImpl correspondiente, o null si la combinacion no existe.
+     *
      * @param nick nick del usuario
      * @param pass contraseña del usuario
      * @return Asociado al nombre devuelve un objeto UsuarioImpl correspondiente a la combinacion usuario/contraseña dados. Si la
-     *       combinacion es erronea devuelve null.
+     * combinacion es erronea devuelve null.
      */
     public UsuarioImpl cargarUsuario(String nick, String pass) {
         UsuarioImpl user = null;
@@ -116,6 +118,7 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * Imprime en pantalla los valores de un enum
+     *
      * @param enumerado enum del cual se imprimiran sus valores
      */
     public void imprimirValoresEnum(T[] enumerado) {
@@ -141,6 +144,7 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * metodo que busca el valor del enum en la BBDD y devuelve su ID
+     *
      * @param enumerado enum cuyo valor se buscara en la base de datos
      * @return Asociado al nombre se devuelve el ID del enum registrado en la BBDD.
      */
@@ -212,8 +216,9 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * imprime en pantalla los datos de una revision personal
-     * @see #formatearFecha(GregorianCalendar)
+     *
      * @param revision revision de la que se imprimiran los datos
+     * @see #formatearFecha(GregorianCalendar)
      */
     public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
         Gestion gestion = new Gestion();
@@ -255,15 +260,15 @@ public class Utilidades<T extends Enum<T>> {
     }
 
     /*
-    * INTERFAZ
-    * Comentario: imprime en pantalla un array de cadenas separados por comas y el ultimo elemento con un punto y final.
-    * Signatura: public void imprimirArrayList(ArrayList<T> lista)
-    * Precondiciones:
-    * Entradas: arraylist de cadenas a imprimir
-    * Salidas:
-    * Postcondiciones: imprime en pantalla
-    * */
-    public void imprimirArrayList(ArrayList<T> lista){
+     * INTERFAZ
+     * Comentario: imprime en pantalla un array de cadenas separados por comas y el ultimo elemento con un punto y final.
+     * Signatura: public void imprimirArrayList(ArrayList<T> lista)
+     * Precondiciones:
+     * Entradas: arraylist de cadenas a imprimir
+     * Salidas:
+     * Postcondiciones: imprime en pantalla
+     * */
+    public void imprimirArrayList(ArrayList<T> lista) {
         for (int i = 0; i < lista.size(); i++) {
             if (i == lista.size() - 1) {
                 System.out.println(lista.get(i) + ". ");
@@ -286,8 +291,9 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
-     * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
+     *
      * @param revisiones arraylist de revisiones que seran las impresas en pantalla
+     * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
      */
     public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones) {
 
@@ -309,8 +315,9 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * metodo para listar en pantalla todos los ciclos menstruales que haya tenido un usuario
-     * @see #formatearFecha(GregorianCalendar)
+     *
      * @param user usuario del cual se imprimiran los ciclos menstruales
+     * @see #formatearFecha(GregorianCalendar)
      */
     public void imprimirCiclosMenstruales(UsuarioImpl user) {
         Gestion gestion = new Gestion();
@@ -346,8 +353,9 @@ public class Utilidades<T extends Enum<T>> {
 
     /**
      * metodo para listar en pantalla todos los embarazos que haya tenido un usuario
-     * @see #formatearFecha(GregorianCalendar)
+     *
      * @param user usuario del cual se imprimiran los embarazos
+     * @see #formatearFecha(GregorianCalendar)
      */
     public void imprimirEmbarazos(UsuarioImpl user) {
         Gestion gestion = new Gestion();
