@@ -39,22 +39,24 @@ public class CicloEmbarazo extends Ciclo {
 
     /**
      * Constructor con parametros
-     * @param usuario usuario al que pertenece el ciclo
-     * @param fechaInicio fecha de inicio del ciclo
+     *
+     * @param usuario      usuario al que pertenece el ciclo
+     * @param fechaInicio  fecha de inicio del ciclo
      * @param fechaFinReal fecha de fin real del ciclo
      */
     public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super(usuario, fechaInicio, fechaFinReal);
     }
+
     /**
      * Constructor con parametros sin fecha de finalizacion
-     * @param usuario usuario al que pertenece el ciclo
+     *
+     * @param usuario     usuario al que pertenece el ciclo
      * @param fechaInicio fecha de inicio del ciclo
      */
     public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
         super(usuario, fechaInicio);
     }
-
 
 
     //Metodos añadidos
@@ -71,14 +73,15 @@ public class CicloEmbarazo extends Ciclo {
  */
 
     /**
-     *  Método que devuelve la fecha de fin estimada del ciclo.
+     * Método que devuelve la fecha de fin estimada del ciclo.
+     *
      * @return asociado al nombre devolvera la fecha de fin estimada, que sera 260 dias posterior a la fecha
-     *         de inicio del ciclo, o null si no hay fecha de inicio.
+     * de inicio del ciclo, o null si no hay fecha de inicio.
      */
     public GregorianCalendar getFechaFinEstimada() {
         GregorianCalendar fechaFinEstimada = null;
 
-        if(getFechaInicio() != null){
+        if (getFechaInicio() != null) {
             fechaFinEstimada = getFechaInicio();
             fechaFinEstimada.add(Calendar.MONTH, 9);
         }

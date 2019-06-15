@@ -432,32 +432,52 @@ public class Validar<T extends Enum<T>> {
      * */
     public GregorianCalendar validarFecha() {
         Scanner sc = new Scanner(System.in);
-        GregorianCalendar fechaCumple = new GregorianCalendar();
+        GregorianCalendar fechaCumple = null;
         GregorianCalendar fechaHoy = new GregorianCalendar();
-        int dia;
-        int mes;
-        int anyo;
+        int dia = -1;
+        int mes = -1;
+        int anyo = -1;
         try {
+
             do {
                 do {
 
+
                     System.out.print("Dia: ");
                     dia = sc.nextInt();
+
+
+                } while (dia < 0 || dia > 31);
+
+
+                do {
+
                     System.out.print("Mes: ");
                     mes = sc.nextInt();
+
+                } while (mes < 0 || mes > 12);
+
+
+                do {
+
                     System.out.print("Año: ");
                     anyo = sc.nextInt();
-                } while (!fechaEsValida(dia, mes, anyo));
 
-                fechaCumple.set(GregorianCalendar.YEAR, anyo);
-                fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
-                fechaCumple.set(GregorianCalendar.DATE, dia);
-            } while (fechaCumple.after(fechaHoy));
+                } while (anyo != 0 && anyo < 1582);
+
+
+            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
         } catch (InputMismatchException e) {
-            System.out.println("Opcion no contemplada");
+            System.out.println("Error al registrar tu fecha de cumpleaños, intenta cambiarla desde las opciones de Cuenta mas adelante.");
         }
+        fechaCumple = new GregorianCalendar();
+        fechaCumple.set(GregorianCalendar.YEAR, anyo);
+        fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+        fechaCumple.set(GregorianCalendar.DATE, dia);
 
-
+        if ((dia == 0 && mes == 0 && anyo == 0) || fechaCumple.after(fechaHoy)) {
+            fechaCumple = null;
+        }
         return fechaCumple;
     }
 
@@ -750,8 +770,9 @@ public class Validar<T extends Enum<T>> {
                 System.out.println("1. Nombre");
                 System.out.println("2. Peso");
                 System.out.println("3. Contraseña");
+                System.out.println("4. Fecha de nacimiento");
                 opcion = sc.nextInt();
-            } while (opcion < 0 || opcion > 3);
+            } while (opcion < 0 || opcion > 4);
         } catch (InputMismatchException e) {
             System.out.println("Opcion no contemplada");
         }

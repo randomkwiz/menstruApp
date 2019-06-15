@@ -192,7 +192,7 @@ public class main {
                                                         break;
                                                     case 2:
                                                         //Modificar datos de la cuenta
-                                                        System.out.println("Modulo modificar datos de la cuenta en construccion");
+                                                        //System.out.println("Modulo modificar datos de la cuenta en construccion");
                                                         do {
                                                             opcionModificarDatosCuenta = validar.pedirValidarMenuCampoAModificar();
                                                             if (opcionModificarDatosCuenta != 0) {
@@ -236,6 +236,23 @@ public class main {
                                                                             }
                                                                         }
                                                                         break;
+                                                                    case 4:
+                                                                        //Fecha nacimiento
+                                                                        GregorianCalendar nuevaFechaNacimiento = validar.validarFecha();
+                                                                        if (nuevaFechaNacimiento != null) {
+                                                                            if (gestion.actualizarFechaNacimiento(usuarioLogado, nuevaFechaNacimiento)) {
+                                                                                System.out.println("Fecha de nacimiento cambiada con exito");
+                                                                                usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), usuarioLogado.getPassword());
+                                                                            } else {
+                                                                                System.out.println("Hubo un error al actualizar la fecha de nacimiento. " +
+                                                                                        "\nIntentelo de nuevo mas tarde");
+                                                                            }
+                                                                        } else {
+                                                                            System.out.println("No se modifico la fecha de nacimiento");
+                                                                        }
+
+                                                                        break;
+
 
                                                                 }
                                                             }

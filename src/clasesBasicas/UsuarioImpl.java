@@ -83,10 +83,11 @@ public class UsuarioImpl implements Usuario {
 
     /**
      * Constructor con parametros
-     * @param nombre nombre del usuario
-     * @param nick nick del usuario
-     * @param password contraseña del usuario
-     * @param peso peso del usuario
+     *
+     * @param nombre          nombre del usuario
+     * @param nick            nick del usuario
+     * @param password        contraseña del usuario
+     * @param peso            peso del usuario
      * @param fechaNacimiento fecha de nacimiento del usuario
      */
     public UsuarioImpl(String nombre, String nick, String password, double peso, GregorianCalendar fechaNacimiento) {
@@ -102,7 +103,8 @@ public class UsuarioImpl implements Usuario {
 
     /**
      * Constructor con parametros
-     * @param nick nick del usuario
+     *
+     * @param nick     nick del usuario
      * @param password contraseña del usuario
      */
     public UsuarioImpl(String nick, String password) {
@@ -169,7 +171,7 @@ public class UsuarioImpl implements Usuario {
 
     @Override
     /*Criterio de igualdad: dos usuarios son iguales si tienen mismo nick y contraseña*/
-    public boolean equals (Object obj) {
+    public boolean equals(Object obj) {
         boolean igual = false;
         if (this == obj) {
             igual = true;

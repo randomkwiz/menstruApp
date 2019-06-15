@@ -38,6 +38,7 @@ public class RevisionPersonalImpl {
 
     /**
      * Constructor con parametros
+     *
      * @param usuario usuario al que pertenece la revision personal
      */
     public RevisionPersonalImpl(UsuarioImpl usuario) {
@@ -51,12 +52,13 @@ public class RevisionPersonalImpl {
 
     /**
      * Constructor con parametros
-     * @param usuario usuario al que pertenece la revision personal
+     *
+     * @param usuario                usuario al que pertenece la revision personal
      * @param arraylistEstadoAnimico arraylist de estados animicos de la revision
-     * @param arraylistSintoma arraylist de sintomas de la revision
-     * @param arraylistSexo arraylist de sexo de la revision
-     * @param arraylistFlujoVaginal arraylist de flujo vaginal de la revision
-     * @param fecha fecha de la revision
+     * @param arraylistSintoma       arraylist de sintomas de la revision
+     * @param arraylistSexo          arraylist de sexo de la revision
+     * @param arraylistFlujoVaginal  arraylist de flujo vaginal de la revision
+     * @param fecha                  fecha de la revision
      */
     public RevisionPersonalImpl(UsuarioImpl usuario, ArrayList<EstadoAnimico> arraylistEstadoAnimico, ArrayList<Sintoma> arraylistSintoma, ArrayList<Sexo> arraylistSexo, ArrayList<FlujoVaginal> arraylistFlujoVaginal, GregorianCalendar fecha) {
         this.usuario = usuario;

@@ -39,8 +39,9 @@ public class CicloMenstrual extends Ciclo {
 
     /**
      * Constructor con parametros
-     * @param usuario usuario al que pertenece el ciclo
-     * @param fechaInicio fecha de inicio del ciclo
+     *
+     * @param usuario      usuario al que pertenece el ciclo
+     * @param fechaInicio  fecha de inicio del ciclo
      * @param fechaFinReal fecha de fin real del ciclo
      */
     public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
@@ -50,7 +51,8 @@ public class CicloMenstrual extends Ciclo {
 
     /**
      * Constructor con parametros sin fecha de finalizacion
-     * @param usuario usuario al que pertenece el ciclo
+     *
+     * @param usuario     usuario al que pertenece el ciclo
      * @param fechaInicio fecha de inicio del ciclo
      */
     public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
@@ -58,7 +60,6 @@ public class CicloMenstrual extends Ciclo {
         super(usuario, fechaInicio);
 
     }
-
 
 
     //Metodos añadidos
@@ -76,12 +77,13 @@ public class CicloMenstrual extends Ciclo {
 
     /**
      * Método que devuelve la fecha de fin estimada del ciclo.
+     *
      * @return asociado al nombre devolvera la fecha de fin estimada, que sera 4 dias posterior a la fecha
-     *         de inicio del ciclo, o null si no hay fecha de inicio.
+     * de inicio del ciclo, o null si no hay fecha de inicio.
      */
     public GregorianCalendar getFechaFinEstimada() {
         GregorianCalendar fechaFinEstimada = null;
-        if(getFechaInicio() != null){
+        if (getFechaInicio() != null) {
             fechaFinEstimada = getFechaInicio();
             fechaFinEstimada.add(Calendar.DAY_OF_MONTH, 4);
         }
@@ -101,10 +103,10 @@ public class CicloMenstrual extends Ciclo {
     */
 
     /**
-     *  Método que devuelve la fecha estimada de comienzo del siguiente periodo.
-     * @return asociado al nombre devolvera la fecha de comienzo estimada del siguiente ciclo, que sera 28 dias posterior a la fecha
-     *         de inicio del ultimo ciclo menstrual sin cierre actual (el vigesimo octavo dia del ciclo actual seria el primer dia del siguiente ciclo).
+     * Método que devuelve la fecha estimada de comienzo del siguiente periodo.
      *
+     * @return asociado al nombre devolvera la fecha de comienzo estimada del siguiente ciclo, que sera 28 dias posterior a la fecha
+     * de inicio del ultimo ciclo menstrual sin cierre actual (el vigesimo octavo dia del ciclo actual seria el primer dia del siguiente ciclo).
      */
     public GregorianCalendar getFechaComienzoEstimadaSiguientePeriodo() {
         GregorianCalendar fechaComienzoSiguienteCicloEstimada = getFechaInicio();

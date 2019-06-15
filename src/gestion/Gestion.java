@@ -2743,5 +2743,75 @@ public class Gestion {
         System.out.println();
 
     }
+  /*
+    INTERFAZ
+    Comentario: metodo para actualizar la fecha de nacimiento de un usuario
+    Signatura: public boolean actualizarFechaNacimiento(UsuarioImpl user, GregorianCalendar nuevaFecha)
+    Precondiciones:
+    Entradas: usuario del que se modificaran los datos
+              nuevaFecha nueva fecha de nacimiento del usuario
+    Salidas: boolean
+    Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+                    correctamente y false si no. Si el usuario no existe lanzara excepcion.
+
+     */
+
+    /**
+     * metodo para actualizar la fecha de nacimiento de un usuario
+     *
+     * @param user       usuario del que se modificaran los datos
+     * @param nuevaFecha nueva fecha de nacimiento del usuario
+     * @return asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+     * correctamente y false si no. Si el usuario no existe lanzara excepcion.
+     */
+    public boolean actualizarFechaNacimiento(UsuarioImpl user, GregorianCalendar nuevaFecha) {
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "update USUARIO\n" +
+                    "set FECHANACIMIENTO = ?\n" +
+                    "where nick = ?\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+
+            if (nuevaFecha != null) {
+                preparedStatement.setDate(1, new java.sql.Date(nuevaFecha.getTimeInMillis()));
+            } else {
+                preparedStatement.setDate(1, null);
+            }
+            preparedStatement.setString(2, user.getNick());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                if (resultSet.getInt("FILASAFECTADAS") == 1) {
+                    exito = true;
+                }
+            }
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
 
 }

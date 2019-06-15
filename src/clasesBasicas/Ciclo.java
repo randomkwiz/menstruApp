@@ -32,8 +32,9 @@ public abstract class Ciclo {
 
     /**
      * Constructor con parametros
-     * @param usuario usuario al que pertenece el ciclo
-     * @param fechaInicio fecha de inicio del ciclo
+     *
+     * @param usuario      usuario al que pertenece el ciclo
+     * @param fechaInicio  fecha de inicio del ciclo
      * @param fechaFinReal fecha de fin real del ciclo
      */
     public Ciclo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
@@ -54,14 +55,14 @@ public abstract class Ciclo {
 
     /**
      * Constructor con parametros sin fecha de finalizacion
-     * @param usuario usuario al que pertenece el ciclo
+     *
+     * @param usuario     usuario al que pertenece el ciclo
      * @param fechaInicio fecha de inicio del ciclo
      */
     public Ciclo(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
     }
-
 
 
     //Getters y setters
@@ -116,8 +117,9 @@ public abstract class Ciclo {
 
     /**
      * Método que devuelve la cantidad de días restantes estimados que quedan del ciclo.
+     *
      * @return asociado al nombre devolvera la cantidad de dias restantes del ciclo.
-     *         O bien, un numero negativo con los dias que han pasado desde la fecha de fin estimada si esa fecha ya pasó.
+     * O bien, un numero negativo con los dias que han pasado desde la fecha de fin estimada si esa fecha ya pasó.
      */
     public int getDiasRestantesEstimados() {
         final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
@@ -140,6 +142,7 @@ public abstract class Ciclo {
 
     /**
      * Método que devuelve la duracion real del ciclo en dias.
+     *
      * @return asociado al nombre devolvera la cantidad de dias reales que duro el ciclo, o -1 si el ciclo no termino aun o hubo algun error.
      */
     public int getDuracionReal() {
@@ -165,6 +168,7 @@ public abstract class Ciclo {
 
     /**
      * Método que devuelve si el ciclo está finalizado o no.
+     *
      * @return asociado al nombre devolvera un boolean que sera true si el ciclo ha finalizado o false si aun no tiene fecha de fin real.
      */
     public boolean isFinalizado() {
