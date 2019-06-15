@@ -469,6 +469,9 @@ public class Validar<T extends Enum<T>> {
             } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
         } catch (InputMismatchException e) {
             System.out.println("Error al registrar tu fecha de cumpleaños, intenta cambiarla desde las opciones de Cuenta mas adelante.");
+            dia = 0;
+            mes = 0;
+            anyo = 0;
         }
         fechaCumple = new GregorianCalendar();
         fechaCumple.set(GregorianCalendar.YEAR, anyo);

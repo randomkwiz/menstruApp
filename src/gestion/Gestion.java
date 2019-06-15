@@ -2127,8 +2127,21 @@ public class Gestion {
     public void imprimirDatosDeLaCuenta(UsuarioImpl usuarioLogado) {
         Utilidades utilidades = new Utilidades();
         System.out.println("Nick: " + usuarioLogado.getNick());
-        System.out.println("Nombre: " + usuarioLogado.getNombre());
-        System.out.println("Edad: " + obtenerEdad(usuarioLogado));
+        System.out.print("Nombre: " );
+        if(usuarioLogado.getNombre() == null){
+            System.out.println("Sin nombre registrado");
+        }else{
+            System.out.println(usuarioLogado.getNombre());
+        }
+
+
+        System.out.print("Edad: " );
+        if( obtenerEdad(usuarioLogado) == -1){
+            System.out.println("Sin fecha de nacimiento registrada");
+        }else{
+            System.out.println(obtenerEdad(usuarioLogado));
+        }
+
         System.out.print("Embarazada: ");
         System.out.println((estaEmbarazada(usuarioLogado)) ? "Si" : "No");
         if (estaEmbarazada(usuarioLogado)) {
