@@ -1112,7 +1112,8 @@ public class Gestion {
 
         } catch (SQLException sqle) {
             //System.err.println(sqle);
-            System.out.println(sqle.getMessage());
+            //System.out.println(sqle.getMessage());
+            System.out.println("No se pueden insertar estados de animo repetidos.");
         }
         return exito;
 
@@ -1172,7 +1173,8 @@ public class Gestion {
 
         } catch (SQLException sqle) {
             //System.err.println(sqle);
-            System.out.println(sqle.getMessage());
+            //System.out.println(sqle.getMessage());
+            System.out.println("No se pueden insertar sintomas repetidos.");
         }
         return exito;
     }
@@ -1229,7 +1231,8 @@ public class Gestion {
 
         } catch (SQLException sqle) {
             //System.err.println(sqle);
-            System.out.println(sqle.getMessage());
+            //System.out.println(sqle.getMessage());
+            System.out.println("No se pueden insertar tipos de flujo vaginal repetidos.");
         }
         return exito;
     }
@@ -1285,7 +1288,8 @@ public class Gestion {
 
         } catch (SQLException sqle) {
             //System.err.println(sqle);
-            System.out.println(sqle.getMessage());
+            //System.out.println(sqle.getMessage());
+            System.out.println("No se pueden insertar observaciones sexuales repetidas.");
         }
         return exito;
     }
@@ -2351,6 +2355,137 @@ public class Gestion {
             System.err.println(sqle);
         }
         return exito;
+    }
+
+           /*
+    INTERFAZ
+    Comentario: metodo para actualizar la contraseña de un usuario
+    Signatura: public boolean actualizarPasswordUsuario(UsuarioImpl user, String nuevaPassword)
+    Precondiciones:
+    Entradas: usuario del que se modificaran los datos
+              nuevaPassword nueva contraseña del usuario
+    Salidas: boolean
+    Postcondiciones: asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+                    correctamente y false si no. Si el usuario no existe lanzara excepcion.
+
+     */
+
+    /**
+     * metodo para actualizar la contraseña de un usuario
+     * @param user  usuario del que se modificaran los datos
+     * @param nuevaPassword nueva contraseña del usuario
+     * @return asociado al nombre se devolvera un boolean que sera true si la modificacion se realizo
+     *          correctamente y false si no. Si el usuario no existe lanzara excepcion.
+     */
+    public boolean actualizarPasswordUsuario(UsuarioImpl user, String nuevaPassword){
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "update USUARIO\n" +
+                    "set pass = PWDENCRYPT(?)\n" +
+                    "where nick = ?\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, nuevaPassword );
+            preparedStatement.setString(2, user.getNick());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                if (resultSet.getInt("FILASAFECTADAS") == 1){
+                    exito = true;
+                }
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
+
+    /*
+    * INTERFAZ
+    * Comentario: Metodo que devuelve los valores del estado de animo mas utilizado en las
+    *              revisiones personales de un usuario
+    * Signatura: public ArrayList<String> obtenerEstadoDeAnimoMasUsado(UsuarioImpl user)
+    * Precondiciones:
+    * Entradas: usuario del que se buscara el estado de animo mas usado
+    * Salidas: valores de los estados de animo mas usados
+    * Postcondiciones: asociado al nombre se devuelve un arraylist de cadenas con los valores del estado de animo mas usado
+    *                  o bien null si el usuario en cuestion no existe o no tiene revisiones personales registradas.
+    * */
+    public ArrayList<String> obtenerEstadoDeAnimoMasUsado(UsuarioImpl user){
+        String estadoAnimico = null;
+        ArrayList<String> listaEstadosAnimicos = new ArrayList<String>();
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "SELECT * FROM hallarEstadoAnimicoMasFrecuente(?)";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, user.getNick() );
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                estadoAnimico = resultSet.getString("ESTADO");
+                listaEstadosAnimicos.add(estadoAnimico);
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return listaEstadosAnimicos;
+    }
+
+    /*
+INTERFAZ
+Comentario: Metodo que imprime el analisis personal de un usuario dado
+Signatura: public void imprimirAnalisisPersonal(UsuarioImpl user)
+todo seguir haciendo esto
+ */
+    public void imprimirAnalisisPersonal(UsuarioImpl user){
+        Utilidades utilidades = new Utilidades();
+
+        /*todo modula el metodoc imprimirDatosRevisionPersonal de Utilidades, para
+        poder reutilizar aqui la funcionalidad de imprimir estados de animo
+
+         */
+        System.out.println("Estados de animo mas comunes: ");
+
     }
 
 

@@ -200,6 +200,7 @@ public class main {
                                                                         if(nuevoNombre != null){
                                                                             if (gestion.actualizarNombreUsuario(usuarioLogado,nuevoNombre)){
                                                                                 System.out.println("Nombre actualizado con exito.");
+                                                                                usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), usuarioLogado.getPassword());
                                                                             }else{
                                                                                 System.out.println("Hubo un error al actualizar su nombre, intentelo de nuevo mas tarde.");
                                                                             }
@@ -212,6 +213,7 @@ public class main {
                                                                         if(nuevoPeso != 0){
                                                                             if (gestion.actualizarPesoUsuario(usuarioLogado,nuevoPeso)){
                                                                                 System.out.println("Peso actualizado con exito.");
+                                                                                usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), usuarioLogado.getPassword());
                                                                             }else{
                                                                                 System.out.println("Hubo un error al actualizar su peso, intentelo de nuevo mas tarde.");
                                                                             }
@@ -220,10 +222,15 @@ public class main {
                                                                     case 3:
                                                                         //Contraseña
                                                                         UsuarioImpl usuarioParaConfirarCambio = validar.pedirLogin();
+                                                                        System.out.println("NUEVA CONTRASEÑA: ");
+                                                                        String nuevaPassword = validar.establecerPassword();
                                                                         if(usuarioParaConfirarCambio.equals(usuarioLogado)){
-                                                                            //todo actualizar contraseña
-
-                                                                            System.out.println("Modulo actualizar contraseña en construccion");
+                                                                            if (gestion.actualizarPasswordUsuario(usuarioLogado,nuevaPassword)){
+                                                                                System.out.println("Contraseña actualizada con exito.");
+                                                                                usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), nuevaPassword);
+                                                                            }else{
+                                                                                System.out.println("Hubo un error al actualizar la contraseña, intentelo de nuevo mas tarde.");
+                                                                            }
                                                                         }
                                                                         break;
 
@@ -277,7 +284,7 @@ public class main {
                                                                                     System.out.println("Estado de animo registrado con exito en tu revision de hoy.");
                                                                                 } else {
                                                                                     System.out.println("Hubo un problema al intentar registrar el estado de animo en tu revision de hoy." +
-                                                                                            "Intentalo de nuevo mas tarde");
+                                                                                            "\nIntentalo de nuevo mas tarde");
                                                                                 }
                                                                             }
                                                                         } while (opcionEnum != null);
@@ -293,7 +300,7 @@ public class main {
                                                                                     System.out.println("Estado del flujo vaginal registrado con exito en tu revision de hoy.");
                                                                                 } else {
                                                                                     System.out.println("Hubo un problema al intentar registrar el estado del flujo vaginal en tu revision de hoy." +
-                                                                                            "Intentalo de nuevo mas tarde");
+                                                                                            "\nIntentalo de nuevo mas tarde");
                                                                                 }
                                                                             }
                                                                         } while (opcionEnum != null);
@@ -308,7 +315,7 @@ public class main {
                                                                                     System.out.println("Observacion sobre el sexo registrada con exito en tu revision de hoy.");
                                                                                 } else {
                                                                                     System.out.println("Hubo un problema al intentar registrar la observacion sobre el sexo en tu revision de hoy." +
-                                                                                            "Intentalo de nuevo mas tarde");
+                                                                                            "\nIntentalo de nuevo mas tarde");
                                                                                 }
                                                                             }
                                                                         } while (opcionEnum != null);
@@ -323,7 +330,7 @@ public class main {
                                                                                     System.out.println("Sintoma registrado con exito en tu revision de hoy.");
                                                                                 } else {
                                                                                     System.out.println("Hubo un problema al intentar registrar el sintoma en tu revision de hoy." +
-                                                                                            "Intentalo de nuevo mas tarde");
+                                                                                            "\nIntentalo de nuevo mas tarde");
                                                                                 }
                                                                             }
                                                                         } while (opcionEnum != null);

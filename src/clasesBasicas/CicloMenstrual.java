@@ -27,8 +27,6 @@ import java.util.GregorianCalendar;
 
 public class CicloMenstrual extends Ciclo {
 
-    int duracionCicloMenstrual;
-
     //Constructores
 
     /**
@@ -36,7 +34,7 @@ public class CicloMenstrual extends Ciclo {
      */
     public CicloMenstrual() {
         super();
-        this.duracionCicloMenstrual = 28;
+
     }
 
     /**
@@ -47,7 +45,7 @@ public class CicloMenstrual extends Ciclo {
      */
     public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super(usuario, fechaInicio, fechaFinReal);
-        this.duracionCicloMenstrual = 28;
+
     }
 
     /**
@@ -58,19 +56,9 @@ public class CicloMenstrual extends Ciclo {
     public CicloMenstrual(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
 
         super(usuario, fechaInicio);
-        this.duracionCicloMenstrual = 28;
+
     }
 
-
-    //getters y setters
-
-    public int getDuracionCicloMenstrual() {
-        return duracionCicloMenstrual;
-    }
-
-    public void setDuracionCicloMenstrual(int duracionCicloMenstrual) {
-        this.duracionCicloMenstrual = duracionCicloMenstrual;
-    }
 
 
     //Metodos añadidos
@@ -120,7 +108,7 @@ public class CicloMenstrual extends Ciclo {
      */
     public GregorianCalendar getFechaComienzoEstimadaSiguientePeriodo() {
         GregorianCalendar fechaComienzoSiguienteCicloEstimada = getFechaInicio();
-        fechaComienzoSiguienteCicloEstimada.add(Calendar.DAY_OF_MONTH, getDuracionCicloMenstrual());
+        fechaComienzoSiguienteCicloEstimada.add(Calendar.DAY_OF_MONTH, 28);
         return fechaComienzoSiguienteCicloEstimada;
     }
 

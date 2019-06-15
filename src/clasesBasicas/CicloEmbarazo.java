@@ -80,7 +80,7 @@ public class CicloEmbarazo extends Ciclo {
 
         if(getFechaInicio() != null){
             fechaFinEstimada = getFechaInicio();
-            fechaFinEstimada.add(Calendar.DAY_OF_MONTH, 260);
+            fechaFinEstimada.add(Calendar.MONTH, 9);
         }
 
         return fechaFinEstimada;
