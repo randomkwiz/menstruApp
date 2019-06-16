@@ -150,7 +150,6 @@ public class GestionTest {
 
         System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
 
-
         //gestion.obtenerCicloActual(usuario);
 
     }

@@ -7,7 +7,6 @@ import enumerado.Sexo;
 import enumerado.Sintoma;
 import utilidades.Utilidades;
 import validaciones.Validar;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

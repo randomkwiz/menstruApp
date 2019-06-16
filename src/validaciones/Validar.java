@@ -659,14 +659,17 @@ public class Validar<T extends Enum<T>> {
         int opcion = -1;
         String value = null;
         try {
-            System.out.println("Opcion no contemplada");
+
             do {
                 System.out.println("0. Volver atras");
                 utilidades.imprimirValoresEnum(enumerados);
                 opcion = sc.nextInt();
-            } while (opcion < 0 || opcion > enumerados.length);
+            } while (opcion < 0 || opcion >= enumerados.length);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
 
-            if (opcion != 0) {
+        if (opcion != 0) {
                 for (T col : enumerados) {
                     if (col.ordinal() == opcion) {
                         value = col.toString();
@@ -674,10 +677,6 @@ public class Validar<T extends Enum<T>> {
                 }
 
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Opcion no contemplada");
-        }
-
 
         return value;
     }
