@@ -465,18 +465,17 @@ public class Validar<T extends Enum<T>> {
 
                 } while (anyo != 0 && anyo < 1582);
 
-
-            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0));
+                fechaCumple = new GregorianCalendar();
+                fechaCumple.set(GregorianCalendar.YEAR, anyo);
+                fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+                fechaCumple.set(GregorianCalendar.DATE, dia);
+            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0) || fechaCumple.after(fechaHoy)  );
         } catch (InputMismatchException e) {
             System.out.println("Error al registrar tu fecha de cumpleaños, intenta cambiarla desde las opciones de Cuenta mas adelante.");
             dia = 0;
             mes = 0;
             anyo = 0;
         }
-        fechaCumple = new GregorianCalendar();
-        fechaCumple.set(GregorianCalendar.YEAR, anyo);
-        fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
-        fechaCumple.set(GregorianCalendar.DATE, dia);
 
         if ((dia == 0 && mes == 0 && anyo == 0) || fechaCumple.after(fechaHoy)) {
             fechaCumple = null;
