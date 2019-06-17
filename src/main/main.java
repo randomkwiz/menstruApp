@@ -630,6 +630,9 @@ public class main {
                                             System.out.println("No existe un embarazo en curso, no tiene acceso a esta seccion");
                                         }
                                         break;
+                                    case 5:
+                                        System.out.println("Modulo Medicamentos en construccion");
+                                        break;
                                 }
                             }
                         } while (opcionMenuPrincipal != 0);

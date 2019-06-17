@@ -299,24 +299,26 @@ GO
 
 go
 
---este trigger da problema ver bug.txt
+
 ALTER
 --CREATE
 TRIGGER noMasDeUnCicloALaVezEmbarazo 
 ON EMBARAZO
 AFTER INSERT, UPDATE AS
 BEGIN
-	IF EXISTS (select  *
-					from CICLOMENSTRUAL AS CICLOINSERTADO
-					inner join EMBARAZO as CICLOEMBARAZOINSERTADO
-					on CICLOINSERTADO.ID_USUARIO = CICLOEMBARAZOINSERTADO.ID_USUARIO
+	IF EXISTS (
+					select  *
+					from EMBARAZO as CICLOEMBARAZOINSERTADO
 					INNER JOIN inserted AS CICLONUEVO
-					ON CICLOEMBARAZOINSERTADO.ID_USUARIO = CICLONUEVO.ID_USUARIO
-						AND CICLOEMBARAZOINSERTADO.ID != CICLONUEVO.ID
+					ON CICLOEMBARAZOINSERTADO.ID = CICLONUEVO.ID
+					inner join CICLOMENSTRUAL as regla
+					on regla.ID_USUARIO = CICLONUEVO.ID_USUARIO
 					where 
+					CICLOEMBARAZOINSERTADO.ID != CICLONUEVO.ID
+					and
 					CICLONUEVO.FECHAFIN_REAL is null
 					and
-					(CICLOINSERTADO.FECHAFIN_REAL is null
+					(regla.FECHAFIN_REAL is null
 					or
 					CICLOEMBARAZOINSERTADO.FECHAFIN_REAL is null
 					)
@@ -373,20 +375,19 @@ END
 
 
 /*
-BUGASO: 
+it's not a bug, it's a feature: 
 En el programa, cuando insertas un periodo de una fecha anterior, como 
 ese ciclo se queda sin fecha de fin, lo detecta como el ciclo actual
 En realidad no es un problema como tal porque hasta que no cierras ese 
 ciclo no te deja abrir uno nuevo.
 Si en lugar de llamarlo "ciclo actual" fuera
-"ultimo ciclo sin cierre" estaria correcto
+"ultimo ciclo sin cierre" seria mas acertado
 */
 
 
 /*
 No debe permitir ingresar ciclos en una fecha anterior
 a la fecha de nacimiento del usuario
-(deberia permitir a partir de los 8 años)
 */
 
 ALTER
@@ -430,6 +431,54 @@ BEGIN
 	)
 	BEGIN
 		RAISERROR('No puedes insertar un embarazo antes de haber nacido',16,1)
+		ROLLBACK
+	END
+END
+
+go
+/*
+TRIGGER 
+para que ninguna fecha sea superior a la fecha actual
+*/
+ALTER
+--CREATE
+TRIGGER noViajesEnElTiempoEmbarazo
+ON EMBARAZO
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF EXISTS ( 
+	select *
+	from inserted 
+	
+	where 
+	FECHAINICIO > cast (CURRENT_TIMESTAMP as date)
+	or
+	FECHAFIN_REAL > cast (CURRENT_TIMESTAMP as date)
+	)
+	BEGIN
+		RAISERROR('Lo siento no puedes registrar fechas superiores a la actual',16,1)
+		ROLLBACK
+	END
+END
+
+go
+
+ALTER
+--CREATE
+TRIGGER noViajesEnElTiempoRegla
+ON CICLOMENSTRUAL
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF EXISTS ( 
+	select *
+	from inserted 
+	where 
+	FECHAINICIO > cast (CURRENT_TIMESTAMP as date)
+	or
+	FECHAFIN_REAL > cast (CURRENT_TIMESTAMP as date)
+	)
+	BEGIN
+		RAISERROR('Lo siento no puedes registrar fechas superiores a la actual',16,1)
 		ROLLBACK
 	END
 END

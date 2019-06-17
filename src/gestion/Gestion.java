@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Gestion {
+
     /*
      * INTERFAZ
      * Comentario: metodo para pedir todos los datos de creacion de una cuenta de usuario nueva y construir un nuevo

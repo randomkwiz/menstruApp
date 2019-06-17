@@ -49,8 +49,9 @@ public class Validar<T extends Enum<T>> {
                 System.out.println("2. Revision personal");
                 System.out.println("3. Ciclo");
                 System.out.println("4. Revision medica (solo si existe embarazo)");
+                System.out.println("5. Medicamento");
                 opcion = sc.nextInt();
-            } while (opcion < 0 || opcion > 4);
+            } while (opcion < 0 || opcion > 5);
         } catch (InputMismatchException e) {
             System.out.println("Opcion no contemplada");
         }
