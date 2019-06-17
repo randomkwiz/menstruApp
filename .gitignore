@@ -39,3 +39,4 @@ Javadoc/element-list
 *.js
 *.png
 *.css
+*.kotlin_module
