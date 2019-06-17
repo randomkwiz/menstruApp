@@ -190,4 +190,22 @@ public abstract class Ciclo {
         }
         return finalizado;
     }
+
+    @Override
+    /*Criterio de igualdad: dos ciclos son iguales si la ID es la misma*/
+    public boolean equals(Object obj) {
+        boolean igual = false;
+        if (this == obj) {
+            igual = true;
+        } else {
+            if (obj != null && obj instanceof Ciclo) {
+                Ciclo otro = (Ciclo) obj;
+                if (this.getID().equals(otro.getID())  && this.getID() != null)
+                 {
+                    igual = true;
+                }
+            }
+        }
+        return igual;
+    }
 }

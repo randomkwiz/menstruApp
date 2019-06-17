@@ -1,5 +1,6 @@
 package tests;
 
+import clasesBasicas.CicloMenstrual;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
 import org.junit.jupiter.api.Test;
@@ -13,26 +14,75 @@ class GestionTest {
 
     @Test
     void pedirCrearUsuario() {
+        Gestion g = new Gestion();
+        UsuarioImpl usuarioPrueba = g.pedirCrearUsuario();
+        GregorianCalendar fecha = new GregorianCalendar();
+        fecha.set(GregorianCalendar.YEAR, 2003);
+        fecha.set(GregorianCalendar.MONTH, 12);
+        fecha.set(GregorianCalendar.DATE, 1);
+        assertEquals("NickPrueba", usuarioPrueba.getNick());
+        assertEquals("NombrePrueba", usuarioPrueba.getNombre());
+        assertEquals(25.5, usuarioPrueba.getPeso() );
+        assertEquals(fecha, usuarioPrueba.getFechaNacimiento());
+
     }
 
     @Test
     void insertarUsuarioEnBBDD() {
+
     }
 
     @Test
     void ultimoCicloMenstrual() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        GregorianCalendar fecha = new GregorianCalendar();
+        fecha.set(GregorianCalendar.YEAR, 2019);
+        fecha.set(GregorianCalendar.MONTH, 5);
+        fecha.set(GregorianCalendar.DATE, 17);
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        CicloMenstrual ultimoCiclo = new CicloMenstrual(usuarioPrueba,fecha );
+        gestion.insertarCiclo(ultimoCiclo);
+
+        assertEquals(ultimoCiclo.getFechaInicio().getTime(), gestion.ultimoCicloMenstrual(usuarioPrueba).getFechaInicio().getTime());
+        assertEquals(ultimoCiclo.getUsuario(), gestion.ultimoCicloMenstrual(usuarioPrueba).getUsuario());
+
     }
 
     @Test
     void obtenerListaCiclosMenstruales() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        assertEquals(7, gestion.obtenerListaCiclosMenstruales(usuarioPrueba).size());
+
+
+        usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+        assertEquals(0, gestion.obtenerListaCiclosMenstruales(usuarioPrueba).size());
+
     }
 
     @Test
     void obtenerListaEmbarazos() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        assertEquals(0, gestion.obtenerListaEmbarazos(usuarioPrueba).size());
+
+
+        usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+        assertEquals(2, gestion.obtenerListaEmbarazos(usuarioPrueba).size());
     }
 
     @Test
     void estaEmbarazada() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        assertEquals(true, gestion.estaEmbarazada(usuarioPrueba));
+
+        usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+        assertEquals(false, gestion.estaEmbarazada(usuarioPrueba));
     }
 
     @Test
