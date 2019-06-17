@@ -477,10 +477,10 @@ public class Gestion {
      * @return asociado al nombre se devuelve la edad, o -1 si el usuario no posee fecha de nacimiento registrada o hay algun error.
      */
     public int obtenerEdad(UsuarioImpl usuario) {
-        int edad = -1;
+        int edad = 0;
         GregorianCalendar fechaActual = new GregorianCalendar();
 
-        if (usuario.getFechaNacimiento() != null) {
+        if (usuario.getFechaNacimiento() != null && usuario.getFechaNacimiento().before(fechaActual)) {
             edad = fechaActual.get(GregorianCalendar.YEAR) - usuario.getFechaNacimiento().get(GregorianCalendar.YEAR);
         }
         return edad;
