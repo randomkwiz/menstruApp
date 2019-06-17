@@ -1,0 +1,15 @@
+Bug
+usuario: randomkwiz
+
+con dos cilos menstruales 
+Menstruacion: 1
+Fecha inicio: 06/06/2019
+Fecha fin: 07/06/2019
+Menstruacion: 2
+Fecha inicio: 10/06/2019
+Fecha fin: 10/06/2019
+
+Sin embarazos
+
+No me deja crear ciclo embarazo en el dia de hoy (17/06/2019) porque 
+"No puede haber mas de un ciclo a la vez"
