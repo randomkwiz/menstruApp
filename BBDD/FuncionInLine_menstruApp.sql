@@ -202,4 +202,3 @@ select @@ROWCOUNT as FILASAFECTADAS
 
 select * from USUARIO where nick = 'randomkwiz'
 
-//cambia localhost por tu ip pa que lo pruebe angel
