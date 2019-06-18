@@ -1,5 +1,6 @@
 package test;
 
+import clasesBasicas.Ciclo;
 import clasesBasicas.CicloEmbarazo;
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
@@ -8,7 +9,6 @@ import utilidades.Utilidades;
 
 public class GestionTest {
     public static void main(String[] args) {
-
         Gestion gestion = new Gestion();
         //String nombre, String nick, String password, double peso, GregorianCalendar fechaNacimiento
    /*     UsuarioImpl usuario = new UsuarioImpl("Pepe","superPepe","1234", 78, new GregorianCalendar());
@@ -152,11 +152,14 @@ public class GestionTest {
 
         //System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
 
+        Ciclo ciclo = gestion.ultimoCicloMenstrual(usuario);
+        System.out.println(ciclo.getID());
         //gestion.obtenerCicloActual(usuario);
         Utilidades utilidades = new Utilidades();
         CicloEmbarazo embarazo = gestion.obtenerEmbarazoEnCurso(utilidades.cargarUsuario("usuarioPrueba", "123456789"));
         gestion.asignarIDAEmbarazo(embarazo);
         gestion.cargarEmbarazo(embarazo);
+
 
         System.out.println(embarazo.getID());
 

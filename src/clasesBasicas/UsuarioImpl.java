@@ -15,7 +15,7 @@
 *                   el nombre tendra maximo 50 caracteres
 *                   la contraseña tendra entre 8 y 50 caracteres
 *                   el peso debera ser positivo
-*                   la fecha de nacimiento no podra ser anterior al año actual menos 120 años.
+*
 *
 *
 *
@@ -44,7 +44,7 @@
 *
 * Metodos Object y otros:
 *   toString()
-*
+*   equals
 *
 *
 * */

@@ -225,14 +225,14 @@ public class main {
                                                                     case 3:
                                                                         //Contraseña
                                                                         UsuarioImpl usuarioParaConfirarCambio = validar.pedirLogin();
-                                                                        System.out.println("NUEVA CONTRASEÑA: ");
+                                                                        System.out.println("NUEVA PASSWORD: ");
                                                                         String nuevaPassword = validar.establecerPassword();
                                                                         if (usuarioParaConfirarCambio.equals(usuarioLogado)) {
                                                                             if (gestion.actualizarPasswordUsuario(usuarioLogado, nuevaPassword)) {
-                                                                                System.out.println("Contraseña actualizada con exito.");
+                                                                                System.out.println("Password actualizada con exito.");
                                                                                 usuarioLogado = utilidades.cargarUsuario(usuarioLogado.getNick(), nuevaPassword);
                                                                             } else {
-                                                                                System.out.println("Hubo un error al actualizar la contraseña, intentelo de nuevo mas tarde.");
+                                                                                System.out.println("Hubo un error al actualizar la password, intentelo de nuevo mas tarde.");
                                                                             }
                                                                         }
                                                                         break;
@@ -393,7 +393,7 @@ public class main {
                                                                         //Buscar por registro
                                                                         //System.out.println("Buscar por registro en construccion");
                                                                         do {
-                                                                            System.out.println("¿Por qué registro quieres buscar?");
+                                                                            System.out.println("¿Por que registro quieres buscar?");
 
                                                                             opcionSubMenuRegistrarRevisionPersonal = validar.submenuRegistrarRevisionPersonal();
 
@@ -451,7 +451,7 @@ public class main {
                                                                         //Buscar por registro
                                                                         //System.out.println("Buscar por registro en construccion");
                                                                         do {
-                                                                            System.out.println("¿Por qué registro quieres buscar?");
+                                                                            System.out.println("¿Por que registro quieres buscar?");
                                                                             opcionSubMenuRegistrarRevisionPersonal = validar.submenuRegistrarRevisionPersonal();
                                                                             if (opcionSubMenuRegistrarRevisionPersonal != 0) {
                                                                                 opcionEnum = gestion.preguntarEnums(opcionSubMenuRegistrarRevisionPersonal);

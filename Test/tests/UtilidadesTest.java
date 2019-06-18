@@ -7,7 +7,7 @@ import utilidades.Utilidades;
 
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UtilidadesTest {
 
@@ -19,13 +19,13 @@ class UtilidadesTest {
         fecha.set(GregorianCalendar.YEAR, 2003);
         fecha.set(GregorianCalendar.MONTH, 12);
         fecha.set(GregorianCalendar.DATE, 1);
-        UsuarioImpl usuarioPrueba = new UsuarioImpl("NombrePrueba", "NickPrueba", "123456789",55.5, fecha);
+        UsuarioImpl usuarioPrueba = new UsuarioImpl("NombrePrueba", "NickPrueba", "123456789", 55.5, fecha);
         g.insertarUsuarioEnBBDD(usuarioPrueba);
         UsuarioImpl usuarioTesteo = u.cargarUsuario("NickPrueba", "123456789");
 
         assertEquals("NickPrueba", usuarioPrueba.getNick());
         assertEquals("NombrePrueba", usuarioPrueba.getNombre());
-        assertEquals(55.5, usuarioPrueba.getPeso() );
+        assertEquals(55.5, usuarioPrueba.getPeso());
         assertEquals(fecha, usuarioPrueba.getFechaNacimiento());
     }
 

@@ -4,6 +4,7 @@
  *   Basicas:
  *       GregorianCalendar fechaInicio
  *       GregorianCalendar fechaFinReal
+ *       String ID
  *   Derivadas:
  *       fechaFinEstimada
  *       diasRestantesEstimados

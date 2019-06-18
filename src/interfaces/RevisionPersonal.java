@@ -1,3 +1,59 @@
+/*
+ * Propiedades
+ *   Basicas
+ *          UsuarioImpl usuario
+ *          ArrayList<EstadoAnimico> arraylistEstadoAnimico
+ *          ArrayList<Sintomas> arraylistSintomas
+ *          ArrayList<Sexo> arraylistSexo
+ *          ArrayList<FlujoVaginal> arraylistFlujoVaginal
+ *          GregorianCalendar fecha
+ *          String ID
+ *
+ *
+ *   Derivadas
+ *   Compartidas
+ * Requisitos:
+ * La fecha no puede ser posterior a la fecha actual
+ * Metodos interface
+ *     public String getID();
+
+    public void setID(String ID);
+
+    public UsuarioImpl getUsuario();
+
+    public void setUsuario(UsuarioImpl usuario);
+
+    public ArrayList<EstadoAnimico> getArraylistEstadoAnimico();
+
+
+    public void setArraylistEstadoAnimico(ArrayList<EstadoAnimico> arraylistEstadoAnimico);
+
+    public void addEstadoAnimico(EstadoAnimico estadoAnimico);
+
+    public ArrayList<Sintoma> getArraylistSintoma();
+
+    public void setArraylistSintoma(ArrayList<Sintoma> arraylistSintoma);
+
+    public void addSintoma(Sintoma sintoma);
+
+    public ArrayList<Sexo> getArraylistSexo();
+
+    public void setArraylistSexo(ArrayList<Sexo> arraylistSexo);
+
+    public void addSexo(Sexo sexo);
+
+    public ArrayList<FlujoVaginal> getArraylistFlujoVaginal();
+
+    public void setArraylistFlujoVaginal(ArrayList<FlujoVaginal> arraylistFlujoVaginal);
+
+    public void addFlujoVaginal(FlujoVaginal flujoVaginal);
+
+    public GregorianCalendar getFecha();
+
+    public void setFecha(GregorianCalendar fecha);
+ * Metodos añadidos
+ * Metodos object y otros:
+ * */
 package interfaces;
 
 import clasesBasicas.UsuarioImpl;

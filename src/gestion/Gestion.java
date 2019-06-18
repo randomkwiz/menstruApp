@@ -117,7 +117,8 @@ public class Gestion {
 
     /*
      * INTERFAZ
-     * Comentario: Este metodo consulta la BBDD del programa y devuelve el ciclo menstrual del usuario con la fecha de inicio mas reciente.
+     * Comentario: Este metodo consulta la BBDD del programa y devuelve el ciclo menstrual del usuario con la fecha
+     *              de inicio mas reciente.
      * Signatura: public CicloMenstrual ultimoCicloMenstrual(UsuarioImpl user)
      * Precondiciones:
      * Entradas: UsuarioImpl usuario
@@ -170,6 +171,7 @@ public class Gestion {
 
                 menstruacion.setFechaFinReal(fechaFin);
                 menstruacion.setUsuario(user);
+                menstruacion.setID(miResultado.getString("ID"));
             }
 
             //Cerrar
@@ -194,7 +196,6 @@ public class Gestion {
      * Postcondiciones: asociado al nombre se devuelve un arraylist de objetos ciclo menstrual del usuario. Si el usuario
      *                  es nulo o está mal construido, saltara excepcion.
      * */
-
     /**
      * Este metodo consulta la BBDD del programa y devuelve un arraylist de todos los ciclos menstruales del usuario
      *

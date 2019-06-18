@@ -34,11 +34,6 @@ class GestionTest {
     }
 
     @Test
-    void insertarUsuarioEnBBDD() {
-
-    }
-
-    @Test
     void ultimoCicloMenstrual() {
         Gestion gestion = new Gestion();
         Utilidades utilidades = new Utilidades();
@@ -95,9 +90,6 @@ class GestionTest {
         assertEquals(false, gestion.estaEmbarazada(usuarioPrueba));
     }
 
-    @Test
-    void obtenerEmbarazoEnCurso() {
-    }
 
     @Test
     void obtenerEdad() {
@@ -130,13 +122,6 @@ class GestionTest {
         assertEquals(0, edad);
     }
 
-    @Test
-    void eliminarCuenta() {
-    }
-
-    @Test
-    void obtenerIDRevisionPersonalDelDiaEnCurso() {
-    }
 
     @Test
     void crearRevisionPersonalDiaEnCurso() {
@@ -156,9 +141,6 @@ class GestionTest {
         assertEquals(identificador, revisionPersonal.getID());
     }
 
-    @Test
-    void existeRevisionPersonalActual() {
-    }
 
     @Test
     void construirObjetoRevisionPersonal() {
@@ -211,118 +193,6 @@ class GestionTest {
 
         assertEquals(3, revisionPersonal.getArraylistEstadoAnimico().size());
         assertEquals(usuarioPrueba, revisionPersonal.getUsuario());
-    }
-
-    @Test
-    void cargarSexoRevisionPersonal() {
-    }
-
-    @Test
-    void cargarFlujoVaginalRevisionPersonal() {
-    }
-
-    @Test
-    void insertarEstadoAnimoEnRevisionPersonal() {
-    }
-
-    @Test
-    void insertarSintomaEnRevisionPersonal() {
-    }
-
-    @Test
-    void insertarFlujoVaginalEnRevisionPersonal() {
-    }
-
-    @Test
-    void insertarSexoEnRevisionPersonal() {
-    }
-
-    @Test
-    void cargarRevisionPersonalCompleta() {
-    }
-
-    @Test
-    void obtenerCicloActual() {
-    }
-
-    @Test
-    void actualizarFechaFinCiclo() {
-    }
-
-    @Test
-    void insertarCiclo() {
-    }
-
-    @Test
-    void eliminarCicloBBDD() {
-    }
-
-    @Test
-    void buscarRevisionPersonalPorFecha() {
-    }
-
-    @Test
-    void buscarRevisionPersonalPorFecha1() {
-    }
-
-    @Test
-    void buscarRevisionPersonalPorFecha2() {
-    }
-
-    @Test
-    void buscarRevisionPersonalPorRegistro() {
-    }
-
-    @Test
-    void eliminarRevisionPersonal() {
-    }
-
-    @Test
-    void imprimirDatosDeLaCuenta() {
-    }
-
-    @Test
-    void buscarRevisionPersonalPorFechaModulo() {
-    }
-
-    @Test
-    void preguntarEnums() {
-    }
-
-    @Test
-    void imprimirDatosCicloEnCurso() {
-    }
-
-    @Test
-    void actualizarNombreUsuario() {
-    }
-
-    @Test
-    void actualizarPesoUsuario() {
-    }
-
-    @Test
-    void actualizarPasswordUsuario() {
-    }
-
-    @Test
-    void obtenerEstadoDeAnimoMasUsado() {
-    }
-
-    @Test
-    void obtenerSintomaMasUsado() {
-    }
-
-    @Test
-    void obtenerSexoMasUsado() {
-    }
-
-    @Test
-    void obtenerFlujoVaginalMasUsado() {
-    }
-
-    @Test
-    void imprimirAnalisisRevisionesPersonales() {
     }
 
     @Test
