@@ -219,7 +219,6 @@ public class Utilidades<T extends Enum<T>> {
      * carga la revision e imprime en pantalla los datos de una revision personal
      *
      * @param revision revision de la que se imprimiran los datos
-     *
      * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
      */
     public void cargarImprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
@@ -248,7 +247,7 @@ public class Utilidades<T extends Enum<T>> {
      * @param revision revision de la que se imprimiran los datos
      * @see #formatearFecha(GregorianCalendar)
      */
-    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision){
+    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
         Gestion gestion = new Gestion();
         System.out.println("Revision personal del dia : " + formatearFecha(revision.getFecha()));
         System.out.println("Estados de animo:");
@@ -283,8 +282,6 @@ public class Utilidades<T extends Enum<T>> {
         System.out.println("-------------------------------------------------------------------------------");
 
     }
-
-
 
 
     /*
@@ -416,7 +413,7 @@ public class Utilidades<T extends Enum<T>> {
      * Postcondiciones: imprime en pantalla los datos de la revision pasada como parametro. Si la revision
      *                  es null o sus atributos son null, saltara excepcion.
      * */
-    public void imprimirDatosRevisionMedica(RevisionMedicaImpl revision){
+    public void imprimirDatosRevisionMedica(RevisionMedicaImpl revision) {
 
         System.out.println("Fecha revision: " + formatearFecha(revision.getFechaCitaActual()));
         System.out.println("Peso : " + revision.getPeso());
@@ -424,7 +421,7 @@ public class Utilidades<T extends Enum<T>> {
         System.out.println("Cadera: " + revision.getCadera() + " cm");
         System.out.println("Estado feto: " + revision.getEstadoFeto());
         System.out.println("Observaciones: " + revision.getObservaciones());
-        System.out.println("Fecha siguiente revision: "+ formatearFecha(revision.getFechaSiguienteCita()));
+        System.out.println("Fecha siguiente revision: " + formatearFecha(revision.getFechaSiguienteCita()));
 
     }
 
@@ -442,7 +439,6 @@ public class Utilidades<T extends Enum<T>> {
      * imprime en pantalla los datos de una lista de objetos RevisionMedicaImpl
      *
      * @param revisiones arraylist de revisiones que seran las impresas en pantalla
-     *
      */
     public void imprimirDatosRevisionMedicaImplLista(ArrayList<RevisionMedicaImpl> revisiones) {
 

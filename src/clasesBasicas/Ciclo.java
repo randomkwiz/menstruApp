@@ -22,8 +22,6 @@ package clasesBasicas;
 
 import utilidades.Utilidades;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -132,14 +130,14 @@ public abstract class Ciclo {
         GregorianCalendar fechaFinalEstimada = getFechaFinEstimada();
         GregorianCalendar fechaActual = new GregorianCalendar();
 
-        System.out.println("Fecha actual: "+utilidades.formatearFecha(fechaActual));
+        System.out.println("Fecha actual: " + utilidades.formatearFecha(fechaActual));
         long diasRestantes = 0;
         //if (getFechaFinEstimada().after(fechaActual)) {
-          diasRestantes = ((fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis() ) / MILLSECS_PER_DAY);
+        diasRestantes = ((fechaFinalEstimada.getTimeInMillis() - fechaActual.getTimeInMillis()) / MILLSECS_PER_DAY);
         //}
 
 
-        return (int)diasRestantes;
+        return (int) diasRestantes;
     }
 
     /*
@@ -200,8 +198,7 @@ public abstract class Ciclo {
         } else {
             if (obj != null && obj instanceof Ciclo) {
                 Ciclo otro = (Ciclo) obj;
-                if (this.getID().equals(otro.getID())  && this.getID() != null)
-                 {
+                if (this.getID().equals(otro.getID()) && this.getID() != null) {
                     igual = true;
                 }
             }

@@ -648,7 +648,7 @@ public class main {
 
                                                                 if (embarazo.getListadoRevisionesMedicas().get(embarazo.getListadoRevisionesMedicas().size() - 1).getFechaSiguienteCita() != null) {
                                                                     System.out.println("La fecha de la siguiente cita medica es : " + fechaSiguienteRevisionMedica);
-                                                                }else{
+                                                                } else {
                                                                     System.out.println("No tienes registrada la fecha de tu siguiente cita médica");
                                                                 }
                                                             } else {

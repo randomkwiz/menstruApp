@@ -472,7 +472,7 @@ public class Validar<T extends Enum<T>> {
                 fecha.set(GregorianCalendar.YEAR, anyo);
                 fecha.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
                 fecha.set(GregorianCalendar.DATE, dia);
-            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0) || fecha.after(fechaHoy)  );
+            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0) || fecha.after(fechaHoy));
         } catch (InputMismatchException e) {
             System.out.println("Error al registrar la fecha, intenta cambiarla desde el programa mas adelante.");
             dia = 0;
@@ -673,13 +673,13 @@ public class Validar<T extends Enum<T>> {
         }
 
         if (opcion != 0) {
-                for (T col : enumerados) {
-                    if (col.ordinal() == opcion) {
-                        value = col.toString();
-                    }
+            for (T col : enumerados) {
+                if (col.ordinal() == opcion) {
+                    value = col.toString();
                 }
-
             }
+
+        }
 
         return value;
     }
@@ -1081,25 +1081,26 @@ public class Validar<T extends Enum<T>> {
 
 
     /*
-    * INTERFAZ
-    * Comentario: pide y valida los datos de un objeto RevisionMedicaImpl y
-    *             lo construye, devolviendolo asociado al nombre.
-    * Signatura: public RevisionMedicaImpl pedirValidarRevisionMedicaImpl (CicloEmbarazo embarazo)
-    * Precondiciones:
-    * Entradas: CicloEmbarazo al que hace referencia la cita medica.
-    * Salidas: objeto revision medica
-    * Postcondiciones: asociado al nombre se devuelve un objeto revision medica, o null si el objeto
-    *                   embarazo es null.
-    * */
+     * INTERFAZ
+     * Comentario: pide y valida los datos de un objeto RevisionMedicaImpl y
+     *             lo construye, devolviendolo asociado al nombre.
+     * Signatura: public RevisionMedicaImpl pedirValidarRevisionMedicaImpl (CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas: CicloEmbarazo al que hace referencia la cita medica.
+     * Salidas: objeto revision medica
+     * Postcondiciones: asociado al nombre se devuelve un objeto revision medica, o null si el objeto
+     *                   embarazo es null.
+     * */
 
     /**
      * Pide y valida los datos de un objeto RevisionMedicaImpl y
-     *   lo construye, devolviendolo asociado al nombre.
+     * lo construye, devolviendolo asociado al nombre.
+     *
      * @param embarazo CicloEmbarazo al que hace referencia la cita medica.
      * @return asociado al nombre se devuelve un objeto revision medica, o null si el objeto
-     *      embarazo es null.
+     * embarazo es null.
      */
-    public RevisionMedicaImpl pedirValidarRevisionMedicaImpl (CicloEmbarazo embarazo){
+    public RevisionMedicaImpl pedirValidarRevisionMedicaImpl(CicloEmbarazo embarazo) {
         RevisionMedicaImpl revisionMedica = null;
         Scanner sc = new Scanner(System.in);
         double peso = 0.0;
@@ -1109,24 +1110,28 @@ public class Validar<T extends Enum<T>> {
         String observaciones = "";
         GregorianCalendar fechaCitaActual = null;
         GregorianCalendar fechaSiguienteCita = null;
-        if(embarazo != null){
-        do{
-            peso = pesoUsuario();
-            cintura = medidaUsuario("cintura");
-            cadera = medidaUsuario("cadera");
-            System.out.println("Introduce observaciones sobre el estado del feto : ");
-            estadoFeto = sc.nextLine();
-            System.out.println("Introduce observaciones generales de la revision medica: ");
-            observaciones = sc.nextLine();
-            fechaCitaActual = pedirValidarFecha();
-            if(hacerPreguntaSioNo("¿Tienes fecha para la siguiente cita?")){
-                fechaSiguienteCita = pedirValidarFecha();
-            }else{
-                System.out.println("No tienes fecha para la siguiente cita");
-            }
+        if (embarazo != null) {
+            do {
+                peso = pesoUsuario();
+                cintura = medidaUsuario("cintura");
+                cadera = medidaUsuario("cadera");
+                System.out.println("Introduce observaciones sobre el estado del feto : ");
+                estadoFeto = sc.nextLine();
+                System.out.println("Introduce observaciones generales de la revision medica: ");
+                observaciones = sc.nextLine();
+                do {
+                    System.out.println("La fecha debe estar dentro del periodo del embarazo");
+                    fechaCitaActual = pedirValidarFecha();
+                } while (fechaCitaActual.before(embarazo.getFechaInicio()));
+                if (hacerPreguntaSioNo("¿Tienes fecha para la siguiente cita?")) {
+                    System.out.println("Recuerda que la fecha debe ser posterior a la cita actual: ");
+                    fechaSiguienteCita = pedirValidarFecha();
+                } else {
+                    System.out.println("No tienes fecha para la siguiente cita");
+                }
 
-        }while (fechaSiguienteCita != null && !fechaSiguienteCita.after(fechaCitaActual));
-        revisionMedica = new RevisionMedicaImpl(embarazo,peso,cintura,cadera,estadoFeto,observaciones,fechaCitaActual,fechaSiguienteCita);
+            } while ((fechaSiguienteCita != null && fechaSiguienteCita.before(fechaCitaActual)));
+            revisionMedica = new RevisionMedicaImpl(embarazo, peso, cintura, cadera, estadoFeto, observaciones, fechaCitaActual, fechaSiguienteCita);
         }
         return revisionMedica;
     }
@@ -1147,7 +1152,7 @@ public class Validar<T extends Enum<T>> {
         double medida = 0;
         try {
             do {
-                System.out.println("Introduce la nueva medida de tu "+parteAMedir+" en cm:");
+                System.out.println("Introduce la nueva medida de tu " + parteAMedir + " en cm:");
                 System.out.println("Escribe 0 si no deseas rellenar este campo.");
                 medida = sc.nextDouble();
             } while (medida < 0);
@@ -1166,16 +1171,16 @@ public class Validar<T extends Enum<T>> {
      * Salidas: boolean
      * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario responde que si y false si no
      * */
-    public boolean hacerPreguntaSioNo(String pregunta){
+    public boolean hacerPreguntaSioNo(String pregunta) {
         String respuesta = "";
         boolean respuestaUsuario = false;
         Scanner sc = new Scanner(System.in);
-        do{
-            System.out.println(pregunta+" SI/NO");
+        do {
+            System.out.println(pregunta + " SI/NO");
             respuesta = sc.next();
             respuesta = respuesta.toUpperCase();
         } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
-        if(respuesta.equals("SI")){
+        if (respuesta.equals("SI")) {
             respuestaUsuario = true;
         }
         return respuestaUsuario;

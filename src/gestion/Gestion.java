@@ -2996,9 +2996,9 @@ public class Gestion {
                 fechaCita = new GregorianCalendar();
                 fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
                 fechaSiguienteCita = new GregorianCalendar();
-                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                if (resultSet.getDate("FECHA_SIGUIENTE_CITA") != null) {
                     fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
-                }else{
+                } else {
                     fechaSiguienteCita = null;
                 }
 
@@ -3091,9 +3091,9 @@ public class Gestion {
                 fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
                 fechaSiguienteCita = new GregorianCalendar();
 
-                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                if (resultSet.getDate("FECHA_SIGUIENTE_CITA") != null) {
                     fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
-                }else{
+                } else {
                     fechaSiguienteCita = null;
                 }
 
@@ -3186,9 +3186,9 @@ public class Gestion {
                 fechaSiguienteCita = new GregorianCalendar();
 
 
-                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                if (resultSet.getDate("FECHA_SIGUIENTE_CITA") != null) {
                     fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
-                }else{
+                } else {
                     fechaSiguienteCita = null;
                 }
 
@@ -3340,12 +3340,11 @@ public class Gestion {
                 GregorianCalendar fechaSiguienteCita = new GregorianCalendar();
 
                 fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
-                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                if (resultSet.getDate("FECHA_SIGUIENTE_CITA") != null) {
                     fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
                 } else {
                     fechaSiguienteCita = null;
                 }
-
 
 
                 revisionMedica = new RevisionMedicaImpl(
@@ -3381,14 +3380,14 @@ public class Gestion {
 
 
     /*Comentario: Asigna un ID a un embarazo
-    * Signatura: public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo)
-    * Precondiciones:
-    * Entradas: embarazo
-    * Salidas: boolean
-    * Postcondiciones: Asociado al nombre devuelve un boolean que indica si la asignación resultó exitosa o no.
-    *                   Si la entrada es nula, se producirá una excepción.
-    * */
-    public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo){
+     * Signatura: public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas: embarazo
+     * Salidas: boolean
+     * Postcondiciones: Asociado al nombre devuelve un boolean que indica si la asignación resultó exitosa o no.
+     *                   Si la entrada es nula, se producirá una excepción.
+     * */
+    public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo) {
         boolean exito = false;
         try {
             // Define la fuente de datos para el driver

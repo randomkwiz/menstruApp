@@ -12,48 +12,49 @@ import java.util.GregorianCalendar;
 public class Resguardo {
 
     /*
-    * INTERFAZ
-    * Comentario: Inserta una revision medica en la BBDD
-    * Signatura: public boolean insertarRevisionMedica(RevisionMedicaImpl revisionMedica)
-    * Precondiciones:
-    * Entradas: revision medica a insertar
-    * Salidas: bolean
-    * Postcondiciones: asociado al nombre devuelve un boolean que sera true si la insercion se realizo
-    *                   correctamente y false si no. Si la revision es null, saltara excepcion.
-    *
-    * */
+     * INTERFAZ
+     * Comentario: Inserta una revision medica en la BBDD
+     * Signatura: public boolean insertarRevisionMedica(RevisionMedicaImpl revisionMedica)
+     * Precondiciones:
+     * Entradas: revision medica a insertar
+     * Salidas: bolean
+     * Postcondiciones: asociado al nombre devuelve un boolean que sera true si la insercion se realizo
+     *                   correctamente y false si no. Si la revision es null, saltara excepcion.
+     *
+     * */
 
     /**
      * Inserta una revision medica en la BBDD
+     *
      * @param revisionMedica revision medica a insertar
      * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo
-     *      correctamente y false si no. Si la revision es null, saltara excepcion.
+     * correctamente y false si no. Si la revision es null, saltara excepcion.
      */
-    public boolean insertarRevisionMedica(RevisionMedicaImpl revisionMedica){
+    public boolean insertarRevisionMedica(RevisionMedicaImpl revisionMedica) {
         System.out.println("Metodo insertar revision medica en resguardo");
         return false;
     }
 
     /*
-    * INTERFAZ
-    * Comentario: Carga un objeto CicloEmbarazo
-    * Signatura: public boolean cargarEmbarazo(CicloEmbarazo embarazo)
-    * Precondiciones:
-    * Entradas:
-    * Salidas: boolean que indica si se han cargado bien los datos
-    * Entrada/Salida: Embarazo al que se añadiran los datos.
-    * Postcondiciones: asociado al nombre se devuelve un boolean indicando si la carga se ha efectuado
-    *          correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
-    * */
+     * INTERFAZ
+     * Comentario: Carga un objeto CicloEmbarazo
+     * Signatura: public boolean cargarEmbarazo(CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas:
+     * Salidas: boolean que indica si se han cargado bien los datos
+     * Entrada/Salida: Embarazo al que se añadiran los datos.
+     * Postcondiciones: asociado al nombre se devuelve un boolean indicando si la carga se ha efectuado
+     *          correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
+     * */
 
     /**
      * Carga un objeto CicloEmbarazo
+     *
      * @param embarazo Embarazo al que se añadiran los datos.
      * @return asociado al nombre se devuelve un boolean indicando si la carga se ha efectuado
-     *          correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
-     *
+     * correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
      */
-    public boolean cargarEmbarazo(CicloEmbarazo embarazo){
+    public boolean cargarEmbarazo(CicloEmbarazo embarazo) {
         return false;
     }
 
@@ -1199,7 +1200,6 @@ public class Resguardo {
 
         return exito;
     }
-
 
 
 }

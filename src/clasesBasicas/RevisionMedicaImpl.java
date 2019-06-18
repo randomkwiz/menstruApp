@@ -64,9 +64,13 @@ public class RevisionMedicaImpl implements RevisionMedica {
 
     //setters y getters
 
-     public CicloEmbarazo getEmbarazo() { return embarazo;    }
+    public CicloEmbarazo getEmbarazo() {
+        return embarazo;
+    }
 
-     public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
+    public void setEmbarazo(CicloEmbarazo embarazo) {
+        this.embarazo = embarazo;
+    }
 
     /*Patron delegacion
     public GregorianCalendar getEmbarazoFechaInicio() {
