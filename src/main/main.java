@@ -436,6 +436,9 @@ public class main {
                                                                             if (revisionAEliminar != null) {
                                                                                 if (validar.borrarRevision()) {
                                                                                     gestion.eliminarRevisionPersonal(revisionAEliminar);
+                                                                                    //esto es por si el usuario borra la revision del dia en curso, que se vuelva a crear (vacia)
+                                                                                    revisionPersonalID = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioLogado);
+                                                                                    revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioLogado, revisionPersonalID);
                                                                                     System.out.println("Revision personal eliminada correctamente.");
                                                                                 } else {
                                                                                     System.out.println("No se elimino su revision personal.");
@@ -621,16 +624,23 @@ public class main {
                                                             //System.out.println("Modulo ver revisiones medicas pasadas en construccion");
                                                             //resguardo.cargarEmbarazo(embarazo);
                                                             gestion.cargarEmbarazo(embarazo);
-                                                            utilidades.imprimirDatosRevisionMedicaImplLista(embarazo.getListadoRevisionesMedicas());
-
-
+                                                            if(embarazo.getListadoRevisionesMedicas().size() > 0){
+                                                                utilidades.imprimirDatosRevisionMedicaImplLista(embarazo.getListadoRevisionesMedicas());
+                                                            }else{
+                                                                System.out.println("No tienes citas medicas registradas aun.");
+                                                            }
                                                             break;
                                                         case 3:
                                                             //Buscar revision
                                                             //System.out.println("Modulo buscar revision medica en construccion");
                                                             //resguardo.cargarEmbarazo(embarazo);
                                                             gestion.cargarEmbarazo(embarazo);
-                                                            gestion.buscarRevisionMedicaPorFechaModulo(embarazo);
+                                                            ArrayList<RevisionMedicaImpl> listaCitasMedicasBuscadas = gestion.buscarRevisionMedicaPorFechaModulo(embarazo);
+                                                            if(listaCitasMedicasBuscadas.size() > 0){
+                                                                utilidades.imprimirDatosRevisionMedicaImplLista(listaCitasMedicasBuscadas);
+                                                            }else{
+                                                                System.out.println("No existen elementos que coincidan con la busqueda");
+                                                            }
 
                                                             break;
                                                         case 4:

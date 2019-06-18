@@ -1,9 +1,6 @@
 package test;
 
-import clasesBasicas.Ciclo;
-import clasesBasicas.CicloEmbarazo;
-import clasesBasicas.RevisionPersonalImpl;
-import clasesBasicas.UsuarioImpl;
+import clasesBasicas.*;
 import gestion.Gestion;
 import utilidades.Utilidades;
 
@@ -152,9 +149,21 @@ public class GestionTest {
 
         //System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
 
-        Ciclo ciclo = gestion.ultimoCicloMenstrual(usuario);
-        System.out.println(ciclo.getID());
+        Ciclo ciclo;
+        //ciclo = gestion.ultimoCicloMenstrual(usuario);
+        ciclo = gestion.obtenerCicloActual(usuario);
+        //System.out.println(ciclo.getID());
+
+        if(ciclo instanceof CicloMenstrual){
+            System.out.println("Ciclo menstrual");
+        }else if (ciclo instanceof CicloEmbarazo){
+            System.out.println("Embarazo");
+        } else{
+            System.out.println("Otro");
+        }
+
         //gestion.obtenerCicloActual(usuario);
+/*
         Utilidades utilidades = new Utilidades();
         CicloEmbarazo embarazo = gestion.obtenerEmbarazoEnCurso(utilidades.cargarUsuario("usuarioPrueba", "123456789"));
         gestion.asignarIDAEmbarazo(embarazo);
@@ -163,5 +172,7 @@ public class GestionTest {
 
         System.out.println(embarazo.getID());
 
+
+ */
     }
 }
