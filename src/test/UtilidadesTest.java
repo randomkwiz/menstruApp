@@ -48,12 +48,13 @@ public class UtilidadesTest {
         Gestion gestion = new Gestion();
         UsuarioImpl usuario = new UsuarioImpl("randomkwiz", "123456789");
         String id = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuario);
-        RevisionPersonalImpl revisionPersonal = gestion.construirObjeto(usuario, id);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjetoRevisionPersonal(usuario, id);
         ArrayList<RevisionPersonalImpl> lista = gestion.buscarRevisionPersonalPorFecha(usuario, 2019);
 
 
         for (int i = 0; i < lista.size(); i++) {
-            util.imprimirDatosRevisionPersonal(lista.get(i));
+
+            util.cargarImprimirDatosRevisionPersonal(lista.get(i));
         }
 
     }

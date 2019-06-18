@@ -1,5 +1,7 @@
 package interfaces;
 
+import clasesBasicas.CicloEmbarazo;
+
 import java.util.GregorianCalendar;
 
 public interface RevisionMedica {
@@ -8,13 +10,10 @@ public interface RevisionMedica {
     //public void setEmbarazo(CicloEmbarazo embarazo);
 
 
-    GregorianCalendar getEmbarazoFechaInicio();
 
-    GregorianCalendar getEmbarazoFechaFinReal();
+    public CicloEmbarazo getEmbarazo();
 
-    void setEmbarazoFechaInicio(GregorianCalendar fechaInicio);
-
-    void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal);
+    public void setEmbarazo(CicloEmbarazo embarazo) ;
 
 
     double getPeso();

@@ -7,6 +7,7 @@ import enumerado.Sexo;
 import enumerado.Sintoma;
 import utilidades.Utilidades;
 import validaciones.Validar;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -436,6 +437,7 @@ public class Gestion {
 
                 fechaInicio.setTime(miResultado.getDate("FECHAINICIO"));
                 embarazo.setFechaInicio(fechaInicio);
+                embarazo.setID(miResultado.getString("ID"));
                 if (miResultado.getDate("FECHAFIN_REAL") != null) {
                     fechaFin.setTime(miResultado.getDate("FECHAFIN_REAL"));
                 } else {
@@ -747,9 +749,10 @@ public class Gestion {
      * Signatura: public RevisionPersonalImpl construirObjeto(UsuarioImpl user, String identificador)
      * Precondiciones: El usuario y el identificador pasados como parametro de entrada deben existir en la base de datos del programa.
      * Entradas: objeto UsuarioImpl que es el usuario en uso, String identificador que sera el ID de la revision personal
-     * Salidas: objeto revisionpersonalimpl que es la revision personal del dia en curso
-     * Postcondiciones: asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal del dia en curso
-     * */
+     * Salidas: objeto revisionpersonalimpl que es la revision personal correspondiente con el ID indicado
+     * Postcondiciones: asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal con el Id indicado, del usuario
+     * indicado
+     *  */
 
     /**
      * método para instanciar un objeto RevisionPersonalImpl en java con los datos
@@ -757,10 +760,10 @@ public class Gestion {
      *
      * @param user          objeto UsuarioImpl que es el usuario
      * @param identificador el ID de la revision personal del citado usuario
-     * @return asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal del dia en curso del usuario
+     * @return asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal con el Id indicado, del usuario
      * indicado
      */
-    public RevisionPersonalImpl construirObjeto(UsuarioImpl user, String identificador) {
+    public RevisionPersonalImpl construirObjetoRevisionPersonal(UsuarioImpl user, String identificador) {
         RevisionPersonalImpl revisionPersonal = new RevisionPersonalImpl(user);
         GregorianCalendar fecha = new GregorianCalendar();
         try {
@@ -2105,6 +2108,75 @@ public class Gestion {
         return exito;
     }
 
+
+
+
+    /*
+     * INTERFAZ
+     * Comentario: metodo para eliminar de la BBDD una revision medica concreta
+     * Signatura: public boolean eliminarRevisionMedica(RevisionMedicaImpl revision)
+     * Precondiciones:
+     * Entradas: revision a eliminar
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si se ha ejecutado correctamente la instruccion y el
+     *         registro ha sido borrado y false si hubo algun problema o no se elimino ninguna fila.
+     * */
+
+    /**
+     * metodo para eliminar de la BBDD una revision medica concreta
+     *
+     * @param revision revision a eliminar
+     * @return asociado al nombre se devuelve un boolean que sera true si se ha ejecutado correctamente la instruccion y el
+     * registro ha sido borrado y false si hubo algun problema o no se elimino ninguna fila.
+     */
+    public boolean eliminarRevisionMedica(RevisionMedicaImpl revision) {
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "delete\n" +
+                    "from REVISIONMEDICA\n" +
+                    "where ID = ?\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getID());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                if (resultSet.getInt("FILASAFECTADAS") == 1) {
+                    exito = true;
+                }
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
+
+
+
+
+
+
     /*
      * INTERFAZ
      * Comentario: muestra los datos de la cuenta del usuario pasado como parametro
@@ -2758,7 +2830,7 @@ public class Gestion {
     }
   /*
     INTERFAZ
-    Comentario: metodo para actualizar la fecha de nacimiento de un usuario
+    Comentario: metodo para actualizar la fecha de nacimiento de un usuario en la BBDD
     Signatura: public boolean actualizarFechaNacimiento(UsuarioImpl user, GregorianCalendar nuevaFecha)
     Precondiciones:
     Entradas: usuario del que se modificaran los datos
@@ -2770,7 +2842,7 @@ public class Gestion {
      */
 
     /**
-     * metodo para actualizar la fecha de nacimiento de un usuario
+     * metodo para actualizar la fecha de nacimiento de un usuario en la BBDD
      *
      * @param user       usuario del que se modificaran los datos
      * @param nuevaFecha nueva fecha de nacimiento del usuario
@@ -2823,6 +2895,553 @@ public class Gestion {
         } catch (SQLException sqle) {
             System.err.println(sqle);
         }
+        return exito;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: Modulo de buscar revisiones medicas por fecha
+     * Signatura: public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFechaModulo(CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas: embarazo del cual se buscaran las revisiones medicas
+     * Salidas: arraylist con las revisiones buscadas
+     * Postcondiciones: asociado al nombre se devolvera un arraylist que contendra las revisiones buscadas
+     * */
+
+    /**
+     * Modulo de buscar por fecha
+     *
+     * @param embarazo embarazo del cual se buscaran las revisiones
+     * @return asociado al nombre se devolvera un arraylist que contendra las revisiones buscadas
+     * @see #buscarRevisionMedicaPorFecha(CicloEmbarazo, int)
+     * @see #buscarRevisionMedicaPorFecha(CicloEmbarazo, int, int)
+     * @see #buscarRevisionMedicaPorFecha(CicloEmbarazo, int, int, int)
+     */
+    public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFechaModulo(CicloEmbarazo embarazo) {
+        Validar validar = new Validar();
+        ArrayList<RevisionMedicaImpl> revisionesBuscadas;
+        int dia, mes, anyo;
+        dia = validar.dia();
+        mes = validar.mes();
+        anyo = validar.anyo();
+        if (mes == 0 && dia == 0) {
+            revisionesBuscadas = buscarRevisionMedicaPorFecha(embarazo, anyo);
+        } else if (mes != 0 && dia == 0) {
+            revisionesBuscadas = buscarRevisionMedicaPorFecha(embarazo, anyo, mes);
+        } else {
+            revisionesBuscadas = buscarRevisionMedicaPorFecha(embarazo, anyo, mes, dia);
+        }
+        return revisionesBuscadas;
+    }
+
+    /*inicio METODOS BUSCAR*/
+    /*
+     * INTERFAZ
+     * Signatura: public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo)
+     * Comentario: busca las revisiones que se han hecho de un embarazo en la fecha dada
+     * Precondiciones:
+     * Entrada: embarazo y entero año
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     * */
+
+    /**
+     * busca las revisiones que ha hecho un usuario en la fecha dada
+     *
+     * @param embarazo embarazo del cual se buscaran las revisiones
+     * @param anyo     año del que se buscaran las revisiones
+     * @return asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     */
+    public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo) {
+        ArrayList<RevisionMedicaImpl> revisionMedicaArrayList = new ArrayList<RevisionMedicaImpl>();
+        RevisionMedicaImpl revisionMedica = null;
+        GregorianCalendar fechaCita;
+        GregorianCalendar fechaSiguienteCita;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * from REVISIONMEDICA\n" +
+                    "where YEAR(FECHA_CITA_ACTUAL) = ?\n" +
+                    "and ID_EMBARAZO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setString(2, embarazo.getID());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                revisionMedica = new RevisionMedicaImpl();
+                revisionMedica.setID(resultSet.getString("ID"));
+                revisionMedica.setEmbarazo(embarazo);
+                revisionMedica.setPeso(resultSet.getDouble("PESO"));
+                revisionMedica.setCintura(resultSet.getDouble("CINTURA"));
+                revisionMedica.setCadera(resultSet.getDouble("CADERA"));
+                revisionMedica.setEstadoFeto(resultSet.getString("ESTADOFETO"));
+                revisionMedica.setObservaciones(resultSet.getString("OBSERVACIONES"));
+                fechaCita = new GregorianCalendar();
+                fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
+                fechaSiguienteCita = new GregorianCalendar();
+                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                    fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
+                }else{
+                    fechaSiguienteCita = null;
+                }
+
+
+                revisionMedica.setFechaCitaActual(fechaCita);
+                revisionMedica.setFechaSiguienteCita(fechaSiguienteCita);
+
+                revisionMedicaArrayList.add(revisionMedica);
+
+            }
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionMedicaArrayList;
+    }
+
+    /*
+     * INTERFAZ - METODO SOBRECARGADO
+     * Signatura: public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo, int mes)
+     * Comentario: busca las revisiones de un embarazo en la fecha dada
+     * Precondiciones:
+     * Entrada: embarazo y entero año y un entero mes
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     * */
+
+    /**
+     * busca las revisiones que ha hecho un usuario en la fecha dada
+     *
+     * @param embarazo embarazo del cual se buscaran las revisiones
+     * @param anyo     año del cual se buscaran las revisiones
+     * @param mes      mes del cual se buscaran las revisiones
+     * @return asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     */
+    public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo, int mes) {
+        ArrayList<RevisionMedicaImpl> revisionMedicaArrayList = new ArrayList<RevisionMedicaImpl>();
+        RevisionMedicaImpl revisionMedica = null;
+        GregorianCalendar fechaCita;
+        GregorianCalendar fechaSiguienteCita;
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from\n" +
+                    "REVISIONMEDICA\n" +
+                    "where YEAR(FECHA) = ?\n" +
+                    "and MONTH(FECHA) = ?\n" +
+                    "and ID_EMBARAZO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setInt(2, mes);
+            preparedStatement.setString(3, embarazo.getID());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                revisionMedica = new RevisionMedicaImpl();
+                revisionMedica.setID(resultSet.getString("ID"));
+                revisionMedica.setEmbarazo(embarazo);
+                revisionMedica.setPeso(resultSet.getDouble("PESO"));
+                revisionMedica.setCintura(resultSet.getDouble("CINTURA"));
+                revisionMedica.setCadera(resultSet.getDouble("CADERA"));
+                revisionMedica.setEstadoFeto(resultSet.getString("ESTADOFETO"));
+                revisionMedica.setEstadoFeto(resultSet.getString("OBSERVACIONES"));
+                fechaCita = new GregorianCalendar();
+                fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
+                fechaSiguienteCita = new GregorianCalendar();
+
+                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                    fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
+                }else{
+                    fechaSiguienteCita = null;
+                }
+
+                revisionMedicaArrayList.add(revisionMedica);
+
+            }
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionMedicaArrayList;
+    }
+
+    /*
+     * INTERFAZ - METODO SOBRECARGADO
+     * Signatura: public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo, int mes, int dia)
+     * Comentario: busca las revisiones de un embarazo en la fecha dada
+     * Precondiciones:
+     * Entrada: embarazo y entero año y un entero mes
+     * Salida: arraylist de objetos revisiones
+     * Entrada/Salida:
+     * Postcondiciones: asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     * */
+
+    /**
+     * @param embarazo embarazo del cual se buscaran las revisiones
+     * @param anyo     año del cual se buscaran las revisiones
+     * @param mes      mes del cual se buscaran las revisiones
+     * @param dia      dia del cual se buscaran las revisiones
+     * @return asociado al nombre devuelve un arraylist con las revisiones que coincidan con la fecha indicada
+     */
+
+    public ArrayList<RevisionMedicaImpl> buscarRevisionMedicaPorFecha(CicloEmbarazo embarazo, int anyo, int mes, int dia) {
+        ArrayList<RevisionMedicaImpl> revisionMedicaArrayList = new ArrayList<RevisionMedicaImpl>();
+        RevisionMedicaImpl revisionMedica = null;
+        GregorianCalendar fechaCita;
+        GregorianCalendar fechaSiguienteCita;
+
+
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select *\n" +
+                    "from\n" +
+                    "REVISIONMEDICA\n" +
+                    "where YEAR(FECHA) = ?\n" +
+                    "and MONTH(FECHA) = ?\n" +
+                    "and DAY(FECHA) = ? \n" +
+                    "and ID_EMBARAZO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setInt(1, anyo);
+            preparedStatement.setInt(2, mes);
+            preparedStatement.setInt(3, dia);
+            preparedStatement.setString(4, embarazo.getID());
+
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                revisionMedica = new RevisionMedicaImpl();
+                revisionMedica.setID(resultSet.getString("ID"));
+                revisionMedica.setEmbarazo(embarazo);
+                revisionMedica.setPeso(resultSet.getDouble("PESO"));
+                revisionMedica.setCintura(resultSet.getDouble("CINTURA"));
+                revisionMedica.setCadera(resultSet.getDouble("CADERA"));
+                revisionMedica.setEstadoFeto(resultSet.getString("ESTADOFETO"));
+                revisionMedica.setEstadoFeto(resultSet.getString("OBSERVACIONES"));
+                fechaCita = new GregorianCalendar();
+                fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
+                fechaSiguienteCita = new GregorianCalendar();
+
+
+                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                    fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
+                }else{
+                    fechaSiguienteCita = null;
+                }
+
+                revisionMedicaArrayList.add(revisionMedica);
+
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+
+        return revisionMedicaArrayList;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: Inserta una revision medica en la BBDD
+     * Signatura: public boolean insertarRevisionMedica(RevisionMedicaImpl revisionMedica)
+     * Precondiciones:
+     * Entradas: revision medica a insertar
+     * Salidas: bolean
+     * Postcondiciones: asociado al nombre devuelve un boolean que sera true si la insercion se realizo
+     *                   correctamente y false si no. Si la revision es null, saltara excepcion.
+     *
+     * */
+
+    /**
+     * Inserta una revision medica en la BBDD
+     *
+     * @param revisionMedica revision medica a insertar
+     * @return asociado al nombre devuelve un boolean que sera true si la insercion se realizo
+     * correctamente y false si no. Si la revision es null, saltara excepcion.
+     */
+    public boolean insertarRevisionMedica(RevisionMedicaImpl revision) {
+
+        boolean exito = false;
+        try {
+
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "insert into REVISIONMEDICA(ID_EMBARAZO, PESO, CINTURA, CADERA, ESTADOFETO, OBSERVACIONES,\n" +
+                    "FECHA_CITA_ACTUAL, FECHA_SIGUIENTE_CITA)\n" +
+                    "values(?, ?,?,?,?, ?,\n" +
+                    "?,?)\n" +
+                    "select @@ROWCOUNT as FILASAFECTADAS";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, revision.getEmbarazo().getID());
+            preparedStatement.setDouble(2, revision.getPeso());
+            preparedStatement.setDouble(3, revision.getCintura());
+            preparedStatement.setDouble(4, revision.getCadera());
+            preparedStatement.setString(5, revision.getEstadoFeto());
+            preparedStatement.setString(6, revision.getObservaciones());
+
+            if (revision.getFechaCitaActual() != null) {
+                preparedStatement.setDate(7, new java.sql.Date(revision.getFechaCitaActual().getTimeInMillis()));
+            } else {
+                preparedStatement.setDate(7, null);
+            }
+
+
+            if (revision.getFechaSiguienteCita() != null) {
+                preparedStatement.setDate(8, new java.sql.Date(revision.getFechaSiguienteCita().getTimeInMillis()));
+
+            } else {
+                preparedStatement.setDate(8, null);
+            }
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                if (resultSet.getInt("FILASAFECTADAS") == 1) {
+                    exito = true;
+                }
+            }
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+        return exito;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: Carga un objeto CicloEmbarazo
+     * Signatura: public boolean cargarEmbarazo(CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas:
+     * Salidas: boolean que indica si se han cargado bien los datos
+     * Entrada/Salida: Embarazo al que se añadiran los datos.
+     * Postcondiciones: asociado al nombre se devuelve un boolean indicando si la carga se ha efectuado
+     *          correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
+     * */
+
+    /**
+     * Carga un objeto CicloEmbarazo
+     *
+     * @param embarazo Embarazo al que se añadiran los datos.
+     * @return asociado al nombre se devuelve un boolean indicando si la carga se ha efectuado
+     * correctamente o no. El objeto CicloEmbarazo queda modificado con los datos añadidos.
+     */
+    public boolean cargarEmbarazo(CicloEmbarazo embarazo) {
+        boolean exito = false;
+        RevisionMedicaImpl revisionMedica = null;
+        embarazo.getListadoRevisionesMedicas().clear();    //antes de cargarlo lo limpio para evitar duplicaciones
+        try {
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * from REVISIONMEDICA\n" +
+                    "where ID_EMBARAZO = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, embarazo.getID());
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                GregorianCalendar fechaCita = new GregorianCalendar();
+                GregorianCalendar fechaSiguienteCita = new GregorianCalendar();
+
+                fechaCita.setTime(resultSet.getDate("FECHA_CITA_ACTUAL"));
+                if(resultSet.getDate("FECHA_SIGUIENTE_CITA") != null){
+                    fechaSiguienteCita.setTime(resultSet.getDate("FECHA_SIGUIENTE_CITA"));
+                } else {
+                    fechaSiguienteCita = null;
+                }
+
+
+
+                revisionMedica = new RevisionMedicaImpl(
+                        embarazo,
+                        resultSet.getDouble("PESO"),
+                        resultSet.getDouble("CINTURA"),
+                        resultSet.getDouble("CADERA"),
+                        resultSet.getString("ESTADOFETO"),
+                        resultSet.getString("OBSERVACIONES"),
+                        fechaCita,
+                        fechaSiguienteCita
+                );
+
+
+                embarazo.addRevisionMedica(revisionMedica);
+            }
+            exito = true;
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
+        return exito;
+
+
+    }
+
+
+    /*Comentario: Asigna un ID a un embarazo
+    * Signatura: public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo)
+    * Precondiciones:
+    * Entradas: embarazo
+    * Salidas: boolean
+    * Postcondiciones: Asociado al nombre devuelve un boolean que indica si la asignación resultó exitosa o no.
+    *                   Si la entrada es nula, se producirá una excepción.
+    * */
+    public boolean asignarIDAEmbarazo(CicloEmbarazo embarazo){
+        boolean exito = false;
+        try {
+            // Define la fuente de datos para el driver
+            String sourceURL = "jdbc:sqlserver://localhost";
+            String usuario = "menstruApp";
+            String password = "menstruApp";
+            String miSelect = "select * from EMBARAZO\n" +
+                    "where \n" +
+                    "ID_USUARIO = ?\n" +
+                    "and\n" +
+                    "FECHAINICIO = ?\n" +
+                    "and\n" +
+                    "FECHAFIN_REAL = ?";
+
+            //Mas info sobre Prepared Statement: https://www.arquitecturajava.com/jdbc-prepared-statement-y-su-manejo/
+
+            // Crear una conexion con el DriverManager
+            Connection connexionBaseDatos = DriverManager.getConnection(sourceURL, usuario, password);
+
+            //Preparo el prepared statement indicando que son cada ? del select
+            PreparedStatement preparedStatement = connexionBaseDatos.prepareStatement(miSelect);
+            preparedStatement.setString(1, embarazo.getUsuario().getNick());
+
+            if (embarazo.getFechaInicio() != null) {
+                preparedStatement.setDate(2, new java.sql.Date(embarazo.getFechaInicio().getTimeInMillis()));
+            } else {
+                preparedStatement.setDate(2, null);
+            }
+
+            if (embarazo.getFechaFinReal() != null) {
+                preparedStatement.setDate(3, new java.sql.Date(embarazo.getFechaFinReal().getTimeInMillis()));
+            } else {
+                preparedStatement.setDate(3, null);
+            }
+
+            // execute insert SQL stetement
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                embarazo.setID(resultSet.getString("ID"));
+            }
+            exito = true;
+
+
+            // Cerrar
+            resultSet.close();
+            preparedStatement.close();
+            connexionBaseDatos.close();
+
+        } catch (SQLException sqle) {
+            System.err.println(sqle);
+        }
+
         return exito;
     }
 

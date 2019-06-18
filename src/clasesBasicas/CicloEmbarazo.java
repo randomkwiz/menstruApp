@@ -22,19 +22,24 @@
  * */
 package clasesBasicas;
 
+import enumerado.EstadoAnimico;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class CicloEmbarazo extends Ciclo {
 
-    //Constructores
+    ArrayList<RevisionMedicaImpl> listadoRevisionesMedicas;
 
+    //Constructores
 
     /**
      * Constructor por defecto
      */
     public CicloEmbarazo() {
         super();
+        listadoRevisionesMedicas = new ArrayList<RevisionMedicaImpl>();
     }
 
     /**
@@ -46,6 +51,7 @@ public class CicloEmbarazo extends Ciclo {
      */
     public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio, GregorianCalendar fechaFinReal) {
         super(usuario, fechaInicio, fechaFinReal);
+        listadoRevisionesMedicas = new ArrayList<RevisionMedicaImpl>();
     }
 
     /**
@@ -55,8 +61,26 @@ public class CicloEmbarazo extends Ciclo {
      * @param fechaInicio fecha de inicio del ciclo
      */
     public CicloEmbarazo(UsuarioImpl usuario, GregorianCalendar fechaInicio) {
+
         super(usuario, fechaInicio);
+        listadoRevisionesMedicas = new ArrayList<RevisionMedicaImpl>();
     }
+
+    //getters y setters
+    public ArrayList<RevisionMedicaImpl> getListadoRevisionesMedicas() {
+        return listadoRevisionesMedicas;
+    }
+
+
+    public void setListadoRevisionesMedicas(ArrayList<RevisionMedicaImpl> listadoRevisionesMedicas) {
+        this.listadoRevisionesMedicas = listadoRevisionesMedicas;
+    }
+
+    public void addRevisionMedica(RevisionMedicaImpl revisionMedica) {
+
+        listadoRevisionesMedicas.add(revisionMedica);
+    }
+
 
 
     //Metodos añadidos

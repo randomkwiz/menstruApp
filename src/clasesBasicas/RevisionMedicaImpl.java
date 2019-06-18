@@ -38,6 +38,18 @@ public class RevisionMedicaImpl implements RevisionMedica {
 
     //Constructores
 
+
+    public RevisionMedicaImpl() {
+        this.embarazo = null;
+        this.peso = 0.0;
+        this.cintura = 0.0;
+        this.cadera = 0.0;
+        this.estadoFeto = " ";
+        this.observaciones = " ";
+        this.fechaCitaActual = null;
+        this.fechaSiguienteCita = null;
+    }
+
     public RevisionMedicaImpl(CicloEmbarazo embarazo, double peso, double cintura, double cadera, String estadoFeto, String observaciones, GregorianCalendar fechaCitaActual, GregorianCalendar fechaSiguienteCita) {
         this.embarazo = embarazo;
         this.peso = peso;
@@ -47,15 +59,16 @@ public class RevisionMedicaImpl implements RevisionMedica {
         this.observaciones = observaciones;
         this.fechaCitaActual = fechaCitaActual;
         this.fechaSiguienteCita = fechaSiguienteCita;
+
     }
 
     //setters y getters
 
-    // public CicloEmbarazo getEmbarazo() { return embarazo;    }
+     public CicloEmbarazo getEmbarazo() { return embarazo;    }
 
-    // public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
+     public void setEmbarazo(CicloEmbarazo embarazo) {      this.embarazo = embarazo;    }
 
-    /*Patron delegacion*/
+    /*Patron delegacion
     public GregorianCalendar getEmbarazoFechaInicio() {
         return embarazo.getFechaInicio();
     }
@@ -71,7 +84,7 @@ public class RevisionMedicaImpl implements RevisionMedica {
     public void setEmbarazoFechaFinReal(GregorianCalendar fechaFinReal) {
         embarazo.setFechaFinReal(fechaFinReal);
     }
-
+*/
     public String getID() {
         return ID;
     }
@@ -134,6 +147,21 @@ public class RevisionMedicaImpl implements RevisionMedica {
 
     public void setFechaSiguienteCita(GregorianCalendar fechaSiguienteCita) {
         this.fechaSiguienteCita = fechaSiguienteCita;
+    }
+
+    @Override
+    public String toString() {
+        return "RevisionMedicaImpl{" +
+                "embarazo=" + embarazo +
+                ", ID='" + ID + '\'' +
+                ", peso=" + peso +
+                ", cintura=" + cintura +
+                ", cadera=" + cadera +
+                ", estadoFeto='" + estadoFeto + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", fechaCitaActual=" + fechaCitaActual +
+                ", fechaSiguienteCita=" + fechaSiguienteCita +
+                '}';
     }
 
 
