@@ -1042,6 +1042,45 @@ public class Validar<T extends Enum<T>> {
 
 
     /*
+     * INTERFAZ
+     * Comentario: Metodo que muestra, pide y valida una lista de RevisionesMedicasImpl y devuelve la revision seleccionada
+     *           por el usuario
+     * Signatura: public RevisionMedicaImpl pedirValidarListaRevisionesMedicasImpl(ArrayList<RevisionMedicaImpl> lista)
+     * Precondiciones:
+     * Entradas:
+     * Salidas: revision medica
+     * Postcondiciones: asociado al nombre devuelve una revision que sera la elegida por el usuario o null si el usuario no
+     *                   elige ninguna
+     * */
+    public RevisionMedicaImpl pedirValidarListaRevisionesMedicasImpl(ArrayList<RevisionMedicaImpl> lista) {
+        RevisionMedicaImpl revisionElegida = null;
+        Scanner sc = new Scanner(System.in);
+        Utilidades util = new Utilidades();
+        int opcion = 0;
+        try {
+            do {
+                util.imprimirDatosRevisionMedicaImplLista(lista);
+                opcion = sc.nextInt();
+            } while (opcion < 0 || opcion > lista.size());
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
+        if (opcion != 0) {
+            revisionElegida = lista.get(opcion - 1);
+        }
+
+        return revisionElegida;
+    }
+
+
+
+
+
+
+
+
+    /*
     * INTERFAZ
     * Comentario: pide y valida los datos de un objeto RevisionMedicaImpl y
     *             lo construye, devolviendolo asociado al nombre.

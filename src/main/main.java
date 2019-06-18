@@ -599,34 +599,39 @@ public class main {
                                             do {
                                                 opcionRevisionMedica = validar.subMenuRevisionMedica();
                                                 RevisionMedicaImpl revisionMedica = null;
-                                                CicloEmbarazo embarazo = null;
+                                                CicloEmbarazo embarazo = gestion.obtenerEmbarazoEnCurso(usuarioLogado);
+                                                gestion.asignarIDAEmbarazo(embarazo);
                                                 if (opcionRevisionMedica != 0) {
                                                     switch (opcionRevisionMedica) {
                                                         case 1:
                                                             //Registrar revision medica
-                                                            System.out.println("Modulo registrar revision medica en construccion");
-                                                            if (cicloActual instanceof CicloEmbarazo) {
-                                                                embarazo = (CicloEmbarazo) cicloActual;
-                                                                revisionMedica = validar.pedirValidarRevisionMedicaImpl(embarazo);
-                                                                resguardo.insertarRevisionMedica(revisionMedica);
-                                                                resguardo.cargarEmbarazo(embarazo);
-                                                                //todo implementar estos metodos
-                                                            }
+                                                            //System.out.println("Modulo registrar revision medica en construccion");
+
+                                                            gestion.cargarEmbarazo(embarazo);
+                                                            revisionMedica = validar.pedirValidarRevisionMedicaImpl(embarazo);
+                                                            //resguardo.insertarRevisionMedica(revisionMedica);
+                                                            gestion.insertarRevisionMedica(revisionMedica);
+                                                            //resguardo.cargarEmbarazo(embarazo);
+                                                            gestion.cargarEmbarazo(embarazo);
+
 
                                                             break;
                                                         case 2:
                                                             //Ver revisiones pasadas
-                                                            System.out.println("Modulo ver revisiones medicas pasadas en construccion");
-                                                            if (cicloActual instanceof CicloEmbarazo) {
-                                                                embarazo = (CicloEmbarazo) cicloActual;
-                                                                resguardo.cargarEmbarazo(embarazo);
-                                                                utilidades.imprimirDatosRevisionMedicaImplLista( embarazo.getListadoRevisionesMedicas());
-                                                            }
+                                                            //System.out.println("Modulo ver revisiones medicas pasadas en construccion");
+                                                            //resguardo.cargarEmbarazo(embarazo);
+                                                            gestion.cargarEmbarazo(embarazo);
+                                                            utilidades.imprimirDatosRevisionMedicaImplLista(embarazo.getListadoRevisionesMedicas());
+
 
                                                             break;
                                                         case 3:
                                                             //Buscar revision
-                                                            System.out.println("Modulo buscar revision medica en construccion");
+                                                            //System.out.println("Modulo buscar revision medica en construccion");
+                                                            //resguardo.cargarEmbarazo(embarazo);
+                                                            gestion.cargarEmbarazo(embarazo);
+                                                            gestion.buscarRevisionMedicaPorFechaModulo(embarazo);
+
                                                             break;
                                                         case 4:
                                                             //Modificar revision
@@ -634,11 +639,54 @@ public class main {
                                                             break;
                                                         case 5:
                                                             //Ver fecha siguiente revision
-                                                            System.out.println("Modulo ver fecha siguiente revision medica en construccion");
+                                                            //System.out.println("Modulo ver fecha siguiente revision medica en construccion");
+                                                            String fechaSiguienteRevisionMedica;
+                                                            //resguardo.cargarEmbarazo(embarazo);
+                                                            gestion.cargarEmbarazo(embarazo);
+                                                            if (embarazo.getListadoRevisionesMedicas().size() > 0) {
+                                                                fechaSiguienteRevisionMedica = utilidades.formatearFecha(embarazo.getListadoRevisionesMedicas().get(embarazo.getListadoRevisionesMedicas().size() - 1).getFechaSiguienteCita());
+
+                                                                if (embarazo.getListadoRevisionesMedicas().get(embarazo.getListadoRevisionesMedicas().size() - 1).getFechaSiguienteCita() != null) {
+                                                                    System.out.println("La fecha de la siguiente cita medica es : " + fechaSiguienteRevisionMedica);
+                                                                }else{
+                                                                    System.out.println("No tienes registrada la fecha de tu siguiente cita médica");
+                                                                }
+                                                            } else {
+                                                                System.out.println("Aun no tienes ninguna cita registrada");
+                                                            }
+
+
                                                             break;
                                                         case 6:
                                                             //Eliminar revision
-                                                            System.out.println("Modulo eliminar revision medica en construccion");
+                                                            //System.out.println("Modulo eliminar revision medica en construccion");
+                                                            ArrayList<RevisionMedicaImpl> revisionMedicasBuscadas = null;
+                                                            RevisionMedicaImpl revisionMedicaAEliminar = null;
+                                                            //Buscar por fecha
+                                                            //resguardo.cargarEmbarazo(embarazo);
+                                                            gestion.cargarEmbarazo(embarazo);
+                                                            revisionMedicasBuscadas = gestion.buscarRevisionMedicaPorFechaModulo(embarazo);
+                                                            if (revisionMedicasBuscadas.size() > 0) {
+                                                                System.out.println("Elija aquella que desea borrar: ");
+                                                                revisionMedicaAEliminar = validar.pedirValidarListaRevisionesMedicasImpl(revisionMedicasBuscadas);
+                                                                if (revisionMedicaAEliminar != null) {
+                                                                    if (validar.borrarRevision()) {
+                                                                        gestion.eliminarRevisionMedica(revisionMedicaAEliminar);
+                                                                        System.out.println("Cita medica eliminada correctamente.");
+                                                                        gestion.cargarEmbarazo(embarazo);
+                                                                    } else {
+                                                                        System.out.println("No se elimino su revision medica.");
+                                                                    }
+                                                                } else {
+                                                                    System.out.println("Volviendo atras");
+                                                                }
+                                                            } else {
+                                                                System.out.println("No existen revisiones con esas caracteristicas.");
+                                                            }
+
+                                                            /*fin modulo eliminar revision*/
+
+
                                                             break;
                                                     }
                                                 }

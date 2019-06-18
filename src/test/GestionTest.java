@@ -1,8 +1,10 @@
 package test;
 
+import clasesBasicas.CicloEmbarazo;
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
+import utilidades.Utilidades;
 
 public class GestionTest {
     public static void main(String[] args) {
@@ -148,9 +150,15 @@ public class GestionTest {
         //System.out.println(rev.toString());
         // System.out.println(gestion.cargarEstadosDeAnimoRevisionPersonal(null));
 
-        System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
+        //System.out.println(gestion.eliminarRevisionPersonal(revisionPersonal));
 
         //gestion.obtenerCicloActual(usuario);
+        Utilidades utilidades = new Utilidades();
+        CicloEmbarazo embarazo = gestion.obtenerEmbarazoEnCurso(utilidades.cargarUsuario("usuarioPrueba", "123456789"));
+        gestion.asignarIDAEmbarazo(embarazo);
+        gestion.cargarEmbarazo(embarazo);
+
+        System.out.println(embarazo.getID());
 
     }
 }
