@@ -266,6 +266,61 @@ BEGIN
 	END
 END
 
+
+
+ALTER
+--CREATE
+TRIGGER noHayEmbarazosEnMitadDeUnCiclo
+ON embarazo
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF EXISTS (select  CICLOINSERTADO.ID, CICLOINSERTADO.ID_USUARIO, CICLOINSERTADO.FECHAINICIO, CICLOINSERTADO.FECHAFIN_REAL
+					from CICLOMENSTRUAL AS CICLOINSERTADO
+					INNER JOIN inserted AS CICLONUEVO
+					ON CICLOINSERTADO.ID_USUARIO = CICLONUEVO.ID_USUARIO
+						AND CICLOINSERTADO.ID != CICLONUEVO.ID
+					where 
+					CICLONUEVO.FECHAINICIO BETWEEN CICLOINSERTADO.FECHAINICIO AND ISNULL(CICLOINSERTADO.FECHAFIN_REAL, cast(CURRENT_TIMESTAMP as date))
+					or
+					(
+					CICLONUEVO.FECHAFIN_REAL is not null
+					and 
+					CICLONUEVO.FECHAFIN_REAL BETWEEN CICLOINSERTADO.FECHAINICIO AND ISNULL(CICLOINSERTADO.FECHAFIN_REAL, cast(CURRENT_TIMESTAMP as date))
+					)
+					or
+					(
+					CICLONUEVO.FECHAFIN_REAL is not null
+					and 
+					CICLONUEVO.FECHAFIN_REAL > CICLOINSERTADO.FECHAINICIO
+					and
+					CICLONUEVO.FECHAFIN_REAL < ISNULL (CICLOINSERTADO.FECHAFIN_REAL, cast (CURRENT_TIMESTAMP as date))
+					)
+					or
+					(
+					CICLONUEVO.FECHAINICIO < ISNULL(CICLOINSERTADO.FECHAFIN_REAL, cast(CURRENT_TIMESTAMP as date))
+					and
+					CICLONUEVO.FECHAINICIO > CICLOINSERTADO.FECHAINICIO
+					)
+					or
+					(
+					CICLONUEVO.FECHAFIN_REAL is not null
+					and
+					CICLONUEVO.FECHAINICIO < CICLOINSERTADO.FECHAINICIO
+					and
+					CICLONUEVO.FECHAFIN_REAL > ISNULL(CICLOINSERTADO.FECHAFIN_REAL, cast(CURRENT_TIMESTAMP as date))
+					)
+
+					)
+				
+	BEGIN
+		RAISERROR('No se puede insertar un embarazo en mitad de un ciclo',16,1)
+		ROLLBACK
+	END
+END
+
+
+
+
 go
 ALTER
 --CREATE
@@ -481,4 +536,80 @@ BEGIN
 		RAISERROR('Lo siento no puedes registrar fechas superiores a la actual',16,1)
 		ROLLBACK
 	END
+END
+
+go
+
+/*Trigger para controlar las fechas actual y siguiente de la cita médica,
+controlar que todas las citas esten dentro de un embarazo*/
+
+ALTER
+--CREATE
+TRIGGER fechaSiguienteDespuesDeActualRevisionMedica
+ON REVISIONMEDICA
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF EXISTS ( 
+	select *
+	from inserted 
+	where 
+	FECHA_SIGUIENTE_CITA <= FECHA_CITA_ACTUAL
+	)
+	BEGIN
+		RAISERROR('La fecha de la siguiente cita no puede ser menor o igual a la de la cita actual',16,1)
+		ROLLBACK
+	END
+END
+
+/*Trigger para comprobar que la fecha de la cita en vigor no sea
+superior a la fecha actual*/
+ALTER
+--CREATE
+TRIGGER fechaCitaActualNoPuedeSerSuperiorAMomentoActual
+ON REVISIONMEDICA
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF EXISTS ( 
+	select *
+	from inserted 
+	where 
+	FECHA_CITA_ACTUAL > cast(CURRENT_TIMESTAMP as date)
+	)
+	BEGIN
+		RAISERROR('La fecha de la cita en vigor no puede ser mayor a la fecha actual',16,1)
+		ROLLBACK
+	END
+END
+
+go
+/*Trigger para controlar que una revision medica siempre este dentro
+del periodo de un embarazo
+*/
+ALTER
+--CREATE
+TRIGGER fechaRevisionMedicaDentroPeriodoEmbarazo
+ON REVISIONMEDICA
+AFTER INSERT, UPDATE AS
+BEGIN
+	IF (
+		(select e.FECHAFIN_REAL
+	from inserted  as i
+	inner join EMBARAZO as e
+	on i.ID_EMBARAZO = e.ID) != null	
+			)
+			begin
+				if exists (
+					select *
+					from inserted  as i
+					inner join EMBARAZO as e
+					on i.ID_EMBARAZO = e.ID
+					where i.FECHA_CITA_ACTUAL not between e.FECHAINICIO and e.FECHAFIN_REAL
+				)
+
+				BEGIN
+					RAISERROR('La fecha debe estar dentro del periodo del embarazo',16,1)
+					ROLLBACK
+				END
+			end
+	
 END
