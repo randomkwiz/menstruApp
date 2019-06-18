@@ -150,6 +150,7 @@ public class main {
 
         do {
             //preguntarLogInOrSignUp
+            System.out.println(" - MenstruApp - ");
             opcionLogInOrSignUp = validar.logInOrSignUp();
             if (opcionLogInOrSignUp != 0) {
                 switch (opcionLogInOrSignUp) {
