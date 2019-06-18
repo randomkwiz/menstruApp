@@ -7,10 +7,10 @@
  * observaciones sobre las relaciones sexuales.
  *
  * Entradas:
- *   -opcion del menu dentro del rango definido por el programador
+ *   -opciones del menu dentro del rango definido por el programador
  *   -fechas relacionada con el registro de datos asi como el inicio o fin de los ciclos menstruales o embarazos,
  *   citas medicas,...
- *   -estados de animo, sintomas, flujo vaginal, observaciones sobre el sexo del usuario
+ *   -numeros para especificar estados de animo, sintomas, flujo vaginal, observaciones sobre el sexo del usuario
  *   -datos personales del usuario para el registro
  * Salidas:
  *   -eco de los datos
@@ -36,6 +36,7 @@ PSEUDOCODIGO
 *                           caso 2: revision personal
 *                           caso 3: ciclo
 *                           caso 4: revision medica (solo para embarazadas)
+*                           caso 5: medicamentos
 *                       finSegun
 *                   finSi
 *            mientras opcion no sea salir

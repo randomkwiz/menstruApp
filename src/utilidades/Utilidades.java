@@ -8,6 +8,7 @@ import gestion.Gestion;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Utilidades<T extends Enum<T>> {
@@ -446,6 +447,28 @@ public class Utilidades<T extends Enum<T>> {
             System.out.print((i + 1) + ". ");
             imprimirDatosRevisionMedica(revisiones.get(i));
         }
+    }
+
+
+    /*
+     * Comentario: Metodo para comprobar si una fecha es 12 meses posterior a otra
+     * Signatura: public boolean esDoceMesesPosterior(GregorianCalendar fechaAComprobar, GregorianCalendar fechaReferencia)
+     * Precondiciones:
+     * Entradas: GregorianCalendar fecha a comprobar - fecha que se comprobara
+     *           GregorianCalendar fechaReferencia - fecha que se toma como referencia para comprobar la otra fecha
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que es true si la fecha a comprobar sí es 12 meses posterior
+     *                   a la fecha de referencia, o false si no lo es.
+     * */
+    public boolean esDoceMesesPosterior(GregorianCalendar fechaAComprobar, GregorianCalendar fechaReferencia){
+        GregorianCalendar fechaMaxima = fechaReferencia;
+        fechaMaxima.add(GregorianCalendar.MONTH, 12);    //maximo
+        boolean esPosterior = false;
+        if(fechaAComprobar.after(fechaMaxima)){
+            esPosterior = true;
+        }
+        return esPosterior;
+
     }
 
 }

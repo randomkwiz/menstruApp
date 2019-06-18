@@ -9,10 +9,7 @@ import utilidades.Utilidades;
 
 import java.io.Console;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Validar<T extends Enum<T>> {
 
@@ -1110,24 +1107,24 @@ public class Validar<T extends Enum<T>> {
         String observaciones = "";
         GregorianCalendar fechaCitaActual = null;
         GregorianCalendar fechaSiguienteCita = null;
+        Utilidades u = new Utilidades();
         if (embarazo != null) {
-            do {
+
                 peso = pesoUsuario();
                 cintura = medidaUsuario("cintura");
                 cadera = medidaUsuario("cadera");
-                System.out.println("Introduce observaciones sobre el estado del feto : ");
-                estadoFeto = sc.nextLine();
-                System.out.println("Introduce observaciones generales de la revision medica: ");
-                observaciones = sc.nextLine();
-                do {
-                    System.out.println("La fecha debe estar dentro del periodo del embarazo");
-                    fechaCitaActual = pedirValidarFecha();
-                } while (fechaCitaActual.before(embarazo.getFechaInicio()));
+                estadoFeto = pedirValidarEstadoFeto();
+                observaciones = pedirValidarObservacionCitaMedica();
+                fechaCitaActual = pedirValidarFechaRevisionMedica(embarazo);
+            do {
                 if (hacerPreguntaSioNo("¿Tienes fecha para la siguiente cita?")) {
-                    System.out.println("Recuerda que la fecha debe ser posterior a la cita actual: ");
-                    fechaSiguienteCita = pedirValidarFecha();
+                    do {
+                        System.out.println("Recuerda que la fecha debe ser posterior a la cita actual: ");
+                        fechaSiguienteCita = pedirValidarFecha();
+                    }while (u.esDoceMesesPosterior(fechaSiguienteCita, embarazo.getFechaInicio()));
                 } else {
                     System.out.println("No tienes fecha para la siguiente cita");
+                    fechaSiguienteCita = null;
                 }
 
             } while ((fechaSiguienteCita != null && fechaSiguienteCita.before(fechaCitaActual)));
@@ -1135,6 +1132,96 @@ public class Validar<T extends Enum<T>> {
         }
         return revisionMedica;
     }
+
+    /*
+     * INTERFAZ
+     * Comentario: Pide y valida la fecha de la cita medica en cuestion.
+     * Signatura: public GregorianCalendar pedirValidarFechaRevisionMedica(CicloEmbarazo embarazo)
+     * Precondiciones:
+     * Entradas:
+     * Salidas: GregorianCalendar con la fecha de la cita
+     * Postcondiciones: Asociado al nombre se devolvera la fecha de la cita medica, que sera posterior
+     *                  a la fecha de inicio del embarazo pero no más de 12 meses después de dicha fecha de inicio.
+     * */
+
+    /**
+     * Pide y valida la fecha de la cita medica en cuestion.
+     *
+     * @return Asociado al nombre se devolvera la fecha de la cita medica, que sera posterior
+     * a la fecha de inicio del embarazo pero no más de 12 meses después de dicha fecha de inicio.
+     */
+    public GregorianCalendar pedirValidarFechaRevisionMedica(CicloEmbarazo embarazo) {
+        Scanner sc = new Scanner(System.in);
+        Utilidades u = new Utilidades();
+        GregorianCalendar fechaCitaActual = null;
+        do {
+            System.out.println("La fecha debe ser posterior al inicio del embarazo.");
+            System.out.println("Pero no mas de 12 meses posterior.");
+            fechaCitaActual = pedirValidarFecha();
+        } while (fechaCitaActual.before(embarazo.getFechaInicio()) || u.esDoceMesesPosterior(fechaCitaActual, embarazo.getFechaInicio()));
+
+        return fechaCitaActual;
+    }
+
+
+
+    /*
+     * INTERFAZ
+     * Comentario: Pide y valida el estado del feto. Maximo 20 caracteres
+     * Signatura: public String pedirValidarEstadoFeto()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: String con el estado del feto
+     * Postcondiciones: Asociado al nombre se devuelve un String que es el estado del feto, que es una cadena de como
+     *                  maximo 20 caracteres.
+     * */
+
+    /**
+     * Pide y valida el estado del feto. Maximo 20 caracteres
+     *
+     * @return Asociado al nombre se devuelve un String que es el estado del feto, que es una cadena de como
+     * maximo 20 caracteres.
+     */
+    public String pedirValidarEstadoFeto() {
+        Scanner sc = new Scanner(System.in);
+        String estadoFeto;
+        do {
+            System.out.println("Introduce observaciones sobre el estado del feto : ");
+            System.out.println("Max 20 caracteres");
+            estadoFeto = sc.nextLine();
+        } while (estadoFeto.length() > 20);
+        return estadoFeto;
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: Pide y valida el observacion sobre una cita medica. Maximo 200 caracteres
+     * Signatura: public String pedirValidarObservacionCitaMedica()
+     * Precondiciones:
+     * Entradas:
+     * Salidas: String con la observacion
+     * Postcondiciones: Asociado al nombre se devuelve un String que es la observacion, que es una cadena de como
+     *                  maximo 200 caracteres.
+     * */
+
+    /**
+     * Pide y valida una observacion. Maximo 200 caracteres
+     *
+     * @return Asociado al nombre se devuelve un String que es la observacion, que es una cadena de como
+     * maximo 200 caracteres.
+     */
+    public String pedirValidarObservacionCitaMedica() {
+        Scanner sc = new Scanner(System.in);
+        String observaciones;
+        do {
+            System.out.println("Introduce observaciones generales de la revision medica: ");
+            System.out.println("Max 200 caracteres");
+            observaciones = sc.nextLine();
+        } while (observaciones.length() > 200);
+
+        return observaciones;
+    }
+
 
     /*
      * INTERFAZ
