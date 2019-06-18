@@ -747,9 +747,10 @@ public class Gestion {
      * Signatura: public RevisionPersonalImpl construirObjeto(UsuarioImpl user, String identificador)
      * Precondiciones: El usuario y el identificador pasados como parametro de entrada deben existir en la base de datos del programa.
      * Entradas: objeto UsuarioImpl que es el usuario en uso, String identificador que sera el ID de la revision personal
-     * Salidas: objeto revisionpersonalimpl que es la revision personal del dia en curso
-     * Postcondiciones: asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal del dia en curso
-     * */
+     * Salidas: objeto revisionpersonalimpl que es la revision personal correspondiente con el ID indicado
+     * Postcondiciones: asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal con el Id indicado, del usuario
+     * indicado
+     *  */
 
     /**
      * método para instanciar un objeto RevisionPersonalImpl en java con los datos
@@ -757,10 +758,10 @@ public class Gestion {
      *
      * @param user          objeto UsuarioImpl que es el usuario
      * @param identificador el ID de la revision personal del citado usuario
-     * @return asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal del dia en curso del usuario
+     * @return asociado al nombre se devuelve objeto revisionpersonalimpl que es la revision personal con el Id indicado, del usuario
      * indicado
      */
-    public RevisionPersonalImpl construirObjeto(UsuarioImpl user, String identificador) {
+    public RevisionPersonalImpl construirObjetoRevisionPersonal(UsuarioImpl user, String identificador) {
         RevisionPersonalImpl revisionPersonal = new RevisionPersonalImpl(user);
         GregorianCalendar fecha = new GregorianCalendar();
         try {
@@ -2758,7 +2759,7 @@ public class Gestion {
     }
   /*
     INTERFAZ
-    Comentario: metodo para actualizar la fecha de nacimiento de un usuario
+    Comentario: metodo para actualizar la fecha de nacimiento de un usuario en la BBDD
     Signatura: public boolean actualizarFechaNacimiento(UsuarioImpl user, GregorianCalendar nuevaFecha)
     Precondiciones:
     Entradas: usuario del que se modificaran los datos
@@ -2770,7 +2771,7 @@ public class Gestion {
      */
 
     /**
-     * metodo para actualizar la fecha de nacimiento de un usuario
+     * metodo para actualizar la fecha de nacimiento de un usuario en la BBDD
      *
      * @param user       usuario del que se modificaran los datos
      * @param nuevaFecha nueva fecha de nacimiento del usuario

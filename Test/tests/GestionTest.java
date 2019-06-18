@@ -1,14 +1,16 @@
 package tests;
 
 import clasesBasicas.CicloMenstrual;
+import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
+import enumerado.EstadoAnimico;
 import gestion.Gestion;
 import org.junit.jupiter.api.Test;
 import utilidades.Utilidades;
 
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GestionTest {
 
@@ -20,9 +22,13 @@ class GestionTest {
         fecha.set(GregorianCalendar.YEAR, 2003);
         fecha.set(GregorianCalendar.MONTH, 12);
         fecha.set(GregorianCalendar.DATE, 1);
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
         assertEquals("NickPrueba", usuarioPrueba.getNick());
         assertEquals("NombrePrueba", usuarioPrueba.getNombre());
-        assertEquals(25.5, usuarioPrueba.getPeso() );
+        assertEquals(25.5, usuarioPrueba.getPeso());
         assertEquals(fecha, usuarioPrueba.getFechaNacimiento());
 
     }
@@ -40,8 +46,12 @@ class GestionTest {
         fecha.set(GregorianCalendar.YEAR, 2019);
         fecha.set(GregorianCalendar.MONTH, 5);
         fecha.set(GregorianCalendar.DATE, 17);
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
         UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
-        CicloMenstrual ultimoCiclo = new CicloMenstrual(usuarioPrueba,fecha );
+        CicloMenstrual ultimoCiclo = new CicloMenstrual(usuarioPrueba, fecha);
         gestion.insertarCiclo(ultimoCiclo);
 
         assertEquals(ultimoCiclo.getFechaInicio().getTime(), gestion.ultimoCicloMenstrual(usuarioPrueba).getFechaInicio().getTime());
@@ -96,15 +106,19 @@ class GestionTest {
         GregorianCalendar fecha = new GregorianCalendar();
         UsuarioImpl usuario = u.cargarUsuario("randomkwiz", "123456789");
         int edad = g.obtenerEdad(usuario);
-        assertEquals(1,edad);
+        assertEquals(15, edad);
 
         fecha.set(GregorianCalendar.YEAR, 2003);
         fecha.set(GregorianCalendar.MONTH, 12);
         fecha.set(GregorianCalendar.DATE, 1);
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
         usuario.setFechaNacimiento(fecha);
 
         edad = g.obtenerEdad(usuario);
-        assertEquals(15,edad);
+        assertEquals(15, edad);
 
 
         fecha.set(GregorianCalendar.YEAR, 2050);
@@ -113,7 +127,7 @@ class GestionTest {
         usuario.setFechaNacimiento(fecha);
 
         edad = g.obtenerEdad(usuario);
-        assertEquals(0,edad);
+        assertEquals(0, edad);
     }
 
     @Test
@@ -126,6 +140,20 @@ class GestionTest {
 
     @Test
     void crearRevisionPersonalDiaEnCurso() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        gestion.crearRevisionPersonalDiaEnCurso(usuarioPrueba);
+        String identificador = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioPrueba);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioPrueba, identificador);
+        GregorianCalendar fecha = new GregorianCalendar();
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
+
+        assertEquals(fecha, revisionPersonal.getFecha());
+        assertEquals(identificador, revisionPersonal.getID());
     }
 
     @Test
@@ -133,15 +161,56 @@ class GestionTest {
     }
 
     @Test
-    void construirObjeto() {
+    void construirObjetoRevisionPersonal() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+        String identificador = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioPrueba);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioPrueba, identificador);
+        GregorianCalendar fecha = new GregorianCalendar();
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
+
+        assertEquals(fecha, revisionPersonal.getFecha());
+        assertEquals(identificador, revisionPersonal.getID());
     }
 
     @Test
     void cargarEstadosDeAnimoRevisionPersonal() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        String identificador = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioPrueba);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioPrueba, identificador);
+
+
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.ACTIVA);
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.IRACUNDA);
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.TRISTE);
+        gestion.cargarEstadosDeAnimoRevisionPersonal(revisionPersonal);
+
+        assertEquals(3, revisionPersonal.getArraylistEstadoAnimico().size());
+        assertEquals(usuarioPrueba, revisionPersonal.getUsuario());
     }
 
     @Test
     void cargarSintomasRevisionPersonal() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("usuarioPrueba", "123456789");
+        String identificador = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioPrueba);
+        RevisionPersonalImpl revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioPrueba, identificador);
+
+
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.ACTIVA);
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.IRACUNDA);
+        gestion.insertarEstadoAnimoEnRevisionPersonal(revisionPersonal, EstadoAnimico.TRISTE);
+        gestion.cargarEstadosDeAnimoRevisionPersonal(revisionPersonal);
+
+        assertEquals(3, revisionPersonal.getArraylistEstadoAnimico().size());
+        assertEquals(usuarioPrueba, revisionPersonal.getUsuario());
     }
 
     @Test
@@ -258,5 +327,22 @@ class GestionTest {
 
     @Test
     void actualizarFechaNacimiento() {
+        Gestion gestion = new Gestion();
+        Utilidades utilidades = new Utilidades();
+        UsuarioImpl usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+        GregorianCalendar fecha = new GregorianCalendar();
+        fecha.set(GregorianCalendar.YEAR, 2003);
+        fecha.set(GregorianCalendar.MONTH, 12);
+        fecha.set(GregorianCalendar.DATE, 1);
+        fecha.set(GregorianCalendar.HOUR_OF_DAY, 0);
+        fecha.set(GregorianCalendar.MINUTE, 0);
+        fecha.set(GregorianCalendar.SECOND, 0);
+        fecha.set(GregorianCalendar.MILLISECOND, 0);
+        gestion.actualizarFechaNacimiento(usuarioPrueba, fecha);
+        usuarioPrueba = utilidades.cargarUsuario("randomkwiz", "123456789");
+
+        assertEquals(fecha.getTime(), usuarioPrueba.getFechaNacimiento().getTime());
+
+
     }
 }

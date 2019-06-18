@@ -171,7 +171,7 @@ public class main {
                         usuarioLogado = validar.pedirLogin();
                         System.out.println("Buenas " + usuarioLogado.getNick() + ", has iniciado sesion con exito");
                         revisionPersonalID = gestion.obtenerIDRevisionPersonalDelDiaEnCurso(usuarioLogado);
-                        revisionPersonal = gestion.construirObjeto(usuarioLogado, revisionPersonalID);
+                        revisionPersonal = gestion.construirObjetoRevisionPersonal(usuarioLogado, revisionPersonalID);
 
                         do {
                             //mostrarMenuPedirValidarOpcion
@@ -366,7 +366,8 @@ public class main {
                                                         //de momento solo va a poder verse la del dia en curso
                                                         //System.out.println("Modulo ver revisiones personales en construccion");
 
-                                                        utilidades.imprimirDatosRevisionPersonal(revisionPersonal);
+                                                        //carga e imprime en pantalla
+                                                        utilidades.cargarImprimirDatosRevisionPersonal(revisionPersonal);
 
                                                         break;
                                                     case 3:
@@ -503,7 +504,7 @@ public class main {
 
                                                         opcionReglaOEmbarazo = validar.pedirValidarMenuReglaOEmbarazo();
                                                         if (cicloActual == null && opcionReglaOEmbarazo != 0) {
-                                                            fechaInicioCicloActual = validar.pedirFechaInicioFinCiclo();
+                                                            fechaInicioCicloActual = validar.pedirValidarFecha();
                                                             switch (opcionReglaOEmbarazo) {
                                                                 case 1:
                                                                     //Regla
@@ -536,7 +537,7 @@ public class main {
                                                         if (cicloActual == null) {
                                                             System.out.println("No existe un ciclo actualmente");
                                                         } else {
-                                                            fechaFinCicloActual = validar.pedirFechaInicioFinCiclo();
+                                                            fechaFinCicloActual = validar.pedirValidarFecha();
                                                             cicloActual.setFechaFinReal(fechaFinCicloActual);   //para tener el dato en memoria principal
                                                             gestion.actualizarFechaFinCiclo(cicloActual, fechaFinCicloActual);  //para guardarlo en la BBDD
 
@@ -593,18 +594,35 @@ public class main {
                                     case 4:
                                         //Revision medica (solo si existe embarazo)
                                         if (gestion.estaEmbarazada(usuarioLogado)) {
-                                            System.out.println("Modulo Revision medica del menu principal en construccion");
+                                            //System.out.println("Modulo Revision medica del menu principal en construccion");
+
                                             do {
                                                 opcionRevisionMedica = validar.subMenuRevisionMedica();
+                                                RevisionMedicaImpl revisionMedica = null;
+                                                CicloEmbarazo embarazo = null;
                                                 if (opcionRevisionMedica != 0) {
                                                     switch (opcionRevisionMedica) {
                                                         case 1:
                                                             //Registrar revision medica
                                                             System.out.println("Modulo registrar revision medica en construccion");
+                                                            if (cicloActual instanceof CicloEmbarazo) {
+                                                                embarazo = (CicloEmbarazo) cicloActual;
+                                                                revisionMedica = validar.pedirValidarRevisionMedicaImpl(embarazo);
+                                                                resguardo.insertarRevisionMedica(revisionMedica);
+                                                                resguardo.cargarEmbarazo(embarazo);
+                                                                //todo implementar estos metodos
+                                                            }
+
                                                             break;
                                                         case 2:
                                                             //Ver revisiones pasadas
                                                             System.out.println("Modulo ver revisiones medicas pasadas en construccion");
+                                                            if (cicloActual instanceof CicloEmbarazo) {
+                                                                embarazo = (CicloEmbarazo) cicloActual;
+                                                                resguardo.cargarEmbarazo(embarazo);
+                                                                utilidades.imprimirDatosRevisionMedicaImplLista( embarazo.getListadoRevisionesMedicas());
+                                                            }
+
                                                             break;
                                                         case 3:
                                                             //Buscar revision

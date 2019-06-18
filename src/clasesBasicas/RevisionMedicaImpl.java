@@ -136,5 +136,20 @@ public class RevisionMedicaImpl implements RevisionMedica {
         this.fechaSiguienteCita = fechaSiguienteCita;
     }
 
+    @Override
+    public String toString() {
+        return "RevisionMedicaImpl{" +
+                "embarazo=" + embarazo +
+                ", ID='" + ID + '\'' +
+                ", peso=" + peso +
+                ", cintura=" + cintura +
+                ", cadera=" + cadera +
+                ", estadoFeto='" + estadoFeto + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", fechaCitaActual=" + fechaCitaActual +
+                ", fechaSiguienteCita=" + fechaSiguienteCita +
+                '}';
+    }
+
 
 }

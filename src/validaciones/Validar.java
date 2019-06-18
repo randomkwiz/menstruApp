@@ -1,5 +1,7 @@
 package validaciones;
 
+import clasesBasicas.CicloEmbarazo;
+import clasesBasicas.RevisionMedicaImpl;
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
@@ -433,7 +435,7 @@ public class Validar<T extends Enum<T>> {
      * */
     public GregorianCalendar validarFecha() {
         Scanner sc = new Scanner(System.in);
-        GregorianCalendar fechaCumple = null;
+        GregorianCalendar fecha = null;
         GregorianCalendar fechaHoy = new GregorianCalendar();
         int dia = -1;
         int mes = -1;
@@ -466,23 +468,24 @@ public class Validar<T extends Enum<T>> {
 
                 } while (anyo != 0 && anyo < 1582);
 
-                fechaCumple = new GregorianCalendar();
-                fechaCumple.set(GregorianCalendar.YEAR, anyo);
-                fechaCumple.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
-                fechaCumple.set(GregorianCalendar.DATE, dia);
-            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0) || fechaCumple.after(fechaHoy)  );
+                fecha = new GregorianCalendar();
+                fecha.set(GregorianCalendar.YEAR, anyo);
+                fecha.set(GregorianCalendar.MONTH, mes - 1);    //va de 0 a 11
+                fecha.set(GregorianCalendar.DATE, dia);
+            } while (!fechaEsValida(dia, mes, anyo) && (dia != 0 || mes != 0 || anyo != 0) || fecha.after(fechaHoy)  );
         } catch (InputMismatchException e) {
-            System.out.println("Error al registrar tu fecha de cumpleaños, intenta cambiarla desde las opciones de Cuenta mas adelante.");
+            System.out.println("Error al registrar la fecha, intenta cambiarla desde el programa mas adelante.");
             dia = 0;
             mes = 0;
             anyo = 0;
         }
 
-        if ((dia == 0 && mes == 0 && anyo == 0) || fechaCumple.after(fechaHoy)) {
-            fechaCumple = null;
+        if ((dia == 0 && mes == 0 && anyo == 0) || fecha.after(fechaHoy)) {
+            fecha = null;
         }
-        return fechaCumple;
+        return fecha;
     }
+
 
     /*
      * INTERFAZ
@@ -690,11 +693,10 @@ public class Validar<T extends Enum<T>> {
      * Salidas: fecha GregorianCalendar
      * Postcondiciones: Asociado al nombre devuelve una fecha valida o devuelve la fecha actual si el usuario no desea establecer otra fecha.
      * */
-    public GregorianCalendar pedirFechaInicioFinCiclo() {
+    public GregorianCalendar pedirValidarFecha() {
         GregorianCalendar fecha = new GregorianCalendar();
         GregorianCalendar hoy = new GregorianCalendar();
         Scanner sc = new Scanner(System.in);
-        int opcion = -1;
         int dia, mes, anyo;
         try {
             do {
@@ -1036,6 +1038,108 @@ public class Validar<T extends Enum<T>> {
         }
 
         return revisionElegida;
+    }
+
+
+    /*
+    * INTERFAZ
+    * Comentario: pide y valida los datos de un objeto RevisionMedicaImpl y
+    *             lo construye, devolviendolo asociado al nombre.
+    * Signatura: public RevisionMedicaImpl pedirValidarRevisionMedicaImpl (CicloEmbarazo embarazo)
+    * Precondiciones:
+    * Entradas: CicloEmbarazo al que hace referencia la cita medica.
+    * Salidas: objeto revision medica
+    * Postcondiciones: asociado al nombre se devuelve un objeto revision medica, o null si el objeto
+    *                   embarazo es null.
+    * */
+
+    /**
+     * Pide y valida los datos de un objeto RevisionMedicaImpl y
+     *   lo construye, devolviendolo asociado al nombre.
+     * @param embarazo CicloEmbarazo al que hace referencia la cita medica.
+     * @return asociado al nombre se devuelve un objeto revision medica, o null si el objeto
+     *      embarazo es null.
+     */
+    public RevisionMedicaImpl pedirValidarRevisionMedicaImpl (CicloEmbarazo embarazo){
+        RevisionMedicaImpl revisionMedica = null;
+        Scanner sc = new Scanner(System.in);
+        double peso = 0.0;
+        double cintura = 0.0;
+        double cadera = 0.0;
+        String estadoFeto = "";
+        String observaciones = "";
+        GregorianCalendar fechaCitaActual = null;
+        GregorianCalendar fechaSiguienteCita = null;
+        if(embarazo != null){
+        do{
+            peso = pesoUsuario();
+            cintura = medidaUsuario("cintura");
+            cadera = medidaUsuario("cadera");
+            System.out.println("Introduce observaciones sobre el estado del feto : ");
+            estadoFeto = sc.nextLine();
+            System.out.println("Introduce observaciones generales de la revision medica: ");
+            observaciones = sc.nextLine();
+            fechaCitaActual = pedirValidarFecha();
+            if(hacerPreguntaSioNo("¿Tienes fecha para la siguiente cita?")){
+                fechaSiguienteCita = pedirValidarFecha();
+            }else{
+                System.out.println("No tienes fecha para la siguiente cita");
+            }
+
+        }while (fechaSiguienteCita != null && !fechaSiguienteCita.after(fechaCitaActual));
+        revisionMedica = new RevisionMedicaImpl(embarazo,peso,cintura,cadera,estadoFeto,observaciones,fechaCitaActual,fechaSiguienteCita);
+        }
+        return revisionMedica;
+    }
+
+    /*
+     * INTERFAZ
+     *  Comentario: Pide y valida la medida de cm de un usuario.
+     *              La validacion consiste en que la medida debe ser positiva.
+     * Signatura: public double medidaUsuario(String parteAMedir)
+     * Precondiciones:
+     * Entradas: String que sera la parte a medir
+     * Salidas: double medida
+     * Postcondiciones: asociado al nombre se devolvera un double que contendra la medida del usuario o bien
+     *                  un 0 si el usuario no desea rellenar el campo.
+     * */
+    public double medidaUsuario(String parteAMedir) {
+        Scanner sc = new Scanner(System.in);
+        double medida = 0;
+        try {
+            do {
+                System.out.println("Introduce la nueva medida de tu "+parteAMedir+" en cm:");
+                System.out.println("Escribe 0 si no deseas rellenar este campo.");
+                medida = sc.nextDouble();
+            } while (medida < 0);
+        } catch (InputMismatchException e) {
+            System.out.println("Opcion no contemplada");
+        }
+
+
+        return medida;
+    }
+
+    /*
+     * Comentario: metodo para validar una pregunta de respuesta S/N
+     * Precondiciones:
+     * Entradas:
+     * Salidas: boolean
+     * Postcondiciones: asociado al nombre se devuelve un boolean que sera true si el usuario responde que si y false si no
+     * */
+    public boolean hacerPreguntaSioNo(String pregunta){
+        String respuesta = "";
+        boolean respuestaUsuario = false;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println(pregunta+" SI/NO");
+            respuesta = sc.next();
+            respuesta = respuesta.toUpperCase();
+        } while (!respuesta.equals("SI") && !respuesta.equals("NO"));
+        if(respuesta.equals("SI")){
+            respuestaUsuario = true;
+        }
+        return respuestaUsuario;
     }
 
 

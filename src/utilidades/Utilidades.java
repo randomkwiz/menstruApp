@@ -1,5 +1,6 @@
 package utilidades;
 
+import clasesBasicas.RevisionMedicaImpl;
 import clasesBasicas.RevisionPersonalImpl;
 import clasesBasicas.UsuarioImpl;
 import gestion.Gestion;
@@ -205,6 +206,33 @@ public class Utilidades<T extends Enum<T>> {
 
     /*
      * INTERFAZ
+     * Comentario: carga la revision e imprime en pantalla los datos de una revision personal
+     * Signatura: public void cargarImprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
+     * Precondiciones:
+     * Entradas: revision que se cargara y de la que se imprimiran los datos
+     * Salidas:
+     * Postcondiciones: carga el objeto revision e imprime en pantalla los datos de la revision pasada como parametro. Si la revision
+     *                  es null o sus atributos son null, saltara excepcion.
+     * */
+
+    /**
+     * carga la revision e imprime en pantalla los datos de una revision personal
+     *
+     * @param revision revision de la que se imprimiran los datos
+     *
+     * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
+     */
+    public void cargarImprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
+        Gestion gestion = new Gestion();
+        //cargar
+        gestion.cargarRevisionPersonalCompleta(revision);
+
+        //imprimir
+        imprimirDatosRevisionPersonal(revision);
+    }
+
+    /*
+     * INTERFAZ
      * Comentario: imprime en pantalla los datos de una revision personal
      * Signatura: public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision)
      * Precondiciones:
@@ -220,11 +248,8 @@ public class Utilidades<T extends Enum<T>> {
      * @param revision revision de la que se imprimiran los datos
      * @see #formatearFecha(GregorianCalendar)
      */
-    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision) {
+    public void imprimirDatosRevisionPersonal(RevisionPersonalImpl revision){
         Gestion gestion = new Gestion();
-        //carga los datos
-        gestion.cargarRevisionPersonalCompleta(revision);
-
         System.out.println("Revision personal del dia : " + formatearFecha(revision.getFecha()));
         System.out.println("Estados de animo:");
 
@@ -258,6 +283,9 @@ public class Utilidades<T extends Enum<T>> {
         System.out.println("-------------------------------------------------------------------------------");
 
     }
+
+
+
 
     /*
      * INTERFAZ
@@ -293,13 +321,13 @@ public class Utilidades<T extends Enum<T>> {
      * imprime en pantalla los datos de una lista de objetos RevisionPersonalImpl
      *
      * @param revisiones arraylist de revisiones que seran las impresas en pantalla
-     * @see #imprimirDatosRevisionPersonal(RevisionPersonalImpl)
+     * @see #cargarImprimirDatosRevisionPersonal(RevisionPersonalImpl)
      */
     public void imprimirDatosRevisionPersonalLista(ArrayList<RevisionPersonalImpl> revisiones) {
 
         for (int i = 0; i < revisiones.size(); i++) {
             System.out.print((i + 1) + ". ");
-            imprimirDatosRevisionPersonal(revisiones.get(i));
+            cargarImprimirDatosRevisionPersonal(revisiones.get(i));
         }
     }
 
@@ -378,5 +406,50 @@ public class Utilidades<T extends Enum<T>> {
         }
     }
 
+    /*
+     * INTERFAZ
+     * Comentario: imprime en pantalla los datos de una revision medica
+     * Signatura: public void imprimirDatosRevisionMedica(RevisionMedicaImpl revision)
+     * Precondiciones:
+     * Entradas: revision de la que se imprimiran los datos
+     * Salidas:
+     * Postcondiciones: imprime en pantalla los datos de la revision pasada como parametro. Si la revision
+     *                  es null o sus atributos son null, saltara excepcion.
+     * */
+    public void imprimirDatosRevisionMedica(RevisionMedicaImpl revision){
+
+        System.out.println("Fecha revision: " + formatearFecha(revision.getFechaCitaActual()));
+        System.out.println("Peso : " + revision.getPeso());
+        System.out.println("Cintura: " + revision.getCintura() + " cm");
+        System.out.println("Cadera: " + revision.getCadera() + " cm");
+        System.out.println("Estado feto: " + revision.getEstadoFeto());
+        System.out.println("Observaciones: " + revision.getObservaciones());
+        System.out.println("Fecha siguiente revision: "+ formatearFecha(revision.getFechaSiguienteCita()));
+
+    }
+
+    /*
+     * INTERFAZ
+     * Comentario: imprime en pantalla los datos de una lista de objetos RevisionMedicaImpl
+     * Signatura: public void imprimirDatosRevisionMedicaImplLista(ArrayList<RevisionMedicaImpl> revisiones)
+     * Precondiciones:
+     * Entradas: arraylist de revisiones que seran las impresas en pantalla
+     * Salidas:
+     * Postcondiciones: imprime en pantalla los datos del arraylist de revisiones recibido por parametros.
+     * */
+
+    /**
+     * imprime en pantalla los datos de una lista de objetos RevisionMedicaImpl
+     *
+     * @param revisiones arraylist de revisiones que seran las impresas en pantalla
+     *
+     */
+    public void imprimirDatosRevisionMedicaImplLista(ArrayList<RevisionMedicaImpl> revisiones) {
+
+        for (int i = 0; i < revisiones.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            imprimirDatosRevisionMedica(revisiones.get(i));
+        }
+    }
 
 }
