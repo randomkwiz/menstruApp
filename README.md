@@ -10,7 +10,7 @@ El objetivo de este proyecto es demostrar conocimiento sobre la unión de tres m
 Este proyecto se enmarca en el período de Junio de 1º del CFGS Desarrollo de aplicaciones multiplataforma.
 
 ### Funcionalidades: :heavy_check_mark:
-* Cuenta
+ * Cuenta
   * Ver datos de la cuenta
   * Modificar datos de la cuenta
     * Nombre
@@ -18,7 +18,7 @@ Este proyecto se enmarca en el período de Junio de 1º del CFGS Desarrollo de a
     * Contraseña
     * Fecha de nacimiento
   * Eliminar cuenta
-* Revision personal
+ * Revision personal
   * Registrar revision personal
     * Estado animico
     * Flujo vaginal
@@ -28,30 +28,27 @@ Este proyecto se enmarca en el período de Junio de 1º del CFGS Desarrollo de a
   * Buscar revision personal
   * Eliminar revision personal
   * Ver analisis personal
-* Ciclo
+ * Ciclo
   * Registrar ciclo (menstruacion /embarazo)
   * Ver datos del ciclo actual
   * Marcar fin del ciclo actual
   * Eliminar ciclo
   * Ver ciclos anteriores
-
+  
+ * Revision medica
+   * Registrar revision medica
+   * Ver revisiones pasadas
+   * Buscar revision
+   * Modificar revision
+   * Ver fecha siguiente revision
+   * Eliminar revision
     
-
 ### Próximamente  :grey_exclamation: 
-
-   * Revision medica
-      * Registrar revision medica
-      * Ver revisiones pasadas
-      * Buscar revision
-      * Modificar revision
-      * Ver fecha siguiente revision
-      * Eliminar revision
-    
-   * Medicamentos
-      * Registrar nuevo medicamento
-      * Ver medicamentos actuales
-      * Buscar medicamento
-      * Modificar toma de medicamento
-      * Eliminar medicamento
+ * Medicamentos
+   * Registrar nuevo medicamento
+   * Ver medicamentos actuales
+   * Buscar medicamento
+   * Modificar toma de medicamento
+   * Eliminar medicamento
 
 
