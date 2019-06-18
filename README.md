@@ -26,6 +26,8 @@ Este proyecto se enmarca en el período de Junio de 1º del CFGS Desarrollo de a
     * Sintomas
   * Ver revision personal de hoy
   * Buscar revision personal
+     * Por fecha
+     * Por registro
   * Eliminar revision personal
   * Ver analisis personal
 * Ciclo
